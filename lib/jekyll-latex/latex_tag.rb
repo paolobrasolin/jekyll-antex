@@ -35,7 +35,8 @@ module Jekyll
                 site = context.registers[:site]
                 math = super
 
-                preamble = @@config["preamble"] + context.environments.first["page"]["preamble"]
+                # page_preamble = context.environments.first["page"]["preamble"] || ""
+                preamble = @@config["preamble"]
 
                 code = <<'CLASS' + preamble + <<'TEXT' + <<SNIPPET + <<'BODY'
 \documentclass{article}
