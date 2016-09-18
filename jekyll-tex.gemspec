@@ -1,33 +1,32 @@
 # coding: utf-8
-
-# https://ayastreb.me/writing-a-jekyll-plugin/
-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'jekyll-tex/version'
-Gem::Specification.new do |spec|
-  spec.name          = 'jekyll-tex'
-  spec.summary       = 'Jekyll *TeX integration'
-  spec.description   = '*TeX support in Jekyll'\
+
+Gem::Specification.new do |s|
+  s.name          = 'jekyll-tex'
+  s.version       = Jekyll::TeX::VERSION
+  s.license       = 'MIT'
+
+  s.summary       = 'Jekyll *TeX integration'
+  s.description   = '*TeX support in Jekyll'\
     ' to easily render and embed arbitrary code'
-  spec.version       = Jekyll::TeX::VERSION
-  spec.authors       = ['Paolo Brasolin']
-  spec.email         = ['paolo.brasolin@gmail.com']
-  spec.homepage      = 'https://github.com/paolobrasolin/jekyll-tex'
-  spec.licenses      = ['MIT']
-  spec.files         = `git ls-files -z`
-                       .split("\x0")
-                       .reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.require_paths = ['lib']
 
-  spec.add_dependency 'jekyll', '~> 3.0'
+  s.authors       = ['Paolo Brasolin']
+  s.email         = 'paolo.brasolin@gmail.com'
+  s.homepage      = 'https://github.com/paolobrasolin/jekyll-tex'
 
-  spec.add_dependency 'execjs'
-  spec.add_dependency 'digest'
-  spec.add_dependency 'nokogiri'
-  # spec.add_dependency 'fileutils'
+  all_files       = `git ls-files -z`.split("\x0")
+  s.files         = all_files.grep(%r{^(test|spec|features)/})
+  s.require_paths = ['lib']
 
-  spec.add_development_dependency 'rake', '~> 11.0'
-  spec.add_development_dependency 'rspec', '~> 3.5'
-  spec.add_development_dependency 'rubocop', '~> 0.41'
+  s.add_runtime_dependency('jekyll', '~> 3.0')
+  s.add_runtime_dependency('execjs')
+  s.add_runtime_dependency('digest')
+  s.add_runtime_dependency('nokogiri')
+  # s.add_runtime_dependency('fileutils')
+
+  s.add_development_dependency('rake', '~> 11.0')
+  s.add_development_dependency('rspec', '~> 3.5')
+  s.add_development_dependency('rubocop', '~> 0.41')
 end
