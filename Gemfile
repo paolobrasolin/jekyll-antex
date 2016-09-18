@@ -1,3 +1,2 @@
-source "https://rubygems.org"
-
-gemspec
+source 'https://rubygems.org'
+gemspec name: 'jekyll-tex'
