@@ -32,7 +32,7 @@ module Jekyll
             end
 
             def render(context)
-                puts context.class
+#                puts context.class
                 site = context.registers[:site]
                 math = super
 
@@ -77,13 +77,24 @@ BODY
                     puts "Processing TeX snippet #{hash}..."
                     latexmk_parameters = "-silent -output-directory=#{@@work_dir} #{@@work_dir}/#{hash}.tex"
 #                    output = `latexmk #{latexmk_parameters}`
-                    stdout, stderr, status = Open3.capture3(
+                    _stdout, _stderr, _status = Open3.capture3(
                       'latexmk',
                       "-output-directory=#{@@work_dir}",
                       "#{@@work_dir}/#{hash}.tex"
                     )
-                    output = `dvisvgm    -n #{@@work_dir}/#{hash}.dvi -o #{@@work_dir}/#{hash}.tfm.svg`
-                    output = `dvisvgm -e -n #{@@work_dir}/#{hash}.dvi -o #{@@work_dir}/#{hash}.fit.svg`
+                    _stdout, _stderr, _status = Open3.capture3(
+                      'dvisvgm',
+                      '--no-fonts',
+                      "#{@@work_dir}/#{hash}.dvi",
+                      "--output=#{@@work_dir}/#{hash}.tfm.svg"
+                    )
+                    _stdout, _stderr, _status = Open3.capture3(
+                      'dvisvgm',
+                      '--exact',
+                      '--no-fonts',
+                      "#{@@work_dir}/#{hash}.dvi",
+                      "--output=#{@@work_dir}/#{hash}.fit.svg"
+                    )
 #                    output = `latexmk -C #{latexmk_parameters}`
                 end
 
