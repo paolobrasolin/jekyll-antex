@@ -5,19 +5,17 @@ require 'nokogiri'
 #require 'fileutils'
 require 'open3'
 
-#https://github.com/fgalindo/jekyll-liquid-latex-plugin/blob/master/liquid_latex.rb
-
 module Jekyll
-    module Latex
-        class LatexBlock < Liquid::Block
+    module TeX
+        class TeXBlock < Liquid::Block
 
             @@config = {
-                'path' => 'latex',
-                'work_dir' => '.latex-cache',
+                'path' => 'tex',
+                'work_dir' => '.tex-cache',
                 'preamble' => ''
             }
 
-            @@config.merge!( Jekyll.configuration({})['latex'] || {} )
+            @@config.merge!( Jekyll.configuration({})['tex'] || {} )
 
             @@path = @@config['path']
             @@work_dir = @@config['work_dir']
@@ -76,7 +74,7 @@ BODY
                 end
 
                 if !File.exists?("#{@@output_dir}/#{hash}.svg")
-                    puts "Processing LaTeX snippet #{hash}..."
+                    puts "Processing TeX snippet #{hash}..."
                     latexmk_parameters = "-silent -output-directory=#{@@work_dir} #{@@work_dir}/#{hash}.tex"
 #                    output = `latexmk #{latexmk_parameters}`
                     stdout, stderr, status = Open3.capture3(
@@ -111,14 +109,14 @@ BODY
                     mr = dx - dX - ml
                     mt = oY - oy
                     mb = dy - dY - mt - @dp
-                    output = "<img style='margin:#{mt}ex #{mr}ex #{mb}ex #{ml}ex;height:#{dY}ex' src='latex/#{hash}.svg'>"
+                    output = "<img style='margin:#{mt}ex #{mr}ex #{mb}ex #{ml}ex;height:#{dY}ex' src='tex/#{hash}.svg'>"
 
                     File.open("#{@@output_dir}/#{hash}.svg", 'w') do |file|
                         file.write(svg)
                     end
                 else
                     file = File.read("#{@@work_dir}/#{hash}.tfm.svg")
-                    output = "<img style='margin-bottom:#{-@dp}ex;height:#{dy}ex;' src='latex/#{hash}.svg'>"
+                    output = "<img style='margin-bottom:#{-@dp}ex;height:#{dy}ex;' src='tex/#{hash}.svg'>"
                     File.open("#{@@output_dir}/#{hash}.svg", 'w') do |file|
                         file.write(svg)
                     end
@@ -133,7 +131,7 @@ BODY
     end
 end
 
-Liquid::Template.register_tag('latex', Jekyll::Latex::LatexBlock)
+Liquid::Template.register_tag('tex', Jekyll::TeX::TeXBlock)
 
 #                svg.css("svg").set(:style, "overflow:visible;")
 #                svg.css("svg").set(:height, "#{r*dY}ex")

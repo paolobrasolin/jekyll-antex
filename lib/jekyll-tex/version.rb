@@ -1,5 +1,5 @@
 module Jekyll
-  module Latex
+  module TeX
     VERSION = "0.0.0"
   end
 end

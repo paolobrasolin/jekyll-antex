@@ -4,16 +4,16 @@
 
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'jekyll-latex/version'
+require 'jekyll-tex/version'
 Gem::Specification.new do |spec|
-  spec.name          = 'jekyll-latex'
-  spec.summary       = 'Jekyll LaTeX integration'
-  spec.description   = 'LaTeX support in Jekyll'\
+  spec.name          = 'jekyll-tex'
+  spec.summary       = 'Jekyll *TeX integration'
+  spec.description   = '*TeX support in Jekyll'\
     ' to easily render and embed arbitrary code'
-  spec.version       = Jekyll::Latex::VERSION
+  spec.version       = Jekyll::TeX::VERSION
   spec.authors       = ['Paolo Brasolin']
   spec.email         = ['paolo.brasolin@gmail.com']
-  spec.homepage      = 'https://github.com/paolobrasolin/jekyll-latex'
+  spec.homepage      = 'https://github.com/paolobrasolin/jekyll-tex'
   spec.licenses      = ['MIT']
   spec.files         = `git ls-files -z`
                        .split("\x0")
