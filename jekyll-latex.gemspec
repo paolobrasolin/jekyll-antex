@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/paolobrasolin/jekyll-latex'
   spec.licenses      = ['MIT']
   spec.files         = `git ls-files -z`
-                       .split('\x0')
+                       .split("\x0")
                        .reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.require_paths = ['lib']
 

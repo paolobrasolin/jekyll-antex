@@ -3,6 +3,7 @@
 #require 'yaml'
 require 'nokogiri'
 #require 'fileutils'
+require 'open3'
 
 #https://github.com/fgalindo/jekyll-liquid-latex-plugin/blob/master/liquid_latex.rb
 
@@ -29,9 +30,11 @@ module Jekyll
                 @markup = markup
                 @inline = markup.include? 'inline'
                 @subtle = markup.include? 'subtle'
+                @tokens = tokens
             end
 
             def render(context)
+                puts context.class
                 site = context.registers[:site]
                 math = super
 
@@ -73,9 +76,14 @@ BODY
                 end
 
                 if !File.exists?("#{@@output_dir}/#{hash}.svg")
-                    puts "Processing LaTeX snippet #{hash}"
+                    puts "Processing LaTeX snippet #{hash}..."
                     latexmk_parameters = "-silent -output-directory=#{@@work_dir} #{@@work_dir}/#{hash}.tex"
-                    output = `latexmk #{latexmk_parameters}`
+#                    output = `latexmk #{latexmk_parameters}`
+                    stdout, stderr, status = Open3.capture3(
+                      'latexmk',
+                      "-output-directory=#{@@work_dir}",
+                      "#{@@work_dir}/#{hash}.tex"
+                    )
                     output = `dvisvgm    -n #{@@work_dir}/#{hash}.dvi -o #{@@work_dir}/#{hash}.tfm.svg`
                     output = `dvisvgm -e -n #{@@work_dir}/#{hash}.dvi -o #{@@work_dir}/#{hash}.fit.svg`
 #                    output = `latexmk -C #{latexmk_parameters}`
