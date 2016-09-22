@@ -8,7 +8,7 @@ _site
 node_modules
 .DS_store
 
-.latex-cache
+.tex-cache
 
 
 # swap
