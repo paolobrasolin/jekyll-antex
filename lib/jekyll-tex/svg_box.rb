@@ -8,9 +8,8 @@ module Jekyll
       attr_reader :dx # x size (width)
       attr_reader :dy # y size (height)
 
-      def load_from_svg(filename)
-        file = File.read(filename)
-        svg = Nokogiri::XML.parse(file)
+      def initialize(filename)
+        svg = Nokogiri::XML.parse(File.read(filename))
         @ox, @oy, @dx, @dy = svg.css('svg').attribute('viewBox')
                                 .to_s.split(' ').map(&:to_f)
       end

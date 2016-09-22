@@ -5,4 +5,4 @@ layout: default
 
 ** Jekyll Latex Plugin **
 
-{% latex %}\rule{1ex}{1ex}{% endlatex %}
+{% tex %}\rule{1ex}{1ex}{% endtex %}

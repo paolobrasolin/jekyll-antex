@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Jekyll::Latex::LatexBlock do
+describe Jekyll::TeX::TeXBlock do
   let(:site) { make_site }
   before { site.process }
 

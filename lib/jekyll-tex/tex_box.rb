@@ -1,18 +1,24 @@
 module Jekyll
   module TeX
     class TeXBox
-      attr_reader :wd # width
-      attr_reader :ht # height
-      attr_reader :dp # depth
-      attr_reader :th # total height = ht + dp
+      def initialize(filename, unit = :ex)
+        @metrics = Hash[YAML.load_file(filename).map do |(key, value)|
+          [key.to_sym, value.chomp('pt').to_f]
+        end]
+        @metrics[:pt] = @metrics[:pt] || 1.0
+        @unit = unit
+      end
 
-      def load_from_yml(filename)
-        # get TeX metrics for box and convert them from (TeX) pt to ex
-        metrics = YAML.load_file(filename)
-        @ht = metrics['ht'] / metrics['ex']
-        @dp = metrics['dp'] / metrics['ex']
-        @wd = metrics['wd'] / metrics['ex']
-        @th = metrics['th'] / metrics['ex']
+      def wd(unit = @unit)
+        @metrics[:wd] / @metrics[unit]
+      end
+
+      def ht(unit = @unit)
+        @metrics[:ht] / @metrics[unit]
+      end
+
+      def dp(unit = @unit)
+        @metrics[:dp] / @metrics[unit]
       end
     end
   end

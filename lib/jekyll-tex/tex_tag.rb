@@ -1,8 +1,3 @@
-# require 'execjs'
-# require 'digest'
-# require 'yaml'
-# require 'nokogiri'
-# require 'fileutils'
 require 'open3'
 
 module Jekyll
@@ -24,16 +19,15 @@ module Jekyll
 
       def initialize(tag, markup, tokens)
         super
-        @markup = markup
-        @inline = markup.include? 'inline'
-        @subtle = markup.include? 'subtle'
+        # @markup = markup
+        # @inline = markup.include? 'inline'
+        # @subtle = markup.include? 'subtle'
         @tokens = tokens
       end
 
       def render(context)
-        # puts context.class
+        snippet = super
         site = context.registers[:site]
-        math = super
 
         # page_preamble = context.environments.first["page"]["preamble"] || ""
         preamble = @@config['preamble']
@@ -43,30 +37,23 @@ module Jekyll
 \pagestyle{empty}
 CLASS
 \newsavebox\snippet
-\newlength\height
-\newlength\depth
-\newlength\width
 TEXT
-\\begin{lrbox}{\\snippet}#{math}\\end{lrbox}
+\\begin{lrbox}{\\snippet}#{snippet}\\end{lrbox}
 SNIPPET
-\settoheight\height{\usebox\snippet}
-\settodepth \depth {\usebox\snippet}
-\settowidth \width {\usebox\snippet}
 \makeatletter
 \newwrite\file
 \immediate\openout\file=\jobname.yml
-\immediate\write\file{ex: \strip@pt\dimexpr 1ex}
-\immediate\write\file{dp: \strip@pt\depth}
-\immediate\write\file{ht: \strip@pt\height}
-\immediate\write\file{wd: \strip@pt\width}
-\addtolength{\height} {\depth}
-\immediate\write\file{th: \strip@pt\height}
+\immediate\write\file{em: \the\dimexpr 1em}
+\immediate\write\file{ex: \the\dimexpr 1ex}
+\immediate\write\file{ht: \the\ht\snippet}
+\immediate\write\file{dp: \the\dp\snippet}
+\immediate\write\file{wd: \the\wd\snippet}
 \closeout\file
 \makeatother
 \begin{document}\usebox{\snippet}\end{document}
 BODY
 
-        @hash = Digest::MD5.hexdigest(code + @markup)
+        @hash = Digest::MD5.hexdigest(code)
 
         File.open("#{@@work_dir}/#{@hash}.tex", 'w') do |file|
           file.write(code)
@@ -93,15 +80,11 @@ BODY
           )
         end
 
-        tex = TeXBox.new
-        tfm = SVGBox.new
-        fit = SVGBox.new
+        tex = TeXBox.new("#{@@work_dir}/#{@hash}.yml")
+        tfm = SVGBox.new("#{@@work_dir}/#{@hash}.tfm.svg")
+        fit = SVGBox.new("#{@@work_dir}/#{@hash}.fit.svg")
 
-        tex.load_from_yml("#{@@work_dir}/#{@hash}.yml")
-        tfm.load_from_svg("#{@@work_dir}/#{@hash}.tfm.svg")
-        fit.load_from_svg("#{@@work_dir}/#{@hash}.fit.svg")
-
-        r = tex.th / tfm.dy
+        r = (tex.ht + tex.dp) / tfm.dy
         tfm.scale(r)
         fit.scale(r)
 
