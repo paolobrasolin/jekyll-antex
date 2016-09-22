@@ -1,7 +1,7 @@
 # require 'execjs'
 # require 'digest'
 # require 'yaml'
-require 'nokogiri'
+# require 'nokogiri'
 # require 'fileutils'
 require 'open3'
 
@@ -66,79 +66,62 @@ SNIPPET
 \begin{document}\usebox{\snippet}\end{document}
 BODY
 
-        hash = Digest::MD5.hexdigest(code + @markup)
+        @hash = Digest::MD5.hexdigest(code + @markup)
 
-        File.open("#{@@work_dir}/#{hash}.tex", 'w') do |file|
+        File.open("#{@@work_dir}/#{@hash}.tex", 'w') do |file|
           file.write(code)
         end
 
-        unless File.exist?("#{@@output_dir}/#{hash}.svg")
+        unless File.exist?("#{@@output_dir}/#{@hash}.svg")
           _stdout, _stderr, _status = Open3.capture3(
             'latexmk',
             "-output-directory=#{@@work_dir}",
-            "#{@@work_dir}/#{hash}.tex"
+            "#{@@work_dir}/#{@hash}.tex"
           )
           _stdout, _stderr, _status = Open3.capture3(
             'dvisvgm',
             '--no-fonts',
-            "#{@@work_dir}/#{hash}.dvi",
-            "--output=#{@@work_dir}/#{hash}.tfm.svg"
+            "#{@@work_dir}/#{@hash}.dvi",
+            "--output=#{@@work_dir}/#{@hash}.tfm.svg"
           )
           _stdout, _stderr, _status = Open3.capture3(
             'dvisvgm',
             '--exact',
             '--no-fonts',
-            "#{@@work_dir}/#{hash}.dvi",
-            "--output=#{@@work_dir}/#{hash}.fit.svg"
+            "#{@@work_dir}/#{@hash}.dvi",
+            "--output=#{@@work_dir}/#{@hash}.fit.svg"
           )
-          # output = `latexmk -C #{latexmk_parameters}`
         end
 
-        # get TeX metrics for box and convert them from (TeX) pt to ex
-        metrics = YAML.load_file("#{@@work_dir}/#{hash}.yml")
-        @th = metrics['th'] / metrics['ex']
-        @ht = metrics['ht'] / metrics['ex']
-        @dp = metrics['dp'] / metrics['ex']
-        @wd = metrics['wd'] / metrics['ex']
+        tex = TeXBox.new
+        tfm = SVGBox.new
+        fit = SVGBox.new
 
-        file = File.read("#{@@work_dir}/#{hash}.tfm.svg")
-        svg = Nokogiri::XML.parse(file)
-        ox, oy, dx, dy = svg.css('svg').attribute('viewBox').to_s.split(' ').map(&:to_f)
-        r = @th / dy
-        ox, oy, dx, dy = [ox, oy, dx, dy].map { |x| r * x }
+        tex.load_from_yml("#{@@work_dir}/#{@hash}.yml")
+        tfm.load_from_svg("#{@@work_dir}/#{@hash}.tfm.svg")
+        fit.load_from_svg("#{@@work_dir}/#{@hash}.fit.svg")
 
-        if @subtle
+        r = tex.th / tfm.dy
+        tfm.scale(r)
+        fit.scale(r)
 
-          file = File.read("#{@@work_dir}/#{hash}.fit.svg")
-          svg = Nokogiri::XML.parse(file)
-          oX, oY, dX, dY = svg.css("svg").attribute("viewBox").to_s.split(" ").map(&:to_f).map{|x|r*x}
-          ml = oX - ox
-          mr = dx - dX - ml
-          mt = oY - oy
-          mb = dy - dY - mt - @dp
-          output = "<img style='margin:#{mt}ex #{mr}ex #{mb}ex #{ml}ex;height:#{dY}ex' src='tex/#{hash}.svg'>"
+        ml = - tfm.ox + fit.ox
+        mt = - tfm.oy + fit.oy
+        mr =   tfm.dx - fit.dx - ml
+        mb =   tfm.dy - fit.dy - mt - tex.dp
 
-          File.open("#{@@output_dir}/#{hash}.svg", 'w') do |file|
-            file.write(svg)
-          end
-        else
-          file = File.read("#{@@work_dir}/#{hash}.tfm.svg")
-          output = "<img style='margin-bottom:#{-@dp}ex;height:#{dy}ex;' src='tex/#{hash}.svg'>"
-          File.open("#{@@output_dir}/#{hash}.svg", 'w') do |file|
-            file.write(svg)
-          end
-        end
+        FileUtils.cp("#{@@work_dir}/#{@hash}.fit.svg",
+                     "#{@@output_dir}/#{@hash}.svg")
 
-        site.static_files << Jekyll::StaticFile.new(site, @@work_dir, @@path, "#{hash}.svg")
-        output
+        site.static_files << Jekyll::StaticFile.new(
+          site, @@work_dir, @@path, "#{@hash}.svg"
+        )
+
+        "<img style='margin:#{mt}ex #{mr}ex #{mb}ex #{ml}ex;"\
+        "height:#{fit.dy}ex' src='#{@@path}/#{@hash}.svg'>"
       end
     end
   end
 end
 
 Liquid::Template.register_tag('tex', Jekyll::TeX::TeXBlock)
-
-# svg.css("svg").set(:style, "overflow:visible;")
-# svg.css("svg").set(:height, "#{r*dY}ex")
-# svg.css("svg").set(:width, "#{r*dX}ex")
-# svg.xpath('//comment()').remove
