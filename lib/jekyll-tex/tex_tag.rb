@@ -42,8 +42,8 @@ TEXT
 SNIPPET
 \newwrite\file
 \immediate\openout\file=\jobname.yml
-\immediate\write\file{em: \the\dimexpr 1em}
-\immediate\write\file{ex: \the\dimexpr 1ex}
+\immediate\write\file{em: \the\dimexpr1em}
+\immediate\write\file{ex: \the\dimexpr1ex}
 \immediate\write\file{ht: \the\ht\snippet}
 \immediate\write\file{dp: \the\dp\snippet}
 \immediate\write\file{wd: \the\wd\snippet}

@@ -5,7 +5,7 @@ module Jekyll
         @metrics = Hash[YAML.load_file(filename).map do |(key, value)|
           [key.to_sym, value.chomp('pt').to_f]
         end]
-        @metrics[:pt] = @metrics[:pt] || 1.0
+        @metrics[:pt] ||= 1.0
         @unit = unit
       end
 
