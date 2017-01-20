@@ -22,17 +22,12 @@ module Jekyll
         # @markup = markup
         # @inline = markup.include? 'inline'
         # @subtle = markup.include? 'subtle'
-        @tokens = tokens
+        puts YAML.load(markup)
+        # @tokens = tokens
       end
 
-      def render(context)
-        snippet = super
-        site = context.registers[:site]
-
-        # page_preamble = context.environments.first["page"]["preamble"] || ""
-        preamble = @@config['preamble']
-
-        code = <<'CLASS' + preamble + <<'TEXT' + <<SNIPPET + <<'BODY'
+      def tex_sourcecode(preamble, snippet)
+        <<'CLASS' + preamble + <<'TEXT' + <<SNIPPET + <<'BODY'
 \documentclass{article}
 \pagestyle{empty}
 CLASS
@@ -50,56 +45,92 @@ SNIPPET
 \closeout\file
 \begin{document}\usebox{\snippet}\end{document}
 BODY
+      end
 
-        @hash = Digest::MD5.hexdigest(code)
+      def file(key)
+        {
+          tex: "#{@@work_dir}/#{@hash}.tex",
+          dvi: "#{@@work_dir}/#{@hash}.dvi",
+          yml: "#{@@work_dir}/#{@hash}.yml",
+          tfm: "#{@@work_dir}/#{@hash}.tfm.svg",
+          fit: "#{@@work_dir}/#{@hash}.fit.svg",
+          svg: "#{@@output_dir}/#{@hash}.svg"
+        }[key]
+      end
 
-        File.open("#{@@work_dir}/#{@hash}.tex", 'w') do |file|
-          file.write(code)
+      def call(*args)
+        _stdout, stderr, status = Open3.capture3(*args)
+        raise stderr unless status.success?
+      end
+
+      def prepare_files
+        unless File.exist?(file(:tex))
+          File.open(file(:tex), 'w') { |file| file.write(@code) }
         end
 
-        unless File.exist?("#{@@output_dir}/#{@hash}.svg")
-          _stdout, _stderr, _status = Open3.capture3(
-            'latexmk',
-            "-output-directory=#{@@work_dir}",
-            "#{@@work_dir}/#{@hash}.tex"
-          )
-          _stdout, _stderr, _status = Open3.capture3(
-            'dvisvgm',
-            '--no-fonts',
-            "#{@@work_dir}/#{@hash}.dvi",
-            "--output=#{@@work_dir}/#{@hash}.tfm.svg"
-          )
-          _stdout, _stderr, _status = Open3.capture3(
-            'dvisvgm',
-            '--exact',
-            '--no-fonts',
-            "#{@@work_dir}/#{@hash}.dvi",
-            "--output=#{@@work_dir}/#{@hash}.fit.svg"
-          )
-        end
+        call(
+          'latexmk', "-output-directory=#{@@work_dir}", file(:tex)
+        ) unless File.exist?(file(:dvi)) && File.exist?(file(:yml))
 
-        tex = TeXBox.new("#{@@work_dir}/#{@hash}.yml")
-        tfm = SVGBox.new("#{@@work_dir}/#{@hash}.tfm.svg")
-        fit = SVGBox.new("#{@@work_dir}/#{@hash}.fit.svg")
+        call(
+          'dvisvgm', '--no-fonts',
+          file(:dvi), "--output=#{file(:tfm)}"
+        ) unless File.exist? file(:tfm)
 
-        r = (tex.ht + tex.dp) / tfm.dy
-        tfm.scale(r)
-        fit.scale(r)
+        call(
+          'dvisvgm', '--no-fonts', '--exact',
+          file(:dvi), "--output=#{file(:fit)}"
+        ) unless File.exist? file(:fit)
+      end
 
-        ml = - tfm.ox + fit.ox
-        mt = - tfm.oy + fit.oy
-        mr =   tfm.dx - fit.dx - ml
-        mb =   tfm.dy - fit.dy - mt - tex.dp
+      def load_metrics_and_boxes
+        @tex = TeXBox.new(file(:yml))
+        @tfm = SVGBox.new(file(:tfm))
+        @fit = SVGBox.new(file(:fit))
+      end
 
-        FileUtils.cp("#{@@work_dir}/#{@hash}.fit.svg",
-                     "#{@@output_dir}/#{@hash}.svg")
+      def rescale_boxes
+        r = (@tex.ht + @tex.dp) / @tfm.dy
+        @tfm.scale(r)
+        @fit.scale(r)
+      end
 
+      def compute_margins
+        @ml = - @tfm.ox + @fit.ox
+        @mt = - @tfm.oy + @fit.oy
+        @mr =   @tfm.dx - @fit.dx - @ml
+        @mb =   @tfm.dy - @fit.dy - @mt - @tex.dp
+      end
+
+      def stash_image(site)
+        FileUtils.cp(file(:fit), file(:svg))
         site.static_files << Jekyll::StaticFile.new(
           site, @@work_dir, @@path, "#{@hash}.svg"
         )
+      end
 
-        "<img style='margin:#{mt}ex #{mr}ex #{mb}ex #{ml}ex;"\
-        "height:#{fit.dy}ex' src='#{@@path}/#{@hash}.svg'>"
+      def return_tag
+        "<img style='margin:#{@mt}ex #{@mr}ex #{@mb}ex #{@ml}ex;"\
+        "height:#{@fit.dy}ex' src='#{@@path}/#{@hash}.svg'>"
+      end
+
+      def assemble_preamble(context)
+        page_preamble = context.environments.first["page"]["preamble"] || ""
+        @preamble = @@config['preamble']
+      end
+
+      def render(context)
+        @snippet = super
+        assemble_preamble(context)
+        @code = tex_sourcecode(@preamble, @snippet)
+        @hash = Digest::MD5.hexdigest(@code)
+
+        prepare_files
+        load_metrics_and_boxes
+        rescale_boxes
+        compute_margins
+        stash_image(context.registers[:site])
+        return_tag
       end
     end
   end
