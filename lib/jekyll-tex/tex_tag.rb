@@ -9,7 +9,7 @@ module Jekyll
         'preamble' => ''
       }
 
-      @@config.merge!(Jekyll.configuration({})['tex'] || {})
+      # @@config.merge!(Jekyll.configuration({})['tex'] || {})
 
       @@path = @@config['path']
       @@work_dir = @@config['work_dir']
@@ -19,11 +19,15 @@ module Jekyll
 
       def initialize(tag, markup, tokens)
         super
-        # @markup = markup
-        # @inline = markup.include? 'inline'
-        # @subtle = markup.include? 'subtle'
-        puts YAML.load(markup)
-        # @tokens = tokens
+        @cfg_this = YAML.load(markup) || {}
+        @cfg_page = {}
+        @cfg_site = {}
+      end
+
+      def configure(context)
+        @cfg_page = context.registers[:page] || {}
+        @cfg_site = context.registers[:site].config || {}
+        # context.environments.first["page"]
       end
 
       def tex_sourcecode(preamble, snippet)
@@ -122,6 +126,7 @@ BODY
       def render(context)
         @snippet = super
         assemble_preamble(context)
+        configure(context)
         @code = tex_sourcecode(@preamble, @snippet)
         @hash = Digest::MD5.hexdigest(@code)
 
