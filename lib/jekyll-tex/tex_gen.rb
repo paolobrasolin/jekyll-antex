@@ -9,6 +9,7 @@ module Jekyll
         # puts site.pages
 
         site.pages.each do |page|
+          page.data['texyll']
           page.content = replace(page.content)
         end
 
