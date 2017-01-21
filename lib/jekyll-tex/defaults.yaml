@@ -1,0 +1,24 @@
+# shallow that are overwritten by merging
+dest_dir: texyll
+work_dir: .texyll-cache
+preamble: |
+  \usepackage{amsmath, amsthm, amssymb, amsfonts}
+  \usepackage{tikz}
+  \usepackage{graphicx}
+template: |
+  \documentclass{article}
+  \pagestyle{empty}
+  {{preamble}}
+  \newsavebox\snippet
+  \begin{lrbox}{\snippet}{{snippet}}\end{lrbox}
+  \newwrite\file
+  \immediate\openout\file=\jobname.yml
+  \immediate\write\file{em: \the\dimexpr1em}
+  \immediate\write\file{ex: \the\dimexpr1ex}
+  \immediate\write\file{ht: \the\ht\snippet}
+  \immediate\write\file{dp: \the\dp\snippet}
+  \immediate\write\file{wd: \the\wd\snippet}
+  \closeout\file
+  \begin{document}\usebox{\snippet}\end{document}
+delimiters:
+    - {open: $, close: $, options: {}}
