@@ -10,7 +10,7 @@ template: |
   \pagestyle{empty}
   {{preamble}}
   \newsavebox\snippet
-  \begin{lrbox}{\snippet}{{snippet}}\end{lrbox}
+  \begin{lrbox}{\snippet}{{prepend}}{{snippet}}{{append}}\end{lrbox}
   \newwrite\file
   \immediate\openout\file=\jobname.yml
   \immediate\write\file{em: \the\dimexpr1em}
@@ -21,4 +21,4 @@ template: |
   \closeout\file
   \begin{document}\usebox{\snippet}\end{document}
 delimiters:
-    - {open: $, close: $, options: {}}
+  - {open: $, close: $, options: {prepend: $, append: $}}

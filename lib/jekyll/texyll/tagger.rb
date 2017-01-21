@@ -3,17 +3,22 @@ module Jekyll
     class Tagger
       attr_reader :content
 
-      def initialize(content: '', delimiters: [])
-        @content = content
-        @delimiters = delimiters
+      def initialize(content:, delimiters:, tag: 'tex')
+        # TODO: parameter validation
+        @content = content || ''
+        @delimiters = delimiters || []
         @stash = {}
+        @tag = tag
       end
 
-      def parse
+      def output
         stash_tags
         tagify_and_stash_delimiters
         unstash_tags
+        @content
       end
+
+      private
 
       def stash_tag(tag)
         hash = Digest::MD5.hexdigest(tag)
@@ -22,7 +27,7 @@ module Jekyll
       end
 
       def stash_tags
-        @content.gsub!(/{%\s*tex.*?endtex\s*%}/m) do |match|
+        @content.gsub!(/{%\s*#{@tag}.*?end#{@tag}\s*%}/m) do |match|
           stash_tag(match)
         end
       end
@@ -31,12 +36,12 @@ module Jekyll
         @delimiters.each do |delimiter|
           @content.gsub!(/
             #{Regexp.quote(delimiter['open'])}  # escaped opening delimiter
-            (.*?)                               # minimal amount of stuff
+            (?<code>.*?)                        # minimal amount of stuff
             #{Regexp.quote(delimiter['close'])} # escaped closing delimiter
           /mx) do
-            code = Regexp.last_match[1]
+            code = Regexp.last_match[:code]
             markup = YAML.dump(delimiter['options'])
-            tag = "{% tex #{markup} %}#{code}{% endtex %}"
+            tag = "{% #{@tag} #{markup} %}#{code}{% end#{@tag} %}"
             stash_tag(tag)
           end
         end

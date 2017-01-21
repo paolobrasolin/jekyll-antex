@@ -26,6 +26,8 @@ module Jekyll
         template = Liquid::Template.parse(@options['template'])
         @code = template.render(
           'preamble' => @options['preamble'],
+          'append' => @options['append'],
+          'prepend' => @options['prepend'],
           'snippet' => @snippet
         )
         @hash = Digest::MD5.hexdigest(@code)

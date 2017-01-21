@@ -7,13 +7,15 @@ module Jekyll
             site.config['texyll'] || {},
             page.data['texyll'] || {}
           ).merged
-          document = Jekyll::TeXyll::Tagger.new(
+          # TODO: abort operation if delimiters are off
+          tagger = Jekyll::TeXyll::Tagger.new(
             content: page.content,
             delimiters: options['delimiters']
           )
-          document.parse
-          page.content = document.content
+          page.content = tagger.output
         end
+
+        # TODO: handle non-pages
 
         # site.documents.each do |document|
         # end
