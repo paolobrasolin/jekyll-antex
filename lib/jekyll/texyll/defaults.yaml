@@ -21,4 +21,5 @@ template: |
   \closeout\file
   \begin{document}\usebox{\snippet}\end{document}
 delimiters:
+  - {open: $$, close: $$, options: {prepend: '$\\displaystyle', append: $}}
   - {open: $, close: $, options: {prepend: $, append: $}}
