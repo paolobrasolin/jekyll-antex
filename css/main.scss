@@ -1,0 +1,37 @@
+---
+---
+
+@import 'grid';
+
+html {
+    font-size:100px;
+}
+
+p {
+    margin:0;
+/*    @include grid(2px,1ex,red);*/
+}
+
+p img {
+/*    margin-top: -10em !important;*/
+}
+
+
+
+.wrap {
+    display: inline-block;
+    vertical-align: baseline;
+    overflow: visible;
+    width: 0;
+}
+
+.rule {
+    height: 1ex;
+    position: relative;
+    left: -100vw;
+    width: 200vw;
+    display: inline-block;
+    box-sizing: border-box;
+    border: 1px solid red;
+    z-index: -1000;
+}

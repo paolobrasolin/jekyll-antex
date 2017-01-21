@@ -1,0 +1,16 @@
+@mixin grid($offset, $step, $color) {
+  background-size: $step $step;
+  background-position: 0 $offset;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      $color,
+      $color 1px,
+      transparent 1px,
+      transparent $step),
+}
+
+@mixin basegrid {
+  @include grid($lead, $lead, 2px, violet);
+}
+
