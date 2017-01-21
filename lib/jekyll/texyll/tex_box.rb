@@ -1,5 +1,5 @@
 module Jekyll
-  module TeX
+  module TeXyll
     class TeXBox
       def initialize(filename, unit = :ex)
         @metrics = Hash[YAML.load_file(filename).map do |(key, value)|

@@ -1,7 +1,7 @@
 require 'nokogiri'
 
 module Jekyll
-  module TeX
+  module TeXyll
     class SVGBox
       attr_reader :ox # x origin
       attr_reader :oy # y origin

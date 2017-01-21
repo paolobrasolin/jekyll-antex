@@ -1,2 +1,2 @@
 source 'https://rubygems.org'
-gemspec name: 'jekyll-tex'
+gemspec name: 'jekyll-texyll'

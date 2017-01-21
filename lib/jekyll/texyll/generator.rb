@@ -1,15 +1,13 @@
 module Jekyll
-  module TeX
+  module TeXyll
     class Generator < Jekyll::Generator
       def generate(site)
-        # site.documents.each { |p| parse(p) }
-
         site.pages.each do |page|
-          options = Jekyll::TeX::Options.new(
+          options = Jekyll::TeXyll::Options.new(
             site.config['texyll'] || {},
             page.data['texyll'] || {}
           ).merged
-          document = Jekyll::TeX::Tagger.new(
+          document = Jekyll::TeXyll::Tagger.new(
             content: page.content,
             delimiters: options['delimiters']
           )
@@ -17,8 +15,10 @@ module Jekyll
           page.content = document.content
         end
 
+        # site.documents.each do |document|
+        # end
+
         # site.posts.docs.each do |post|
-          # post.content = replace(post.content)
         # end
       end
     end

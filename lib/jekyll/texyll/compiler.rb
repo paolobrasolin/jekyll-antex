@@ -1,7 +1,7 @@
 require 'open3'
 
 module Jekyll
-  module TeX
+  module TeXyll
     class Compiler
       def initialize(snippet: '', options: {})
         @options = options

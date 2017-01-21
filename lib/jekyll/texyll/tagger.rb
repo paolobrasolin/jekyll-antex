@@ -1,5 +1,5 @@
 module Jekyll
-  module TeX
+  module TeXyll
     class Tagger
       attr_reader :content
 

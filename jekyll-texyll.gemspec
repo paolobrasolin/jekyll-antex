@@ -1,22 +1,23 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'jekyll-tex/version'
+require 'jekyll/texyll/version'
 
 Gem::Specification.new do |s|
-  s.name          = 'jekyll-tex'
-  s.version       = Jekyll::TeX::VERSION
+  s.name          = 'jekyll-texyll'
+  s.version       = Jekyll::TeXyll::VERSION
   s.license       = 'MIT'
 
   s.summary       = 'Jekyll *TeX integration'
-  s.description   = '*TeX support in Jekyll'\
-    ' to easily render and embed arbitrary code'
+  s.description   = 'TeXyll implements *TeX support in Jekyll'\
+    ' to easily embed and render arbitrary code'
 
   s.authors       = ['Paolo Brasolin']
   s.email         = 'paolo.brasolin@gmail.com'
-  s.homepage      = 'https://github.com/paolobrasolin/jekyll-tex'
+  s.homepage      = 'https://github.com/paolobrasolin/texyll'
 
   all_files       = `git ls-files -z`.split("\x0")
+  # TODO: the following grep must be revised
   s.files         = all_files.grep(%r{^(test|spec|features)/})
   s.require_paths = ['lib']
 

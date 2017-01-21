@@ -1,5 +1,5 @@
 module Jekyll
-  module TeX
+  module TeXyll
     class Options
       attr_reader :merged
 

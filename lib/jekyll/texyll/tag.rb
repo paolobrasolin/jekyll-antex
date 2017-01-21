@@ -1,6 +1,6 @@
 module Jekyll
-  module TeX
-    class Block < Liquid::Block
+  module TeXyll
+    class Tag < Liquid::Block
       def initialize(tag, markup, tokens)
         super
         @markup = markup
@@ -8,7 +8,7 @@ module Jekyll
 
       def render(context)
         options = load_options(registers: context.registers)
-        compiler = Jekyll::TeX::Compiler.new(snippet: super, options: options)
+        compiler = Jekyll::TeXyll::Compiler.new(snippet: super, options: options)
         compiler.compile
         compiler.add_to_static_files(context.registers[:site])
         compiler.render_html_tag
@@ -20,11 +20,10 @@ module Jekyll
         this = YAML.load(markup) || {}
         page = registers[:page]['texyll'] || {}
         site = registers[:site].config['texyll'] || {}
-        # puts registers[:page]
-        Jekyll::TeX::Options.new(site, page, this).merged
+        Jekyll::TeXyll::Options.new(site, page, this).merged
       end
     end
   end
 end
 
-Liquid::Template.register_tag('tex', Jekyll::TeX::Block)
+Liquid::Template.register_tag('tex', Jekyll::TeXyll::Tag)
