@@ -95,8 +95,11 @@ module Jekyll
       end
 
       def render_html_tag
-        "<img style='margin:#{@mt}ex #{@mr}ex #{@mb}ex #{@ml}ex;"\
-        "height:#{@fit.dy}ex' src='#{@options['dest_dir']}/#{@hash}.svg'>"
+        "<span class='#{@options['classes'].join(' ')}'>"\
+        "<img style='margin:#{@mt.round(3)}ex #{@mr.round(3)}ex "\
+        "#{@mb.round(3)}ex #{@ml.round(3)}ex; height:#{@fit.dy.round(3)}ex' "\
+        "src='#{@options['dest_dir']}/#{@hash}.svg' />"\
+        "</span>"
       end
     end
   end

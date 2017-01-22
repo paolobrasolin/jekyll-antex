@@ -1,17 +1,23 @@
 module Jekyll
   module TeXyll
     class Options
-      attr_reader :merged
-
       DEFAULT = YAML.load_file(
         File.join(File.dirname(__FILE__), 'defaults.yaml')
       ).freeze
 
       def initialize(*levels)
-        @merged = DEFAULT.dup
+        @options = DEFAULT.dup
+        merge(*levels)
+      end
+
+      def merge(*levels)
         levels.each do |level|
-          @merged.merge!(level)
+          @options = Jekyll::Utils.deep_merge_hashes(@options, level)
         end
+      end
+
+      def merged
+        @options
       end
     end
   end

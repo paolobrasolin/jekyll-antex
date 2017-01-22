@@ -26,4 +26,4 @@ module Jekyll
   end
 end
 
-Liquid::Template.register_tag('tex', Jekyll::TeXyll::Tag)
+Liquid::Template.register_tag('texyll', Jekyll::TeXyll::Tag)

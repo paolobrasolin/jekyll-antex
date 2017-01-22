@@ -8,11 +8,9 @@ module Jekyll
             page.data['texyll'] || {}
           ).merged
           # TODO: abort operation if delimiters are off
-          tagger = Jekyll::TeXyll::Tagger.new(
-            content: page.content,
-            delimiters: options['delimiters']
-          )
-          page.content = tagger.output
+          dealiaser = Jekyll::TeXyll::Dealiaser.new
+          dealiaser.load_hash(options['sobriquets'])
+          page.content = dealiaser.parse(page.content)
         end
 
         # TODO: handle non-pages

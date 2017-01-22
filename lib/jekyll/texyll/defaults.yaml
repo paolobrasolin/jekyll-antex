@@ -20,6 +20,31 @@ template: |
   \immediate\write\file{wd: \the\wd\snippet}
   \closeout\file
   \begin{document}\usebox{\snippet}\end{document}
-delimiters:
-  - {open: $$, close: $$, options: {prepend: '$\\displaystyle', append: $}}
-  - {open: $, close: $, options: {prepend: $, append: $}}
+classes: [texyll]
+sobriquets:
+  default:
+    priority: 100
+    regexp: !ruby/regexp
+      /{%\s*tex\s*(?<markup>.*?)%}(?<code>.*?){%\s*endtex\s*%}/m
+  tikzpicture:
+    priority: 90
+    regexp: !ruby/regexp
+      /{%\s*tikz\s*(?<markup>.*?)%}(?<code>.*?){%\s*tikz\s*%}/m
+    options:
+      prepend: '\\begin{tikzpicture}'
+      append: '\\end{tikzpicture}'
+      classes: [texyll, tikz]
+  display_math:
+    priority: 20
+    regexp: !ruby/regexp /\$\$(?<code>.*?)\$\$/m
+    options:
+      prepend: '$\\displaystyle'
+      append: $
+      classes: [texyll, display]
+  inline_math:
+    priority: 10
+    regexp: !ruby/regexp /\$(?<code>.*?)\$/
+    options:
+      prepend: $
+      append: $
+      classes: [texyll, inline]
