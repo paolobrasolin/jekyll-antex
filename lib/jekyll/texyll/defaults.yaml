@@ -21,7 +21,7 @@ template: |
   \closeout\file
   \begin{document}\usebox{\snippet}\end{document}
 classes: [texyll]
-sobriquets:
+aliases:
   default:
     priority: 100
     regexp: !ruby/regexp
@@ -29,7 +29,7 @@ sobriquets:
   tikzpicture:
     priority: 90
     regexp: !ruby/regexp
-      /{%\s*tikz\s*(?<markup>.*?)%}(?<code>.*?){%\s*tikz\s*%}/m
+      /{%\s*tikz\s*(?<markup>.*?)%}(?<code>.*?){%\s*endtikz\s*%}/m
     options:
       prepend: '\\begin{tikzpicture}'
       append: '\\end{tikzpicture}'

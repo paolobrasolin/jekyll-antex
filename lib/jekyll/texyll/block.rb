@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Jekyll
   module TeXyll
-    class Tag < Liquid::Block
+    class Block < Liquid::Block
       def initialize(tag, markup, tokens)
         super
         @markup = markup
@@ -26,4 +28,4 @@ module Jekyll
   end
 end
 
-Liquid::Template.register_tag('texyll', Jekyll::TeXyll::Tag)
+Liquid::Template.register_tag('texyll', Jekyll::TeXyll::Block)

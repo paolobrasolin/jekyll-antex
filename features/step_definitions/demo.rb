@@ -18,3 +18,14 @@ Then /^both are (\d+) cm long$/ do |length|
     expect(cuke[:length]).to eq(length.to_i)
   end
 end
+
+
+
+
+
+
+
+
+
+
+

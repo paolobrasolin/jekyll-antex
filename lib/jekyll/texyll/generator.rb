@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jekyll
   module TeXyll
     class Generator < Jekyll::Generator
@@ -8,8 +10,8 @@ module Jekyll
             page.data['texyll'] || {}
           ).merged
           # TODO: abort operation if delimiters are off
-          dealiaser = Jekyll::TeXyll::Dealiaser.new
-          dealiaser.load_hash(options['sobriquets'])
+          dealiaser = Jekyll::TeXyll::Aliasing::Parser.new
+          dealiaser.load_named_aliases_hash(options['aliases'])
           page.content = dealiaser.parse(page.content)
         end
 

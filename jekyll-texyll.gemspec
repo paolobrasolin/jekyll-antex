@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description   = 'TeXyll implements *TeX support in Jekyll'\
     ' to easily embed and render arbitrary code'
 
-  s.authors       = ['Paolo Brasolin']
+  s.author        = 'Paolo Brasolin'
   s.email         = 'paolo.brasolin@gmail.com'
   s.homepage      = 'https://github.com/paolobrasolin/texyll'
 
