@@ -48,3 +48,10 @@ aliases:
       prepend: $
       append: $
       classes: [texyll, inline]
+  simple_macro:
+    priority: 0
+    regexp: !ruby/regexp /(?<code>\\[A-z]+)/
+    options:
+      prepend:
+      append:
+      classes: [texyll, inline]

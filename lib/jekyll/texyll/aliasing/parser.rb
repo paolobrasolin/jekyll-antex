@@ -43,7 +43,7 @@ module Jekyll
         def render_matched_alias_as_tag(match:, options:)
           code = match[:code]
           markup = YAML.load(match(:markup)) if match.names.include?(:markup)
-          puts YAML.dump(markup)
+          # puts YAML.dump(markup)
           markup = YAML.dump(
             Jekyll::Utils.deep_merge_hashes(options || {}, markup || {})
           )

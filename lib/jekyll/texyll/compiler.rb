@@ -40,18 +40,18 @@ module Jekyll
       end
 
       def file(key)
-        {
-          tex: "#{@options['work_dir']}/#{@hash}.tex",
-          dvi: "#{@options['work_dir']}/#{@hash}.dvi",
-          yml: "#{@options['work_dir']}/#{@hash}.yml",
-          tfm: "#{@options['work_dir']}/#{@hash}.tfm.svg",
-          fit: "#{@options['work_dir']}/#{@hash}.fit.svg",
-          svg: "#{@options['work_dir']}/#{@options['dest_dir']}/#{@hash}.svg"
+        @options['work_dir'] + {
+          tex: "/#{@hash}.tex",
+          dvi: "/#{@hash}.dvi",
+          yml: "/#{@hash}.yml",
+          tfm: "/#{@hash}.tfm.svg",
+          fit: "/#{@hash}.fit.svg",
+          svg: "/#{@options['dest_dir']}/#{@hash}.svg"
         }[key]
       end
 
       def call_to_produce(command, filelist)
-        return if filelist.map(&->(file) { File.exist?(file) }).reduce(:&)
+        return if filelist.map { |file| File.exist?(file) }.reduce(:&)
         _stdout, stderr, status = Open3.capture3(*command)
         raise stderr unless status.success?
       end
