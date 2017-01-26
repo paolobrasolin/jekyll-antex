@@ -1,3 +1,6 @@
+---
+layout: compress
+---
 <!DOCTYPE html>
 <html{% if page.language %} lang="{{page.language}}"{% endif %}>
 
@@ -25,17 +28,6 @@
         {% for script in site.js.early %}
             <script type="text/javascript" src="{{script}}"/></script>
         {% endfor %}
-
-<style type="text/css">
-  @font-face {
-    font-family: "Computer Modern";
-    src: url('cmunrm.otf');
-  }
-  body {
-    font-family: "Computer Modern", sans-serif;
-  }
-</style>
-
 
     </head>
 

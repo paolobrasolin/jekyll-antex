@@ -2,18 +2,25 @@
 ---
 
 @import 'grid';
+@import 'tex-poshlet';
+@import 'tufte';
+@import 'cm';
 
+
+
+
+/*
 html {
-    font-size:100px;
+    font-size:30px;
 }
 
 p {
     margin:0;
-/*    @include grid(2px,1ex,red);*/
+    @include grid(2px,1ex,red);
 }
 
 p img {
-/*    margin-top: -10em !important;*/
+    margin-top: -10em !important;
 }
 
 
@@ -35,3 +42,7 @@ p img {
     border: 1px solid red;
     z-index: -1000;
 }
+
+
+
+*/
