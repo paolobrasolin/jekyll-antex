@@ -8,6 +8,11 @@
 
 
 
+body {
+  font-family: "CMU Serif", serif;
+}
+
+
 
 /*
 html {
@@ -22,7 +27,7 @@ p {
 p img {
     margin-top: -10em !important;
 }
-
+*/
 
 
 .wrap {
@@ -35,14 +40,11 @@ p img {
 .rule {
     height: 1ex;
     position: relative;
-    left: -100vw;
-    width: 200vw;
+    left: -10vw;
+    width: 90vw;
     display: inline-block;
     box-sizing: border-box;
     border: 1px solid red;
     z-index: -1000;
 }
 
-
-
-*/
