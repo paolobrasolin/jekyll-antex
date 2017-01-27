@@ -15,13 +15,13 @@ cd install-tl-20*
 # Install TeX Live using custom profile.
 ./install-tl --profile=$tl_dir/texlive.profile
 
-# Install extra packages.
-readarray -t texlive_packages < $tl_dir/texlive.packages
-tlmgr install ${texlive_packages[@]}
-
 # Post install config.
 export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
 # MEMO: "/tmp/texlive" is defined as root in "texlive.profile".
+
+# Install extra packages.
+readarray -t texlive_packages < $tl_dir/texlive.packages
+tlmgr install ${texlive_packages[@]}
 
 # NOTE: we do no cleanup, but this is meant
 #   for a simple Travis session, so it's ok.
