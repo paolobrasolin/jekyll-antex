@@ -14,5 +14,5 @@ Feature: Details
       Woot.
       """
     When I run jekyll
-    Then the "_site/index.html" file should exist
+    Then the file "_site/index.html" should exist
 

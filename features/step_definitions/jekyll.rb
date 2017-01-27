@@ -55,10 +55,11 @@ Then(/^I should not see "(.*)" in "(.*)"$/) do |pattern, file|
     "Did not exptect /#{pattern}/ in: #{text}"
 end
 
-Then(/^the (file|directory) "(.*)" should (not exist|exist)$/) do |type, name, condition|
-  puts negation
-  # assert File.file?(file)
-  expect(File).to exist(file)
+Then(/^the (file|dir) "(.*)" (should not exist|should exist)$/) do |type, path, condition|
+  full_path = File.expand_path(path)
+  type_class = Module.const_get(type.capitalize)
+  condition_sym = condition.include?('not') ? :to_not : :to
+  expect(type_class).send condition_sym, exist(full_path)
 end
 
 # Then(/^the "(.*)" file should not exist$/) do |file|
