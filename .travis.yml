@@ -1,0 +1,15 @@
+language: ruby
+sudo: false
+rvm:
+- 2.2.5
+before_script:
+  - ./script/tl
+  - export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
+  # oberdiek -> atbegshi, ms -> everyshi, graphics -> graphicx
+  # - tlmgr install standalone pgf xcolor oberdiek ms graphics latex-bin context
+  - bundle install
+script: 
+  - cucumber
+branches:
+  only:
+  - master
