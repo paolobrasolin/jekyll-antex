@@ -19,10 +19,12 @@ module Jekyll
       private
 
       def load_options(markup: @markup, registers:)
-        this = YAML.load(markup) || {}
-        page = registers[:page]['texyll'] || {}
-        site = registers[:site].config['texyll'] || {}
-        Jekyll::TeXyll::Options.new(site, page, this).merged
+        Jekyll::TeXyll::Utils.deep_merge_list_of_hashes(
+          Jekyll::TeXyll::Options::DEFAULTS,
+          registers[:site].config['texyll'] || {},
+          registers[:page]['texyll'] || {},
+          YAML.load(markup) || {}
+        )
       end
     end
   end

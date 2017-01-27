@@ -1,6 +1,8 @@
 require 'jekyll/texyll/version'
 
-require 'jekyll/texyll/options'
+require 'jekyll/texyll/utils/utils'
+
+require 'jekyll/texyll/options/defaults'
 
 require 'jekyll/texyll/compiler/job'
 require 'jekyll/texyll/compiler/pipeline'

@@ -5,10 +5,11 @@ module Jekyll
     class Generator < Jekyll::Generator
       def generate(site)
         site.pages.each do |page|
-          options = Jekyll::TeXyll::Options.new(
+          options = Jekyll::TeXyll::Utils.deep_merge_list_of_hashes(
+            Jekyll::TeXyll::Options::DEFAULTS,
             site.config['texyll'] || {},
             page.data['texyll'] || {}
-          ).merged
+          )
           # TODO: abort operation if delimiters are off
           dealiaser = Jekyll::TeXyll::Aliasing::Parser.new
           dealiaser.load_named_aliases_hash(options['aliases'])
