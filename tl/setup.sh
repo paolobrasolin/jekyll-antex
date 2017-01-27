@@ -19,5 +19,9 @@ cd install-tl-20*
 readarray -t texlive_packages < $tl_dir/texlive.packages
 tlmgr install ${texlive_packages[@]}
 
+# Post install config.
+export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
+# MEMO: "/tmp/texlive" is defined as root in "texlive.profile".
+
 # NOTE: we do no cleanup, but this is meant
 #   for a simple Travis session, so it's ok.
