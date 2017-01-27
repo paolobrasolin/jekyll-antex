@@ -13,6 +13,19 @@ module Jekyll
           compute_margins
         end
 
+        def render_img_tag(src)
+          <<-IMG_TAG.gsub(/(\s\s+)/m, ' ').strip!
+          <img style='margin: #{@mt.round(@precision)}ex
+                              #{@mr.round(@precision)}ex
+                              #{@mb.round(@precision)}ex
+                              #{@ml.round(@precision)}ex;
+                      height: #{@fit.dy.round(@precision)}ex'
+              src='#{src}' />
+          IMG_TAG
+        end
+
+        private
+
         def scale_bounds
           r = (@tex.ht + @tex.dp) / @tfm.dy
           @tfm.scale(r)
@@ -24,17 +37,6 @@ module Jekyll
           @mt = - @tfm.oy + @fit.oy
           @mr =   @tfm.dx - @fit.dx - @ml
           @mb =   @tfm.dy - @fit.dy - @mt - @tex.dp
-        end
-
-        def render_img_tag(src)
-          <<-IMG_TAG.gsub(/(\s\s+)/m, ' ').strip!
-          <img style='margin: #{@mt.round(@precision)}ex
-                              #{@mr.round(@precision)}ex
-                              #{@mb.round(@precision)}ex
-                              #{@ml.round(@precision)}ex;
-                      height: #{@fit.dy.round(@precision)}ex'
-              src='#{src}' />
-          IMG_TAG
         end
       end
     end

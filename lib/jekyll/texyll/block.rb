@@ -10,10 +10,10 @@ module Jekyll
 
       def render(context)
         options = load_options(registers: context.registers)
-        compiler = Jekyll::TeXyll::Compiler.new(snippet: super, options: options)
-        compiler.compile
-        compiler.add_to_static_files(context.registers[:site])
-        compiler.render_html_tag
+        job = Jekyll::TeXyll::Compiler::Job.new(snippet: super, options: options)
+        job.run
+        job.add_to_static_files_of(context.registers[:site])
+        job.html_tag
       end
 
       private

@@ -2,8 +2,8 @@ require 'jekyll/texyll/version'
 
 require 'jekyll/texyll/options'
 
-require 'jekyll/texyll/compiler'
-require 'jekyll/texyll/pipeline'
+require 'jekyll/texyll/compiler/job'
+require 'jekyll/texyll/compiler/pipeline'
 
 require 'jekyll/texyll/metrics/gauge'
 require 'jekyll/texyll/metrics/tex_box'
