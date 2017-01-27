@@ -1,10 +1,13 @@
 require 'jekyll/texyll/version'
 
 require 'jekyll/texyll/options'
+
 require 'jekyll/texyll/compiler'
 require 'jekyll/texyll/pipeline'
-require 'jekyll/texyll/tex_box'
-require 'jekyll/texyll/svg_box'
+
+require 'jekyll/texyll/metrics/gauge'
+require 'jekyll/texyll/metrics/tex_box'
+require 'jekyll/texyll/metrics/svg_box'
 
 require 'jekyll/texyll/aliasing/alias'
 require 'jekyll/texyll/aliasing/parser'
