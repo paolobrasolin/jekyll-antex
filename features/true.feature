@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 Feature: Details
   Hurr durr
 
