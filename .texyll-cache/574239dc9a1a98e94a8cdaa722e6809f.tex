@@ -1,0 +1,17 @@
+\documentclass{article}
+\pagestyle{empty}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\newsavebox\snippet
+\begin{lrbox}{\snippet}\rule{1ex}{1ex}\end{lrbox}
+\newwrite\file
+\immediate\openout\file=\jobname.yml
+\immediate\write\file{em: \the\dimexpr1em}
+\immediate\write\file{ex: \the\dimexpr1ex}
+\immediate\write\file{ht: \the\ht\snippet}
+\immediate\write\file{dp: \the\dp\snippet}
+\immediate\write\file{wd: \the\wd\snippet}
+\closeout\file
+\begin{document}\usebox{\snippet}\end{document}
