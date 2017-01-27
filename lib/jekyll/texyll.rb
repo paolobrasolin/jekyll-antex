@@ -2,6 +2,7 @@ require 'jekyll/texyll/version'
 
 require 'jekyll/texyll/options'
 require 'jekyll/texyll/compiler'
+require 'jekyll/texyll/pipeline'
 require 'jekyll/texyll/tex_box'
 require 'jekyll/texyll/svg_box'
 

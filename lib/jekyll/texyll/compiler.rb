@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'open3'
-
 module Jekyll
   module TeXyll
     class Compiler
@@ -13,7 +11,11 @@ module Jekyll
       def compile
         make_dirs
         prepare_code
-        call_compilation_routine
+        Pipeline.new(
+          pipeline: @options['pipeline'],
+          engines: @options['engines'],
+          context: binding
+        ).run
         load_metrics
         scale_bounds
         compute_margins
@@ -39,34 +41,22 @@ module Jekyll
         end unless File.exist?(file(:tex))
       end
 
+      def dir(key)
+        {
+          work: @options['work_dir'],
+          dest: @options['dest_dir']
+        }[key]
+      end
+
       def file(key)
-        @options['work_dir'] + {
+        dir(:work) + {
           tex: "/#{@hash}.tex",
           dvi: "/#{@hash}.dvi",
           yml: "/#{@hash}.yml",
           tfm: "/#{@hash}.tfm.svg",
           fit: "/#{@hash}.fit.svg",
-          svg: "/#{@options['dest_dir']}/#{@hash}.svg"
+          svg: "/#{dir(:dest)}/#{@hash}.svg"
         }[key]
-      end
-
-      def call_to_produce(command, filelist)
-        return if filelist.map { |file| File.exist?(file) }.reduce(:&)
-        _stdout, stderr, status = Open3.capture3(*command)
-        raise stderr unless status.success?
-      end
-
-      def call_compilation_routine
-        latexmk = ['latexmk', "-output-directory=#{@options['work_dir']}",
-                   file(:tex)]
-        dvisvgm_tfm = ['dvisvgm', '--no-fonts',
-                       file(:dvi), "--output=#{file(:tfm)}"]
-        dvisvgm_fit = ['dvisvgm', '--no-fonts', '--exact',
-                       file(:dvi), "--output=#{file(:fit)}"]
-
-        call_to_produce(latexmk, [file(:dvi), file(:yml)])
-        call_to_produce(dvisvgm_tfm, [file(:tfm)])
-        call_to_produce(dvisvgm_fit, [file(:fit)])
       end
 
       def load_metrics
