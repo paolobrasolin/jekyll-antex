@@ -8,8 +8,7 @@ _site
 node_modules
 .DS_store
 
-.texyll-cache
-
+.texyll-cache/
 
 # swap
 [._]*.s[a-w][a-z]
@@ -21,10 +20,6 @@ Session.vim
 *~
 # auto-generated tag files
 tags
-
-
-
-
 
 *.gem
 *.rbc
