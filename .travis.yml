@@ -8,13 +8,13 @@ script:
   # - bundle install
   - touch foo
 after_script:
-  - openssl aes-256-cbc -K $encrypted_2229ab9f857e_key -iv $encrypted_2229ab9f857e_iv
-    -in $TRAVIS_BUILD_DIR/deploy_rsa.enc -out $TRAVIS_BUILD_DIR/deploy_rsa -d
-  - chmod 600 $TRAVIS_BUILD_DIR/deploy_rsa
-  - eval "$(ssh-agent -s)"
-  - ssh-add $TRAVIS_BUILD_DIR/deploy_rsa
-  - rm $TRAVIS_BUILD_DIR/deploy_rsa
-  - "./travis/push"
+  # - openssl aes-256-cbc -K $encrypted_2229ab9f857e_key -iv $encrypted_2229ab9f857e_iv
+    # -in $TRAVIS_BUILD_DIR/deploy_rsa.enc -out $TRAVIS_BUILD_DIR/deploy_rsa -d
+  # - chmod 600 $TRAVIS_BUILD_DIR/deploy_rsa
+  # - eval "$(ssh-agent -s)"
+  # - ssh-add $TRAVIS_BUILD_DIR/deploy_rsa
+  # - rm $TRAVIS_BUILD_DIR/deploy_rsa
+  # - "./travis/push"
 branches:
   only:
   - jekyll
