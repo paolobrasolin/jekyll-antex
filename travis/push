@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-SOURCE_BRANCH="nanoc"
+SOURCE_BRANCH="jekyll"
 TARGET_BRANCH="gh-pages"
 
 # Save some useful information

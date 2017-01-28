@@ -26,4 +26,8 @@ git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 cd ..
 
 # Clean out existing contents
-rm -rf output/**/* || exit 0
+# rm -rf output/**/* || exit 0
+
+shopt -s dotglob
+rm -rf output/*
+shopt -u dotglob
