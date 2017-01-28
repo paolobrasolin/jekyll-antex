@@ -3,8 +3,12 @@
 # Exit with nonzero exit code if anything fails
 set -e
 
+echo "getting vars"
+
 SOURCE_BRANCH="jekyll"
 TARGET_BRANCH="gh-pages"
+
+echo "deciding stuff"
 
 # Pull requests and commits to other branches shouldn't try to deploy, just build to verify
 if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "$SOURCE_BRANCH" ]; then
@@ -18,12 +22,21 @@ REPO=`git config remote.origin.url`
 SSH_REPO=${REPO/https:\/\/github.com\/git@github.com:}
 SHA=`git rev-parse --verify HEAD`
 
+echo $REPO
+echo $SSH_REPO
+echo $SHA
+
 # Clone the existing gh-pages for this repo into out/
 # Create a new empty branch if gh-pages doesn't exist yet (should only happen on first deploy)
 git clone $REPO output
+
+echo "just cloned"
+
 cd output
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 cd ..
+
+echo "tryna checkout"
 
 # Clean out existing contents
 rm -rf output/**/* || exit 0
