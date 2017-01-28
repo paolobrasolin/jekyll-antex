@@ -16,4 +16,4 @@ after_script:
   - "./travis/push"
 branches:
   only:
-  - nanoc
+  - jekyll
