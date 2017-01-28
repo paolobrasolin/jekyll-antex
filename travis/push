@@ -10,6 +10,7 @@ SHA=`git rev-parse --verify HEAD`
 
 # Now let's go have some fun with the cloned repo
 cd output
+ls -lah
 git config user.name "Travis CI"
 # git config user.email "$COMMIT_AUTHOR_EMAIL"
 git config user.email "paolo.brasolin@gmail.com"
