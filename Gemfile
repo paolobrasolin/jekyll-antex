@@ -14,7 +14,7 @@ group :jekyll_plugins do
   if Dir.exist?(File.expand_path("~/texyll/master"))
     gem "jekyll-texyll", :path => "~/texyll/master"
   elsif ENV['TRAVIS']
-    gem 'jekyll-texyll', :git => 'git://github.com/paolobrasolin/texyll.git'
+    gem 'jekyll-texyll', :git => 'https://github.com/paolobrasolin/texyll.git'
   else
     gem 'jekyll-texyll'
   end
