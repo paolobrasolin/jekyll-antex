@@ -24,8 +24,11 @@ git config user.email "paolo.brasolin@gmail.com"
 
 # Commit the "changes", i.e. the new version.
 # The delta will show diffs between new and old versions.
+git status
 git add -A
+git status
 git commit -m "Deploy to GitHub Pages: ${SHA}"
+git status
 # git commit -a -m "Travis #$TRAVIS_BUILD_NUMBER"
 
 # Now that we're all set up, we can push.
