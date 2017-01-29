@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 2.2.5
 install:
-  - source texlive/install
+  - source travis/texlive/install
 before_script:
   - ./travis/gitbot/clone
 script:
