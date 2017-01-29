@@ -3,4 +3,4 @@ pgf
 xcolor
 graphics
 latex-bin
-texlive
+latexmk
