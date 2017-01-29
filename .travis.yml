@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 2.2.5
 install:
-  - source travis/texlive/install
+  - source texlive/install
   - bundle install
 before_script:
 script:
