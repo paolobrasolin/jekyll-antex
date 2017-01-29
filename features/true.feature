@@ -13,8 +13,10 @@ Feature: Details
       ---
       ---
 
-      Woot.
+      {% texyll %}\LaTeX{% endtexyll %}
+
       """
     When I run jekyll
     Then the file "_site/index.html" should exist
+    And the image exists
 

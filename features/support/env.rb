@@ -4,6 +4,8 @@ require 'jekyll'
 require 'jekyll/texyll'
 require 'tmpdir'
 
+require 'nokogiri'
+
 TEST_DIR = File.join(Dir.tmpdir, 'jekyll')
 
 def prepend_test_dir(options, key)

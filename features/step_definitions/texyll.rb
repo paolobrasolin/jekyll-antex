@@ -45,3 +45,11 @@ Then(/^"(.*)" should come before "(.*)" in "(.*)"$/) do |p1, p2, file|
   assert m1.offset(0)[0] < m2.offset(0)[0]
 end
 
+Then(/^the image exists$/) do
+  doc = File.open("_site/index.html") { |f| Nokogiri::HTML(f) }
+  match = doc.at_css("span.texyll img")
+  expect(match).not_to be_nil
+  rel_path = match['src']
+  full_path = File.expand_path(File.join('_site', rel_path))
+  expect(File).to exist(full_path)
+end
