@@ -3,11 +3,10 @@ rvm:
   - 2.2.5
 install:
   - source travis/texlive/install
+  - tlmgr install dvisvgm
 before_script:
   - ./travis/gitbot/clone
 script:
-  - echo '\documentclass{article}\begin{document}Hello world.\end{document}' > foo.tex
-  - latexmk foo.tex
   - bundle install
   - bundle exec jekyll build
 after_script:
