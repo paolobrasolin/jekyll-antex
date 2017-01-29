@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+#===[ Load configuration. ]=====================================================
+
+GITBOT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# shellcheck source=config
+source "$GITBOT_ROOT/config"
+
+#===[ Safety check. ]===========================================================
+
+# Pull requests and commits to other branches shouldn't try to deploy, just build to verify
+# if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "$SOURCE_BRANCH" ]; then
+    # echo "Skipping deploy; just doing a build."
+    # doCompile
+    # exit 0
+# fi
+
+#===[ Clone repo into target folder and init blank orphan branch. ]=============
+
+cd "$TRAVIS_BUILD_DIR" || exit 1
+git clone "https://github.com/$TRAVIS_REPO_SLUG.git" "$GITBOT_TARGET_FOLDER"
+cd "$GITBOT_TARGET_FOLDER" || exit 1
+git checkout "$GITBOT_TARGET_BRANCH" \
+  || git checkout --orphan "$GITBOT_TARGET_BRANCH"
+git rm -rf .
+

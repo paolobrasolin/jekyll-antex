@@ -95,7 +95,8 @@ fi
 
 title "Delete old keypair"
 
-rm "$DIR"/deploy_key*
+rm "$DIR"/deploy_key.pub
+rm "$DIR"/deploy_key.enc
 printf "Done.\n"
 
 #===[ Generate new keypair. ]===================================================
@@ -123,14 +124,14 @@ title "Delete unencripted private key"
 rm "$DIR"/deploy_key
 echo "Done."
 
-#===[ Reconfigure decrypt script. ]=============================================
+#===[ Reconfigure push script. ]=============================================
 
-title "Reconfigure decrypt script"
+title "Reconfigure push script"
 
-ENCRYPTED_KEY_ENV_VAR_NAME=$(grep -o "\$encrypted_\S*_key" "$travis_stdout")
-ENCRYPTED_IV_ENV_VAR_NAME=$(grep -o "\$encrypted_\S*_iv" "$travis_stdout")
-sed -i "s/\$encrypted_\S*_key/$ENCRYPTED_KEY_ENV_VAR_NAME/g" "$DIR/decrypt"
-sed -i "s/\$encrypted_\S*_iv/$ENCRYPTED_IV_ENV_VAR_NAME/g" "$DIR/decrypt"
+ENCRYPTED_KEY_ENV_VAR_NAME=$(grep -o "encrypted_\S*_key" "$travis_stdout")
+ENCRYPTED_IV_ENV_VAR_NAME=$(grep -o "encrypted_\S*_iv" "$travis_stdout")
+sed -i "s/encrypted_\S*_key/$ENCRYPTED_KEY_ENV_VAR_NAME/g" "$DIR/push"
+sed -i "s/encrypted_\S*_iv/$ENCRYPTED_IV_ENV_VAR_NAME/g" "$DIR/push"
 
 rm "$travis_stdout"
 echo "Done."

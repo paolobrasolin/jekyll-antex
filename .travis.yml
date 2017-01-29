@@ -1,12 +1,15 @@
 language: ruby
 rvm:
   - 2.2.5
+install:
+  - source texlive/install
 before_script:
-  - ./travis/clone
+  - ./travis/gitbot/clone
 script:
   - bundle install
+  - bundle exec jekyll build
 after_script:
-  - ./travis/push
+  - ./travis/gitbot/push
 branches:
   only:
   - jekyll
