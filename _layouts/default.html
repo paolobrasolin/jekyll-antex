@@ -21,9 +21,7 @@ layout: compress
             <link rel="icon" type="image/png" href="{{site.favicon}}">
         {% endif %}
 
-        {% for sheet in site.css %}
-            <link rel="stylesheet" href="{{sheet}}"/>
-        {% endfor %}
+        <link rel="stylesheet" href="main.css"/>
 
         {% for script in site.js.early %}
             <script type="text/javascript" src="{{script}}"/></script>

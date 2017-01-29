@@ -1,5 +1,2 @@
-css:
-    - main.css
-
-exclude: [.texyll-cache/]
+exclude: ['.texyll-cache/', 'Gemfile', 'Gemfile.lock']
 
