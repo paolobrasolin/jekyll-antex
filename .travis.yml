@@ -1,11 +1,11 @@
 language: ruby
-sudo: false
 rvm:
-- 2.2.5
-before_script:
-  - ./tl/setup.sh
+  - 2.2.5
+install:
+  - source travis/texlive/install
   - bundle install
-script: 
+before_script:
+script:
   - cucumber
 branches:
   only:

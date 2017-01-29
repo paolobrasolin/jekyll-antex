@@ -1,8 +1,5 @@
 standalone
 pgf
 xcolor
-oberdiek
-ms
 graphics
 latex-bin
-context

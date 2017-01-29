@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Exit with nonzero exit code if anything fails.
+set -e
+
+# Get the dir of this script.
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Make a temp dir.
+tmp=$(mktemp -d)
+
+# Fetch and extract TeX Live installer.
+cd "$tmp" || exit 1
+wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+tar -xzf install-tl-unx.tar.gz
+
+# Install TeX Live using provided custom profile.
+cd install-tl-20* || exit 1
+./install-tl --profile="$dir/texlive.profile"
+
+# Install extra packages from packages file.
+readarray -t texlive_packages < "$dir/texlive.packages"
+tlmgr install "${texlive_packages[@]}"
+
+# Be nice and remove tmp files.
+rm -rf "$tmp"

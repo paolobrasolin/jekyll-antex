@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Since we need to source the script from .travis.yml in order to export
+# the PATH, we encasulate the bulk of the procedure and run it into a subshell
+# so we can act freely in it without polluting the scope in any way.
+
+# Run the installer.
+"$TRAVIS_BUILD_DIR/texlive/installer"
+
+# Standard post install step.
+# MEMO: /tmp/texlive is defined as the root in the profile file.
+export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
