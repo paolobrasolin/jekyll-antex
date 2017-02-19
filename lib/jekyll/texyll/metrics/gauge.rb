@@ -5,11 +5,10 @@ module Jekyll
     module Metrics
       class Gauge
         def initialize(yml:, tfm:, fit:, precision: 3)
-          @tex = TeXBox.new(yml)
-          @tfm = SVGBox.new(tfm)
-          @fit = SVGBox.new(fit)
+          @tex = TeXBox.new(filename: yml, unit: :ex)
+          @tfm = SVGBox.new(filename: tfm, unit: :px)
+          @fit = SVGBox.new(filename: fit, unit: :px)
           @precision = precision
-          scale_bounds
           compute_margins
         end
 
@@ -19,24 +18,20 @@ module Jekyll
                               #{@mr.round(@precision)}ex
                               #{@mb.round(@precision)}ex
                               #{@ml.round(@precision)}ex;
-                      height: #{@fit.dy.round(@precision)}ex'
+                      height: #{@th.round(@precision)}ex'
               src='#{src}' />
           IMG_TAG
         end
 
         private
 
-        def scale_bounds
-          r = (@tex.ht + @tex.dp) / @tfm.dy
-          @tfm.scale(r)
-          @fit.scale(r)
-        end
-
         def compute_margins
-          @ml = - @tfm.ox + @fit.ox
-          @mt = - @tfm.oy + @fit.oy
-          @mr =   @tfm.dx - @fit.dx - @ml
-          @mb =   @tfm.dy - @fit.dy - @mt - @tex.dp
+          r = (@tex.ht + @tex.dp) / @tfm.dy # [ex/px]
+          @ml = r * (- @tfm.ox + @fit.ox)
+          @mt = r * (- @tfm.oy + @fit.oy)
+          @mr = r * (+ @tfm.dx - @fit.dx) - @ml
+          @mb = r * (+ @tfm.dy - @fit.dy) - @mt - @tex.dp
+          @th = r * @fit.dy
         end
       end
     end

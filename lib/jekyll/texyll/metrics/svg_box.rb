@@ -5,20 +5,16 @@ require 'nokogiri'
 module Jekyll
   module TeXyll
     module Metrics
-      class SVGBox
-        attr_reader :ox # x origin
-        attr_reader :oy # y origin
-        attr_reader :dx # x size (width)
-        attr_reader :dy # y size (height)
+      class SVGBox < Jekyll::TeXyll::Metrics::Set
+        private
 
-        def initialize(filename)
-          svg = Nokogiri::XML.parse(File.read(filename))
-          @ox, @oy, @dx, @dy = svg.css('svg').attribute('viewBox')
-                                  .to_s.split(' ').map(&:to_f)
-        end
-
-        def scale(r)
-          @ox, @oy, @dx, @dy = [@ox, @oy, @dx, @dy].map { |x| r * x }
+        def load(filename)
+          svg_ast = Nokogiri::XML.parse(File.read(filename))
+          view_box = svg_ast.css('svg').attribute('viewBox')
+          ox, oy, dx, dy = view_box.to_s.split(' ').map(&:to_f)
+          @metrics = { ox: ox, oy: oy, dx: dx, dy: dy }
+          @metrics[:px] ||= 1.0
+          @metrics
         end
       end
     end

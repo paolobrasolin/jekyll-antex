@@ -42,7 +42,7 @@ module Jekyll
           command = erb_render_array(engine['command']).join(' ')
           _stdout, _stderr, status = Open3.capture3(command)
           # Raise if unsuccesful or ineffective.
-          raise "Execution error!" unless status.success?
+          raise 'Execution error!' unless status.success?
           raise 'Targets not produced!' unless file_list_exists(targets)
         end
       end
