@@ -21,8 +21,17 @@ module Jekyll
         # site.documents.each do |document|
         # end
 
-        # site.posts.docs.each do |post|
-        # end
+        site.posts.docs.each do |post|
+          options = Jekyll::TeXyll::Utils.deep_merge_list_of_hashes(
+            Jekyll::TeXyll::Options::DEFAULTS,
+            site.config['texyll'] || {},
+            post.data['texyll'] || {}
+          )
+          # TODO: abort operation if delimiters are off
+          dealiaser = Jekyll::TeXyll::Aliasing::Parser.new
+          dealiaser.load_named_aliases_hash(options['aliases'])
+          post.content = dealiaser.parse(post.content)
+        end
       end
     end
   end
