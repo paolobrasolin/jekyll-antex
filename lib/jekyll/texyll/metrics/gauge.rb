@@ -18,7 +18,8 @@ module Jekyll
                               #{@mr.round(@precision)}ex
                               #{@mb.round(@precision)}ex
                               #{@ml.round(@precision)}ex;
-                      height: #{@th.round(@precision)}ex'
+                      height: #{@th.round(@precision)}ex;
+                      width: #{@wd.round(@precision)}ex;'
               src='#{src}' />
           IMG_TAG
         end
@@ -32,6 +33,7 @@ module Jekyll
           @mr = r * (+ @tfm.dx - @fit.dx) - @ml
           @mb = r * (+ @tfm.dy - @fit.dy) - @mt - @tex.dp
           @th = r * @fit.dy
+          @wd = r * @fit.dx
         end
       end
     end

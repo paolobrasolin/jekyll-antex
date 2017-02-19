@@ -58,6 +58,10 @@ engines:
     targets:
       - <%=file(:fit)%>
 aliases:
+  internal:
+    priority: 1000
+    regexp: !ruby/regexp
+      /{%\s*texyll\s*(?<markup>.*?)%}(?<code>.*?){%\s*endtexyll\s*%}/m
   default:
     priority: 100
     regexp: !ruby/regexp

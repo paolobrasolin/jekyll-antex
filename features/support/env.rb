@@ -1,4 +1,3 @@
-# require 'test/unit'
 require 'rspec'
 require 'jekyll'
 require 'jekyll/texyll'
@@ -20,22 +19,19 @@ end
 
 def run_jekyll(options = {})
 
+  @original_stderr = $stderr
+  @original_stdout = $stdout
+  $stderr = File.open(File::NULL, 'w')
+  $stdout = File.open(File::NULL, 'w')
   options = Jekyll.configuration(options)
+  $stderr = @original_stderr
+  $stdout = @original_stdout
 
   prepend_test_dir(options, 'source')
   prepend_test_dir(options, 'destination')
 
-  print options['source'] + "\n"
-  print options['destination'] + "\n"
   site = Jekyll::Site.new(options)
   site.process
-
-  puts "DONE"
-
 end
 
-
-# Enable using plain MiniTest assertions instead of quasi-english shoulda
-# require 'test/unit/assertions'
-# World Test::Unit::Assertions
 
