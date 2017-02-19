@@ -27,7 +27,7 @@ module Jekyll
         end
 
         def html_tag
-          img_tag = @gauge.render_img_tag("#{@options['dest_dir']}/#{@hash}.svg")
+          img_tag = @gauge.render_img_tag("/#{@options['dest_dir']}/#{@hash}.svg")
           classes = @options['classes'].join(' ')
           "<span class='#{classes}'>#{img_tag}</span>"
         end
