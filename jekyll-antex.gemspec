@@ -3,20 +3,20 @@
 
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'jekyll/texyll/version'
+require 'jekyll/antex/version'
 
 Gem::Specification.new do |s|
-  s.name          = 'jekyll-texyll'
-  s.version       = Jekyll::TeXyll::VERSION
+  s.name          = 'jekyll-antex'
+  s.version       = Jekyll::Antex::VERSION
   s.license       = 'MIT'
 
   s.summary       = 'Jekyll *TeX integration'
-  s.description   = 'TeXyll implements *TeX support in Jekyll'\
+  s.description   = 'Antex implements *TeX support in Jekyll'\
     ' to easily embed and render arbitrary code'
 
   s.author        = 'Paolo Brasolin'
   s.email         = 'paolo.brasolin@gmail.com'
-  s.homepage      = 'https://github.com/paolobrasolin/texyll'
+  s.homepage      = 'https://github.com/paolobrasolin/antex'
 
   all_files       = `git ls-files -z`.split("\x0")
   # TODO: the following grep must be revised

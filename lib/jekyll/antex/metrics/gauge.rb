@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Jekyll
-  module TeXyll
+  module Antex
     module Metrics
       class Gauge
         def initialize(yml:, tfm:, fit:, precision: 3)

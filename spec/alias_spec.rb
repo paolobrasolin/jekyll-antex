@@ -2,7 +2,7 @@
 
 require 'jekyll/utils'
 
-describe Jekyll::TeXyll::Alias do
+describe Jekyll::Antex::Alias do
   let(:aliases) do
     {
       missing_code: {

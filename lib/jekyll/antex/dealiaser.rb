@@ -3,11 +3,11 @@
 require 'jekyll/utils'
 require 'securerandom'
 
-module Jekyll::TeXyll
+module Jekyll::Antex
   class Dealiaser
     attr_reader :aliases
 
-    def initialize(tag: 'texyll')
+    def initialize(tag: 'antex')
       @aliases = []
       @stash = {}
       @tag = tag

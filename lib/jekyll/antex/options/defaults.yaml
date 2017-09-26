@@ -1,6 +1,6 @@
 # shallow that are overwritten by merging
-dest_dir: texyll
-work_dir: .texyll-cache
+dest_dir: antex
+work_dir: .antex-cache
 preamble: |
   \usepackage{amsmath, amsthm, amssymb, amsfonts}
   \usepackage{tikz}
@@ -20,7 +20,7 @@ template: |
   \immediate\write\file{wd: \the\wd\snippet}
   \closeout\file
   \begin{document}\usebox{\snippet}\end{document}
-classes: [texyll]
+classes: [antex]
 pipeline:
   - latexmk
   - dvisvgm_tfm
@@ -61,7 +61,7 @@ aliases:
   internal:
     priority: 1000
     regexp: !ruby/regexp
-      /{%\s*texyll\s*(?<markup>.*?)%}(?<code>.*?){%\s*endtexyll\s*%}/m
+      /{%\s*antex\s*(?<markup>.*?)%}(?<code>.*?){%\s*endantex\s*%}/m
   default:
     priority: 100
     regexp: !ruby/regexp
@@ -73,25 +73,25 @@ aliases:
     options:
       prepend: '\\begin{tikzpicture}'
       append: '\\end{tikzpicture}'
-      classes: [texyll, tikz]
+      classes: [antex, tikz]
   display_math:
     priority: 20
     regexp: !ruby/regexp /\$\$(?<code>.*?)\$\$/m
     options:
       prepend: '$\\displaystyle'
       append: $
-      classes: [texyll, display]
+      classes: [antex, display]
   inline_math:
     priority: 10
     regexp: !ruby/regexp /\$(?<code>.*?)\$/
     options:
       prepend: $
       append: $
-      classes: [texyll, inline]
+      classes: [antex, inline]
   simple_macro:
     priority: 0
     regexp: !ruby/regexp /(?<code>\\[A-z]+)/
     options:
       prepend:
       append:
-      classes: [texyll, inline]
+      classes: [antex, inline]

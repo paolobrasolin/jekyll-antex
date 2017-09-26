@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-xdescribe Jekyll::TeXyll::Block do
+xdescribe Jekyll::Antex::Block do
   let(:site) { make_site }
   before { site.process }
 

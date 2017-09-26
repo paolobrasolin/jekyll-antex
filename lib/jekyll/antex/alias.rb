@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Jekyll::TeXyll
+module Jekyll::Antex
   class Alias
     class InvalidRegexp < Error; end
 

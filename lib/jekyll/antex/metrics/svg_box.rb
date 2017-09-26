@@ -3,9 +3,9 @@
 require 'nokogiri'
 
 module Jekyll
-  module TeXyll
+  module Antex
     module Metrics
-      class SVGBox < Jekyll::TeXyll::Metrics::Set
+      class SVGBox < Jekyll::Antex::Metrics::Set
         private
 
         def load(filename)

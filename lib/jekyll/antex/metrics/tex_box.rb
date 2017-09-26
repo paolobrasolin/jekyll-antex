@@ -3,9 +3,9 @@
 require 'yaml'
 
 module Jekyll
-  module TeXyll
+  module Antex
     module Metrics
-      class TeXBox < Jekyll::TeXyll::Metrics::Set
+      class TeXBox < Jekyll::Antex::Metrics::Set
         private
 
         def load(filename)

@@ -2,7 +2,7 @@
 
 require 'rspec'
 require 'jekyll'
-require 'jekyll/texyll'
+require 'jekyll/antex'
 require 'tmpdir'
 
 require 'nokogiri'

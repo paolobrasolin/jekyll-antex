@@ -4,7 +4,7 @@ require 'open3'
 require 'erb'
 
 module Jekyll
-  module TeXyll
+  module Antex
     module Compiler
       class Pipeline
         def initialize(pipeline:, engines:, context:)

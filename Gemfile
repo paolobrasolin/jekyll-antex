@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gemspec name: 'jekyll-texyll'
+gemspec name: 'jekyll-antex'
 
 group :development do
   # gem 'rake'

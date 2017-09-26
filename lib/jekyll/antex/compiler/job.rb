@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Jekyll
-  module TeXyll
+  module Antex
     module Compiler
       class Job
         def initialize(snippet: '', options: {})

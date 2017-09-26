@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Jekyll::TeXyll::Dealiaser do
+describe Jekyll::Antex::Dealiaser do
   describe 'initialized object' do
     subject { described_class.new }
 
@@ -16,7 +16,7 @@ describe Jekyll::TeXyll::Dealiaser do
         { regexp: /(?<code>)/, priority: 1000 },
         { regexp: /(?<code>)/, priority: 100 },
         { regexp: /(?<code>)/, priority: 10_000 }
-      ].map(&Jekyll::TeXyll::Alias.method(:new))
+      ].map(&Jekyll::Antex::Alias.method(:new))
     end
 
     before { subject.add_aliases aliases }
@@ -39,7 +39,7 @@ describe Jekyll::TeXyll::Dealiaser do
         { regexp: /BAR(?<code>.*?)RAB/, priority: 100 },
         { regexp: /BAZ(?<markup>.*?)#(?<code>.*?)ZAB/, priority: 0,
           options: { 'a' => 1, 'b' => 2 } }
-      ].map(&Jekyll::TeXyll::Alias.method(:new))
+      ].map(&Jekyll::Antex::Alias.method(:new))
     end
 
     before { subject.add_aliases aliases }
@@ -48,8 +48,8 @@ describe Jekyll::TeXyll::Dealiaser do
       expect(subject.parse(<<~INPUT)).to eq <<~OUTPUT
         FOO code here OOF
       INPUT
-        {% texyll --- {}
-         %} code here {% endtexyll %}
+        {% antex --- {}
+         %} code here {% endantex %}
       OUTPUT
     end
 
@@ -57,8 +57,8 @@ describe Jekyll::TeXyll::Dealiaser do
       expect(subject.parse(<<~INPUT)).to eq <<~OUTPUT
         BAR inside bar the foo FOO code here OOF cannot be seen RAB
       INPUT
-        {% texyll --- {}
-         %} inside bar the foo FOO code here OOF cannot be seen {% endtexyll %}
+        {% antex --- {}
+         %} inside bar the foo FOO code here OOF cannot be seen {% endantex %}
       OUTPUT
     end
 
@@ -66,10 +66,10 @@ describe Jekyll::TeXyll::Dealiaser do
       expect(subject.parse(<<~INPUT)).to eq <<~OUTPUT
         BAZ# code here ZAB
       INPUT
-        {% texyll ---
+        {% antex ---
         a: 1
         b: 2
-         %} code here {% endtexyll %}
+         %} code here {% endantex %}
       OUTPUT
     end
 
@@ -77,11 +77,11 @@ describe Jekyll::TeXyll::Dealiaser do
       expect(subject.parse(<<~INPUT)).to eq <<~OUTPUT
         BAZ { b: 0, c: -1 } # code here ZAB
       INPUT
-        {% texyll ---
+        {% antex ---
         a: 1
         b: 0
         c: -1
-         %} code here {% endtexyll %}
+         %} code here {% endantex %}
       OUTPUT
     end
   end

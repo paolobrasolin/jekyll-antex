@@ -6,7 +6,7 @@ Feature: Details
   Scenario Outline: me be stoopid
     Given I have a file "index.md" containing:
     """
-    {% texyll %}\vrule width<wd>ex height<ht>ex depth<dp>ex{% endtexyll %}
+    {% antex %}\vrule width<wd>ex height<ht>ex depth<dp>ex{% endantex %}
     """
     When I run jekyll
     Then the file "_site/index.html" should exist
@@ -21,7 +21,7 @@ Feature: Details
       |  1 |  1 |  0 | 0.0 |   0.0 |    0.0 |  0.0 |   1.0 |    1.0 |
 
   # Scenario: me be stoopid
-  #   Given I have a file "index.md" containing "{% texyll %}Hello world.{% endtexyll %}"
+  #   Given I have a file "index.md" containing "{% antex %}Hello world.{% endantex %}"
   #   When I run jekyll
   #   Then the file "_site/index.html" should exist
   #   And the image exists
@@ -30,7 +30,7 @@ Feature: Details
   # Scenario: me be stoopid
   #   Given I have a file "_config.yml":
   #     """
-  #     texyll:
+  #     antex:
   #       aliases:
   #         foo:
   #           priority: 100
@@ -40,7 +40,7 @@ Feature: Details
   #   And I have a file "index.md":
   #     """
   #     ---
-  #     texyll:
+  #     antex:
   #       aliases:
   #         foo:
   #           priority: 0

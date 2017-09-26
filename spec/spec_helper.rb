@@ -6,7 +6,7 @@ SimpleCov.start
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'jekyll'
-require 'jekyll/texyll'
+require 'jekyll/antex'
 
 Jekyll.logger.log_level = :error
 
@@ -29,7 +29,7 @@ RSpec.configure do |config|
   CONFIG_DEFAULTS = {
     'source'      => source_dir,
     'destination' => dest_dir,
-    'gems'        => ['jekyll/texyll'],
+    'gems'        => ['jekyll/antex'],
     # 'collections' => ['my_collection'],
     # 'maps'        => {
     #   'google' => {

@@ -63,7 +63,7 @@ end
 
 Then(/^the image exists$/) do
   doc = File.open('_site/index.html') { |f| Nokogiri::HTML(f) }
-  match = doc.at_css('span.texyll img')
+  match = doc.at_css('span.antex img')
   expect(match).not_to be_nil
   rel_path = match['src']
   # puts match
@@ -73,7 +73,7 @@ end
 
 Then(/^the image has margins: (\S+) (\S+) (\S+) (\S+)$/) do |mt, mr, mb, ml|
   doc = File.open('_site/index.html') { |f| Nokogiri::HTML(f) }
-  match = doc.at_css('span.texyll img')
+  match = doc.at_css('span.antex img')
   style = match['style']
   # margins = style.match(/margin:\s(.*);/)[1]
   # puts margins
@@ -85,7 +85,7 @@ end
 
 Then(/^the image has size: (\S+) (\S+)$/) do |wd, ht|
   doc = File.open('_site/index.html') { |f| Nokogiri::HTML(f) }
-  match = doc.at_css('span.texyll img')
+  match = doc.at_css('span.antex img')
   style = match['style']
   expect(style).to match(/width: #{wd}/)
   expect(style).to match(/height: #{ht}/)
