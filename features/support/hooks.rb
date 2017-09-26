@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Before do
   FileUtils.rm_rf(TEST_DIR) if File.exist?(TEST_DIR)
   FileUtils.mkdir_p TEST_DIR
@@ -14,5 +16,3 @@ After do
   FileUtils.rm_rf(TEST_DIR) if File.exist?(TEST_DIR)
   Dir.chdir Dir.tmpdir
 end
-
-

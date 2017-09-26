@@ -1,12 +1,14 @@
 
+# frozen_string_literal: true
+
 # Like "I have a foo file" but gives a yaml front matter so jekyll actually processes it
 Given(/^I have an? "(.*)" page(?: with (.*) "(.*)")? that contains "(.*)"$/) do |file, key, value, text|
   File.open(file, 'w') do |f|
-    f.write <<EOF
----
-#{key || 'layout'}: #{value || 'nil'}
----
-#{text}
+    f.write <<~EOF
+      ---
+      #{key || 'layout'}: #{value || 'nil'}
+      ---
+      #{text}
 EOF
     f.close
   end
@@ -45,14 +47,14 @@ Then(/^I should see "(.*)" in "(.*)"$/) do |pattern, file|
   text = File.open(file).readlines.join
 
   assert_match Regexp.new(pattern), text,
-    "Pattern /#{pattern}/ not found in: #{text}"
+               "Pattern /#{pattern}/ not found in: #{text}"
 end
 
 Then(/^I should not see "(.*)" in "(.*)"$/) do |pattern, file|
   text = File.open(file).readlines.join
 
   assert !text.match(Regexp.new(pattern)),
-    "Did not exptect /#{pattern}/ in: #{text}"
+         "Did not exptect /#{pattern}/ in: #{text}"
 end
 
 Then(/^the (file|dir) "(.*)" (should not exist|should exist)$/) do |type, path, condition|
@@ -63,5 +65,5 @@ Then(/^the (file|dir) "(.*)" (should not exist|should exist)$/) do |type, path, 
 end
 
 # Then(/^the "(.*)" file should not exist$/) do |file|
-  # assert !File.exists?(file)
+# assert !File.exists?(file)
 # end

@@ -2,6 +2,6 @@
 
 module Jekyll
   module TeXyll
-    VERSION = '0.0.0'
+    class Error < StandardError; end
   end
 end

@@ -23,7 +23,7 @@ module Jekyll
           Jekyll::TeXyll::Options::DEFAULTS,
           registers[:site].config['texyll'] || {},
           registers[:page]['texyll'] || {},
-          YAML.load(markup) || {}
+          YAML.safe_load(markup) || {}
         )
       end
     end

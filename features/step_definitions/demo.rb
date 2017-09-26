@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given /^a cucumber that is (\d+) cm long$/ do |length|
   @cucumber = { color: 'green', length: length.to_i }
 end
@@ -18,14 +20,3 @@ Then /^both are (\d+) cm long$/ do |length|
     expect(cuke[:length]).to eq(length.to_i)
   end
 end
-
-
-
-
-
-
-
-
-
-
-

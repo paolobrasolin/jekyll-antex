@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 require 'jekyll/texyll/version'
+
+require 'jekyll/texyll/error'
 
 require 'jekyll/texyll/utils/utils'
 
@@ -12,8 +16,8 @@ require 'jekyll/texyll/metrics/set'
 require 'jekyll/texyll/metrics/tex_box'
 require 'jekyll/texyll/metrics/svg_box'
 
-require 'jekyll/texyll/aliasing/alias'
-require 'jekyll/texyll/aliasing/parser'
+require 'jekyll/texyll/alias'
+require 'jekyll/texyll/dealiaser'
 
 require 'jekyll/texyll/generator'
 require 'jekyll/texyll/block'

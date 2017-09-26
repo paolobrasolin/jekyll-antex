@@ -11,8 +11,10 @@ module Jekyll
             page.data['texyll'] || {}
           )
           # TODO: abort operation if delimiters are off
-          dealiaser = Jekyll::TeXyll::Aliasing::Parser.new
-          dealiaser.load_named_aliases_hash(options['aliases'])
+          dealiaser = Jekyll::TeXyll::Aliasing::Dealiaser.new
+          aliases = options['aliases'].values
+                                      .map { |args| Alias.new Jekyll::Utils.symbolize_hash_keys(args) }
+          dealiaser.add_aliases aliases
           page.content = dealiaser.parse(page.content)
         end
 
@@ -28,8 +30,8 @@ module Jekyll
             post.data['texyll'] || {}
           )
           # TODO: abort operation if delimiters are off
-          dealiaser = Jekyll::TeXyll::Aliasing::Parser.new
-          dealiaser.load_named_aliases_hash(options['aliases'])
+          dealiaser = Jekyll::TeXyll::Aliasing::Dealiaser.new
+          dealiaser.load_aliases_configuration(options['aliases'])
           post.content = dealiaser.parse(post.content)
         end
       end

@@ -4,11 +4,7 @@ module Jekyll
   module TeXyll
     module Utils
       def self.deep_merge_list_of_hashes(*hashes)
-        result = {}
-        hashes.each do |hash|
-          result = Jekyll::Utils.deep_merge_hashes(result, hash)
-        end
-        result
+        hashes.reduce({}) { |result, hash| Jekyll::Utils.deep_merge_hashes result, hash }
       end
     end
   end

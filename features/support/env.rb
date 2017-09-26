@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rspec'
 require 'jekyll'
 require 'jekyll/texyll'
@@ -18,7 +20,6 @@ def prepend_test_dir(options, key)
 end
 
 def run_jekyll(options = {})
-
   @original_stderr = $stderr
   @original_stdout = $stdout
   $stderr = File.open(File::NULL, 'w')
@@ -33,5 +34,3 @@ def run_jekyll(options = {})
   site = Jekyll::Site.new(options)
   site.process
 end
-
-

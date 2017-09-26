@@ -14,7 +14,7 @@ module Jekyll
           prepare_code
           run_pipeline
           @gauge = Metrics::Gauge.new(
-            Hash[[:yml, :tfm, :fit].map { |sym| [sym, file(sym)] }]
+            Hash[%i[yml tfm fit].map { |sym| [sym, file(sym)] }]
           )
         end
 
@@ -49,9 +49,11 @@ module Jekyll
           )
           @hash = Digest::MD5.hexdigest(@code)
 
-          File.open(file(:tex), 'w') do |file|
-            file.write(@code)
-          end unless File.exist?(file(:tex))
+          unless File.exist?(file(:tex))
+            File.open(file(:tex), 'w') do |file|
+              file.write(@code)
+            end
+          end
         end
 
         def run_pipeline
