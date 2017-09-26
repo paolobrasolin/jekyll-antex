@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 lib = File.expand_path('../lib', __FILE__)
@@ -10,9 +9,12 @@ Gem::Specification.new do |s|
   s.version       = Jekyll::Antex::VERSION
   s.license       = 'MIT'
 
-  s.summary       = 'Jekyll *TeX integration'
-  s.description   = 'Antex implements *TeX support in Jekyll'\
-    ' to easily embed and render arbitrary code'
+  s.summary       = 'Universal TeX integration for Jekyll'
+  s.description   = <<~DESCRIPTION.gsub(/\s+/, ' ')
+    Jekyll-anTeX implements universal TeX support in Jekyll
+    to easily embed and render arbitrary code
+    using any engine and dialect.
+  DESCRIPTION
 
   s.author        = 'Paolo Brasolin'
   s.email         = 'paolo.brasolin@gmail.com'

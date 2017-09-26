@@ -17,5 +17,7 @@ require 'jekyll/antex/dealiaser'
 require 'jekyll/antex/generator'
 require 'jekyll/antex/block'
 
-module Jekyll::Antex
+module Jekyll
+  module Antex
+  end
 end
