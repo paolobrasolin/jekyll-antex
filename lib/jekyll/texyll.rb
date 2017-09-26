@@ -22,7 +22,5 @@ require 'jekyll/texyll/dealiaser'
 require 'jekyll/texyll/generator'
 require 'jekyll/texyll/block'
 
-module Jekyll
-  module TeXyll
-  end
+module Jekyll::TeXyll
 end
