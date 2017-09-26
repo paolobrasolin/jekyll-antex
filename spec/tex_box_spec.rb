@@ -2,12 +2,12 @@
 
 require 'spec_helper'
 
-xdescribe Jekyll::Antex::Metrics::TeXBox do
+xdescribe Antex::Metrics::TeXBox do
   let(:data) { { true_metric: '10.0pt', zero_metric: '0.0pt' } }
   let(:result) { { true_metric: 10.0, zero_metric: 0.0, pt: 1.0 } }
 
   describe 'initializing with no options' do
-    let(:box) { Jekyll::Antex::Metrics::TeXBox.new }
+    let(:box) { Antex::Metrics::TeXBox.new }
 
     it 'has no metrics' do
       expect(box.metrics).to be_empty
@@ -27,7 +27,7 @@ xdescribe Jekyll::Antex::Metrics::TeXBox do
   describe '.load_yml' do
     context 'when initialized with a file' do
       before { allow(YAML).to receive(:load_file).with('filename') { data } }
-      let(:box) { Jekyll::Antex::Metrics::TeXBox.new(filename: 'filename') }
+      let(:box) { Antex::Metrics::TeXBox.new(filename: 'filename') }
 
       it 'contains the trivial metric' do
         box.unit = :true_metric

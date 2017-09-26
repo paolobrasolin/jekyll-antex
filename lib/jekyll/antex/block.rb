@@ -9,7 +9,7 @@ module Jekyll::Antex
 
     def render(context)
       options = load_options(registers: context.registers)
-      job = Jekyll::Antex::Compiler::Job.new(snippet: super, options: options)
+      job = Antex::Compiler::Job.new(snippet: super, options: options)
       job.run
       job.add_to_static_files_of(context.registers[:site])
       job.html_tag

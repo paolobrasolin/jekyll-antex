@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
-# This first block must go into its own library
-require 'jekyll/antex/compiler/job'
-require 'jekyll/antex/compiler/pipeline'
-require 'jekyll/antex/metrics/gauge'
-require 'jekyll/antex/metrics/set'
-require 'jekyll/antex/metrics/tex_box'
-require 'jekyll/antex/metrics/svg_box'
+require 'antex/antex'
 
 require 'jekyll/antex/version'
 require 'jekyll/antex/error'
