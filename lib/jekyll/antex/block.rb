@@ -18,12 +18,10 @@ module Jekyll::Antex
     private
 
     def load_options(markup: @markup, registers:)
-      Jekyll::Antex::Utils.deep_merge_list_of_hashes(
-        Jekyll::Antex::Options::DEFAULTS,
-        registers[:site].config['antex'] || {},
-        registers[:page]['antex'] || {},
-        YAML.safe_load(markup) || {}
-      )
+      Jekyll::Antex::Options.build Jekyll::Antex::Options::DEFAULTS,
+                                   registers[:site].config['antex'] || {},
+                                   registers[:page]['antex'] || {},
+                                   YAML.safe_load(markup) || {}
     end
   end
 end
