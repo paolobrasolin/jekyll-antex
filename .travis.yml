@@ -1,5 +1,6 @@
 env:
-  CODECLIMATE_REPO_TOKEN: f0e049df5884387225a489a80624f65545d27247c03ab7744f4e7c06c8600178
+  global:
+    - CC_TEST_REPORTER_ID=f0e049df5884387225a489a80624f65545d27247c03ab7744f4e7c06c8600178
 language: ruby
 rvm:
   - 2.3
@@ -7,8 +8,15 @@ install:
   - source travis/texlive/install
   - bundle install
 before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script:
   - bundle exec rspec
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 branches:
   only:
   - master
+
+
