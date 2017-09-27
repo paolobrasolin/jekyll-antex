@@ -1,7 +1,6 @@
 language: ruby
 rvm:
   - 2.3
-  - 2.4
 install:
   - source travis/texlive/install
   - bundle install
