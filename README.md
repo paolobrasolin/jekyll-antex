@@ -1,4 +1,7 @@
 # jekyll-antex
 
 [![Build Status](https://travis-ci.org/paolobrasolin/jekyll-antex.svg?branch=master)](https://travis-ci.org/paolobrasolin/jekyll-antex)
-[![Latest release](https://img.shields.io/github/release/paolobrasolin/jekyll-antex.svg)](https://github.com/paolobrasolin/jekyll-antex)
+[![Latest Release](https://img.shields.io/github/release/paolobrasolin/jekyll-antex.svg)](https://github.com/paolobrasolin/jekyll-antex)
+[![Code Climate](https://codeclimate.com/github/paolobrasolin/jekyll-antex/badges/gpa.svg)](https://codeclimate.com/github/paolobrasolin/jekyll-antex)
+[![Test Coverage](https://codeclimate.com/github/paolobrasolin/jekyll-antex/badges/coverage.svg)](https://codeclimate.com/github/paolobrasolin/jekyll-antex/coverage)
+[![Issue Count](https://codeclimate.com/github/paolobrasolin/jekyll-antex/badges/issue_count.svg)](https://codeclimate.com/github/paolobrasolin/jekyll-antex)
