@@ -14,10 +14,10 @@ group :development do
 end
 
 # TODO: drop this
-if Dir.exist?(File.expand_path("~/antex"))
-  gem "antex", :path => "~/antex"
+if Dir.exist?(File.expand_path('~/antex'))
+  gem 'antex', path: '~/antex'
 elsif ENV['TRAVIS']
-  gem 'antex', :git => 'https://github.com/paolobrasolin/antex.git'
+  gem 'antex', git: 'https://github.com/paolobrasolin/antex.git'
 else
   gem 'antex'
 end
