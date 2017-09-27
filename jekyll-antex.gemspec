@@ -19,11 +19,10 @@ Gem::Specification.new do |spec|
   spec.email         = 'paolo.brasolin@gmail.com'
   spec.homepage      = 'https://github.com/paolobrasolin/antex'
 
-  # TODO: the following grep must be revised
-  spec.files         = `git ls-files -z`.split("\x0").reject do |file|
-    file.match(%r{^(test|spec|features)/})
-  end
+  spec.files         = `git ls-files lib README.md LICENSE.txt`.split("\x0")
   spec.require_paths = ['lib']
+
+  # spec.required_ruby_version = '~> 2.4'
 
   spec.add_runtime_dependency 'jekyll', '~> 3.0'
   # spec.add_runtime_dependency 'antex'
