@@ -2,18 +2,10 @@
 
 source 'https://rubygems.org'
 
-gemspec name: 'jekyll-antex'
+gemspec
 
-group :development do
-  gem 'rspec'
-  gem 'simplecov'
-  # gem 'rake'
-  # gem 'cucumber'
-  # gem 'guard'
-  # gem 'guard-cucumber'
-end
+# TODO: drop everything below this point
 
-# TODO: drop this
 if Dir.exist?(File.expand_path('~/antex'))
   antex_source = { path: '~/antex' }
 elsif ENV['TRAVIS']
