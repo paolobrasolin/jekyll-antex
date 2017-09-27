@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
-module Jekyll::Antex
-  class Error < StandardError; end
+module Jekyll
+  module Antex
+    class Error < StandardError; end
+  end
 end
