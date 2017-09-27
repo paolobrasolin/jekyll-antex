@@ -15,8 +15,9 @@ end
 
 # TODO: drop this
 if Dir.exist?(File.expand_path('~/antex'))
-  gem 'antex', path: '~/antex'
+  antex_source = { path: '~/antex' }
 elsif ENV['TRAVIS']
-  gem 'antex', git: 'https://github.com/paolobrasolin/antex.git'
-  # gem 'antex'
+  antex_source = { git: 'https://github.com/paolobrasolin/antex.git' }
 end
+
+gem 'antex', **antex_source
