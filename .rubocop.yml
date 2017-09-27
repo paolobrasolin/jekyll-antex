@@ -1,5 +1,8 @@
 AllCops:
   TargetRubyVersion: 2.3
+  Exclude:
+    - spec/block_spec.rb
+    - features/**/*
 
 Metrics/BlockLength:
   Exclude: 
