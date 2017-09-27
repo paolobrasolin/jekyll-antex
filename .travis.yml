@@ -1,3 +1,5 @@
+env:
+  CODECLIMATE_REPO_TOKEN: 1234
 language: ruby
 rvm:
   - 2.3
