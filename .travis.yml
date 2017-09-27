@@ -1,12 +1,13 @@
 language: ruby
 rvm:
-  - 2.2.5
+  - 2.3
+  - 2.4
 install:
   - source travis/texlive/install
   - bundle install
 before_script:
 script:
-  - cucumber
+  - rspec
 branches:
   only:
   - master
