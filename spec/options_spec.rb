@@ -2,6 +2,8 @@
 
 require 'jekyll/utils'
 
+# rubocop:disable Style/BracesAroundHashParameters
+
 describe Jekyll::Antex::Options do
   describe '.build' do
     it 'deep merges hashes in order' do

@@ -52,9 +52,9 @@ module Jekyll
       end
 
       def render_matched_alias_as_tag(match:, options:)
+        markup = YAML.safe_load match[:markup] if match.names.include?('markup')
+        markup = YAML.dump Options.build(options || {}, markup || {})
         code = match['code']
-        markup = YAML.safe_load match['markup'] if match.names.include?('markup')
-        markup = YAML.dump Jekyll::Utils.deep_merge_hashes(options || {}, markup || {})
         "{% #{@tag} #{markup} %}#{code}{% end#{@tag} %}"
       end
     end

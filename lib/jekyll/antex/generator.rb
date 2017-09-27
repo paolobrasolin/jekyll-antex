@@ -25,8 +25,8 @@ module Jekyll
 
       def build_options(site:, resource:)
         Jekyll::Antex::Options.build Jekyll::Antex::Options::DEFAULTS,
-                                    site.config['antex'] || {},
-                                    resource.data['antex'] || {}
+                                     site.config['antex'] || {},
+                                     resource.data['antex'] || {}
       end
 
       def build_aliases(options_hash)
