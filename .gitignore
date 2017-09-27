@@ -8,7 +8,7 @@ _site
 node_modules
 .DS_store
 
-.texyll-cache/
+.antex-cache/
 
 # swap
 [._]*.s[a-w][a-z]
