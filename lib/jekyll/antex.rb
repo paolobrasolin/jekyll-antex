@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'antex/antex'
+require 'antex'
 
 require 'jekyll/antex/version'
 require 'jekyll/antex/error'

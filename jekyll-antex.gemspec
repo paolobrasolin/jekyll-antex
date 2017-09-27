@@ -26,10 +26,10 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_runtime_dependency('jekyll', '~> 3.0')
+  # s.add_runtime_dependency('antex')
   s.add_runtime_dependency('execjs')
   s.add_runtime_dependency('digest')
   s.add_runtime_dependency('nokogiri')
-  # s.add_runtime_dependency('fileutils')
 
   # s.add_development_dependency('rake', '~> 11.0')
   s.add_development_dependency('rspec', '~> 3.5')
