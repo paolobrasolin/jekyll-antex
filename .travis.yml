@@ -6,7 +6,7 @@ install:
   - bundle install
 before_script:
 script:
-  - rspec
+  - bundle exec rspec
 branches:
   only:
   - master
