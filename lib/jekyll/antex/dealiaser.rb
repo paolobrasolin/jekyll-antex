@@ -39,8 +39,8 @@ module Jekyll::Antex
     end
 
     def render_stashed_aliases_as_tags
-      @stash.transform_values! do |value|
-        render_matched_alias_as_tag(**value)
+      @stash.each do |key, value|
+        @stash[key] = render_matched_alias_as_tag(**value)
       end
     end
 
