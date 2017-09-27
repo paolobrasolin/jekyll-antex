@@ -13,6 +13,7 @@ group :development do
   # gem 'guard-cucumber'
 end
 
+# TODO: drop this
 if Dir.exist?(File.expand_path("~/antex"))
   gem "antex", :path => "~/antex"
 elsif ENV['TRAVIS']

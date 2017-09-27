@@ -11,11 +11,19 @@ module Jekyll::Antex
       options = load_options(registers: context.registers)
       job = Antex::Compiler::Job.new(snippet: super, options: options)
       job.run
-      job.add_to_static_files_of(context.registers[:site])
+      add_static_files(context.registers[:site], job)
       job.html_tag
     end
 
     private
+
+    def add_static_files(site, job)
+      FileUtils.cp(job.file(:fit), job.file(:svg))
+      # TODO: minify/compress svg?
+      site.static_files << Jekyll::StaticFile.new(
+        site, job.dir(:work), job.options['dest_dir'], "#{job.hash}.svg"
+      )
+    end
 
     def load_options(markup: @markup, registers:)
       Jekyll::Antex::Options.build Jekyll::Antex::Options::DEFAULTS,
