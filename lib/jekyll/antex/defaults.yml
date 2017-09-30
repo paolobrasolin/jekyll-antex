@@ -1,5 +1,4 @@
-dest_dir: antex
-work_dir: .antex-cache
+work_dir: antex
 preamble: |
   \usepackage{amsmath, amsthm, amssymb, amsfonts}
   \usepackage{tikz}
@@ -24,7 +23,8 @@ pipeline:
   - latexmk
   - dvisvgm_tfm
   - dvisvgm_fit
-engines:
+  - bogus_minifier
+commands:
   latexmk:
     command:
       - latexmk
@@ -56,6 +56,15 @@ engines:
       - <%=file(:dvi)%>
     targets:
       - <%=file(:fit)%>
+  bogus_minifier: # TODO: actually use a minifier
+    command:
+      - cp
+      - <%=file(:fit)%>
+      - <%=file(:svg)%>
+    sources:
+      - <%=file(:fit)%>
+    targets:
+      - <%=file(:svg)%>
 aliases:
   internal:
     priority: 1000
