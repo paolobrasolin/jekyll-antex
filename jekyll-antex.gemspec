@@ -19,18 +19,18 @@ Gem::Specification.new do |spec|
   spec.email         = 'paolo.brasolin@gmail.com'
   spec.homepage      = 'https://github.com/paolobrasolin/antex'
 
-  spec.files         = `git ls-files lib README.md LICENSE.txt`.split("\x0")
+  spec.files         = `git ls-files lib README.md LICENSE.txt`.split("\n")
   spec.require_paths = ['lib']
 
-  # spec.required_ruby_version = '~> 2.4'
+  spec.required_ruby_version = '>= 2.3'
 
   spec.add_runtime_dependency 'jekyll', '~> 3.0'
-  # spec.add_runtime_dependency 'antex'
+  spec.add_runtime_dependency 'antex', '~> 0.1'
 
-  spec.add_development_dependency 'guard'
-  spec.add_development_dependency 'guard-rspec'
-  spec.add_development_dependency 'simplecov'
-  spec.add_development_dependency 'rspec'
-  spec.add_development_dependency 'rubocop'
-  spec.add_development_dependency 'yard'
+  spec.add_development_dependency 'guard', '~> 2.14'
+  spec.add_development_dependency 'guard-rspec', '~> 4.7'
+  spec.add_development_dependency 'simplecov', '~> 0.15'
+  spec.add_development_dependency 'rspec', '~> 3.6'
+  spec.add_development_dependency 'rubocop', '~> 0.50'
+  spec.add_development_dependency 'yard', '~> 0.9'
 end

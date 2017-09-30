@@ -6,9 +6,9 @@ preamble: |
 template: |
   \documentclass{article}
   \pagestyle{empty}
-  {{preamble}}
+  {{ preamble }}
   \newsavebox\snippet
-  \begin{lrbox}{\snippet}{{prepend}}{{snippet}}{{append}}\end{lrbox}
+  \begin{lrbox}{\snippet}{{ prepend }}{{ snippet }}{{ append }}\end{lrbox}
   \newwrite\file
   \immediate\openout\file=\jobname.yml
   \immediate\write\file{em: \the\dimexpr1em}
@@ -24,47 +24,57 @@ pipeline:
   - dvisvgm_tfm
   - dvisvgm_fit
   - bogus_minifier
+dirs:
+  work: .antex-cache
+  dest: .antex-cache/antex
+files:
+  tex: "{{ dir.work }}/{{ hash }}.tex"
+  dvi: "{{ dir.work }}/{{ hash }}.dvi"
+  yml: "{{ dir.work }}/{{ hash }}.yml"
+  tfm: "{{ dir.work }}/{{ hash }}.tfm.svg"
+  fit: "{{ dir.work }}/{{ hash }}.fit.svg"
+  svg: "{{ dir.dest }}/{{ hash }}.svg"
 commands:
   latexmk:
     command:
-      - latexmk
-      - -output-directory=<%=dir(:work)%>
-      - <%=file(:tex)%>
+      - "latexmk"
+      - "-output-directory={{ dir.work }}"
+      - "{{ file.tex }}"
     sources:
-      - <%=file(:tex)%>
+      - "{{ file.tex }}"
     targets:
-      - <%=file(:dvi)%>
-      - <%=file(:yml)%>
+      - "{{ file.dvi }}"
+      - "{{ file.yml }}"
   dvisvgm_tfm:
     command:
-      - dvisvgm
-      - --no-fonts
-      - <%=file(:dvi)%>
-      - --output=<%=file(:tfm)%>
+      - "dvisvgm"
+      - "--no-fonts"
+      - "{{ file.dvi }}"
+      - "--output={{ file.tfm }}"
     sources:
-      - <%=file(:dvi)%>
+      - "{{ file.dvi }}"
     targets:
-      - <%=file(:tfm)%>
+      - "{{ file.tfm }}"
   dvisvgm_fit:
     command:
-      - dvisvgm
-      - --no-fonts
-      - --exact
-      - <%=file(:dvi)%>
-      - --output=<%=file(:fit)%>
+      - "dvisvgm"
+      - "--no-fonts"
+      - "--exact"
+      - "{{ file.dvi }}"
+      - "--output={{ file.fit }}"
     sources:
-      - <%=file(:dvi)%>
+      - "{{ file.dvi }}"
     targets:
-      - <%=file(:fit)%>
+      - "{{ file.fit }}"
   bogus_minifier: # TODO: actually use a minifier
     command:
-      - cp
-      - <%=file(:fit)%>
-      - <%=file(:svg)%>
+      - "cp"
+      - "{{ file.fit }}"
+      - "{{ file.svg }}"
     sources:
-      - <%=file(:fit)%>
+      - "{{ file.fit }}"
     targets:
-      - <%=file(:svg)%>
+      - "{{ file.svg }}"
 aliases:
   internal:
     priority: 1000
