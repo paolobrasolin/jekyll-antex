@@ -1,4 +1,3 @@
-work_dir: antex
 preamble: |
   \usepackage{amsmath, amsthm, amssymb, amsfonts}
   \usepackage{tikz}
@@ -23,7 +22,7 @@ pipeline:
   - latexmk
   - dvisvgm_tfm
   - dvisvgm_fit
-  - bogus_minifier
+  - cp_to_dest
 dirs:
   work: .antex-cache
   dest: .antex-cache/antex
@@ -66,7 +65,7 @@ commands:
       - "{{ file.dvi }}"
     targets:
       - "{{ file.fit }}"
-  bogus_minifier: # TODO: actually use a minifier
+  cp_to_dest:
     command:
       - "cp"
       - "{{ file.fit }}"
