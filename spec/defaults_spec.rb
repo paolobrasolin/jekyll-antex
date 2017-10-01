@@ -21,19 +21,19 @@ describe 'default configuration' do
     # site.generate
   end
 
-  it 'renders matched regexp with typeset image' do
-    expect { site.pages.first.render site.layouts, site.site_payload }
-      .to change { site.pages.first.content }
-      .from(<<~'READ').to(include <<~'RENDERED')
-        ---
-        This is my first {% antex %}\TeX{% endantex %} paragraph.
-    READ
-        <p>This is my first <span class="antex"><img style="margin: 0.001ex 0.056ex -0.5ex 0.0ex; height: 2.086ex; width: 4.267ex;" src="antex/c0e86f842cc44de5acca550f5449d23d.svg" /></span> paragraph.</p>
-    RENDERED
-  end
+  # it 'renders matched regexp with typeset image' do
+  #   expect { site.pages.first.render site.layouts, site.site_payload }
+  #     .to change { site.pages.first.content }
+  #     .from(<<~'READ').to(include <<~'RENDERED')
+  #       ---
+  #       This is my first {% antex %}\TeX{% endantex %} paragraph.
+  #   READ
+  #       <p>This is my first <span class="antex"><img style="margin: 0.001ex 0.056ex -0.5ex 0.0ex; height: 2.086ex; width: 4.267ex;" src="antex/c0e86f842cc44de5acca550f5449d23d.svg" /></span> paragraph.</p>
+  #   RENDERED
+  # end
 
-  it 'includes rendered image into static files' do
-    expect { site.pages.first.render site.layouts, site.site_payload }
-      .to change { site.static_files.length }.by 1
-  end
+  # it 'includes rendered image into static files' do
+  #   expect { site.pages.first.render site.layouts, site.site_payload }
+  #     .to change { site.static_files.length }.by 1
+  # end
 end
