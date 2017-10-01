@@ -14,7 +14,8 @@ module Jekyll
           dealias_resource_content! site: site, resource: page
         end
 
-        site.posts.each do |post|
+        # NOTE: jekyll deprecated direct access to site.posts.each
+        site.posts.docs.each do |post|
           dealias_resource_content! site: site, resource: post
         end
       end
