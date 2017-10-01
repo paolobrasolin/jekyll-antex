@@ -28,32 +28,64 @@ describe Jekyll::Antex::Generator do
   end
 
   describe 'jekyll integration' do
-    setup_site
+    context 'writing a page' do
+      setup_site
 
-    setup_page <<~'SOURCE'
-      ---
-      This is my first \TeX paragraph.
-    SOURCE
+      setup_page <<~'SOURCE'
+        ---
+        This is my first \TeX paragraph.
+      SOURCE
 
-    before do
-      site.setup
-      site.read
+      before do
+        site.setup
+        site.read
+      end
+
+      it 'dealiases matched regexp as an "antex" liquid tag' do
+        expect { site.generate }
+          .to change { site.pages.first.content }
+          .from(<<~'READ').to(<<~'GENERATED')
+            ---
+            This is my first \TeX paragraph.
+        READ
+            ---
+            This is my first {% antex ---
+            classes:
+            - antex
+            - inline
+             %}\TeX{% endantex %} paragraph.
+        GENERATED
+      end
     end
 
-    it 'dealiases matched regexp as an "antex" liquid tag' do
-      expect { site.generate }
-        .to change { site.pages.first.content }
-        .from(<<~'READ').to(<<~'GENERATED')
-          ---
-          This is my first \TeX paragraph.
-      READ
-          ---
-          This is my first {% antex ---
-          classes:
-          - antex
-          - inline
-           %}\TeX{% endantex %} paragraph.
-      GENERATED
+    context 'writing a post' do
+      setup_site
+
+      setup_post <<~'SOURCE'
+        ---
+        This is my first \TeX paragraph.
+      SOURCE
+
+      before do
+        site.setup
+        site.read
+      end
+
+      it 'dealiases matched regexp as an "antex" liquid tag' do
+        expect { site.generate }
+          .to change { site.posts.first.content }
+          .from(<<~'READ').to(<<~'GENERATED')
+            ---
+            This is my first \TeX paragraph.
+        READ
+            ---
+            This is my first {% antex ---
+            classes:
+            - antex
+            - inline
+             %}\TeX{% endantex %} paragraph.
+        GENERATED
+      end
     end
   end
 end

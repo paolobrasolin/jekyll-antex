@@ -39,3 +39,16 @@ def setup_page(content = '', method_name = :page)
     File.read File.join(tmpdir, '_site', method_name.to_s + '.html')
   end
 end
+
+def setup_post(content = '', method_name = :post)
+  before do
+    FileUtils.mkdir_p File.join(tmpdir, '_posts')
+    File.open(File.join(tmpdir, '_posts', '1970-01-01-' + method_name.to_s + '.md'), 'w') do |file|
+      file.write content
+    end
+  end
+
+  let(method_name) do
+    File.read File.join(tmpdir, '_posts', '1970-01-01-' + method_name.to_s + '.html')
+  end
+end

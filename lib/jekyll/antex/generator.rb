@@ -11,20 +11,20 @@ module Jekyll
     class Generator < Jekyll::Generator
       def generate(site)
         site.pages.each do |page|
-          dealiaser = build_dealiaser site: site, resource: page
-          page.content = dealiaser.parse page.content
+          dealias_resource_content! site: site, resource: page
         end
 
-        # site.documents.each do |document|
-        #   TODO
-        # end
-
-        # site.posts.docs.each do |post|
-        #   TODO
-        # end
+        site.posts.each do |post|
+          dealias_resource_content! site: site, resource: post
+        end
       end
 
       private
+
+      def dealias_resource_content!(site:, resource:)
+        dealiaser = build_dealiaser site: site, resource: resource
+        resource.content = dealiaser.parse resource.content
+      end
 
       def build_dealiaser(site:, resource:)
         options = build_options(site: site, resource: resource)
