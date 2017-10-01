@@ -27,7 +27,7 @@ module Jekyll
 
       def render_html(job)
         _, dir, name = static_file_paths job
-        img_tag = render_img_tag src: File.join(dir, name),
+        img_tag = render_img_tag src: File.join('', dir, name),
                                  set_box: job.set_box
         classes = job.options['classes'].join(' ')
         "<span class='#{classes}'>#{img_tag}</span>"
