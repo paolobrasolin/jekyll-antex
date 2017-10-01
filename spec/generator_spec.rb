@@ -27,9 +27,7 @@ describe Jekyll::Antex::Generator do
         This is my first *very plain* paragraph.
       GENERATED
     end
-
   end
-
 
   context 'writing a page' do
     setup_site
@@ -48,15 +46,15 @@ describe Jekyll::Antex::Generator do
       expect { site.generate }
         .to change { site.pages.first.content }
         .from(<<~'READ').to(<<~'GENERATED')
-        ---
-        This is my first \TeX paragraph.
+          ---
+          This is my first \TeX paragraph.
       READ
-        ---
-        This is my first {% antex ---
-        classes:
-        - antex
-        - inline
-         %}\TeX{% endantex %} paragraph.
+          ---
+          This is my first {% antex ---
+          classes:
+          - antex
+          - inline
+           %}\TeX{% endantex %} paragraph.
       GENERATED
     end
   end
