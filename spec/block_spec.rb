@@ -3,10 +3,6 @@
 require 'jekyll/antex/block'
 require 'jekyll_helper'
 
-require 'byebug'
-
-require 'jekyll/antex'
-
 describe Jekyll::Antex::Block do
   setup_tmpdir
 

@@ -3,8 +3,6 @@
 require 'jekyll/antex/generator'
 require 'jekyll_helper'
 
-require 'byebug'
-
 describe Jekyll::Antex::Generator do
   setup_tmpdir
 
