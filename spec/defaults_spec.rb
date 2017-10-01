@@ -28,7 +28,7 @@ describe 'default configuration' do
         ---
         This is my first {% antex %}\TeX{% endantex %} paragraph.
     READ
-        <p>This is my first <span class="antex"><img style="margin: 0.001ex 0.056ex -0.5ex 0.0ex; height: 2.086ex; width: 4.267ex;" src="antex/eccd48af60d2010639393a7de1b901c7.svg" /></span> paragraph.</p>
+        <p>This is my first <span class="antex"><img style="margin: 0.001ex 0.056ex -0.5ex 0.0ex; height: 2.086ex; width: 4.267ex;" src="antex/c0e86f842cc44de5acca550f5449d23d.svg" /></span> paragraph.</p>
     RENDERED
   end
 
