@@ -27,7 +27,7 @@ describe Jekyll::Antex::Generator do
     end
   end
 
-  context 'writing a page' do
+  describe 'jekyll integration' do
     setup_site
 
     setup_page <<~'SOURCE'

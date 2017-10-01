@@ -6,7 +6,7 @@ require 'jekyll_helper'
 describe Jekyll::Antex::Block do
   setup_tmpdir
 
-  describe 'full page rendering' do
+  describe 'jekyll integration' do
     setup_site
 
     setup_page <<~'SOURCE'
