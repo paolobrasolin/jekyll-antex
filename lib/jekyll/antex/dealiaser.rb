@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require 'jekyll/utils'
 require 'securerandom'
+
+require 'jekyll/antex/options'
 
 module Jekyll
   module Antex

@@ -109,6 +109,4 @@ aliases:
     priority: 0
     regexp: !ruby/regexp /(?<code>\\[A-z]+)/
     options:
-      prepend:
-      append:
       classes: [antex, inline]

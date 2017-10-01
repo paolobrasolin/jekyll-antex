@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'jekyll', '~> 3.0'
   spec.add_runtime_dependency 'antex', '~> 0.1'
 
+  spec.add_development_dependency 'byebug', '~> 9.1'
   spec.add_development_dependency 'guard', '~> 2.14'
   spec.add_development_dependency 'guard-rspec', '~> 4.7'
   spec.add_development_dependency 'simplecov', '~> 0.15'

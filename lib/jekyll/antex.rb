@@ -2,10 +2,10 @@
 
 require 'antex'
 
-require_relative 'antex/version'
-require_relative 'antex/error'
-require_relative 'antex/options'
-require_relative 'antex/alias'
-require_relative 'antex/dealiaser'
-require_relative 'antex/generator'
-require_relative 'antex/block'
+require 'jekyll/antex/version'
+require 'jekyll/antex/error'
+require 'jekyll/antex/options'
+require 'jekyll/antex/alias'
+require 'jekyll/antex/dealiaser'
+require 'jekyll/antex/generator'
+require 'jekyll/antex/block'

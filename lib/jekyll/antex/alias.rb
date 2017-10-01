@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'jekyll/antex/error'
+
 module Jekyll
   module Antex
     class Alias

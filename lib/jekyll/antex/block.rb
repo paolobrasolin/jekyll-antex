@@ -1,5 +1,12 @@
 # frozen_string_literal: true
 
+require 'jekyll'
+require 'liquid'
+require 'antex'
+require 'yaml'
+
+require 'jekyll/antex/options'
+
 module Jekyll
   module Antex
     class Block < Liquid::Block

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'jekyll/utils'
+require 'jekyll/antex/options'
 
 # rubocop:disable Style/BracesAroundHashParameters
 
