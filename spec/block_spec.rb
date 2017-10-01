@@ -29,7 +29,7 @@ describe Jekyll::Antex::Block do
     it 'renders matched regexp with typeset image' do
       expect { site.pages.first.render site.layouts, site.site_payload }
         .to change { site.pages.first.content }
-        .from(<<~'GENERATED').to(include <<~'GENERATED')
+        .from(<<~'GENERATED').to(include <<~'RENDERED')
           ---
           This is my first {% antex ---
           classes:
@@ -38,7 +38,7 @@ describe Jekyll::Antex::Block do
            %}\TeX{% endantex %} paragraph.
       GENERATED
           <p>This is my first <span class="antex inline"><img style="margin: 0.001ex 0.056ex -0.5ex 0.0ex; height: 2.086ex; width: 4.267ex;" src="antex/eccd48af60d2010639393a7de1b901c7.svg" /></span> paragraph.</p>
-      GENERATED
+      RENDERED
     end
   end
 end
