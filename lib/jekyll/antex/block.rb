@@ -16,7 +16,7 @@ module Jekyll
       end
 
       def render(context)
-        options = build_options context: context, markup: @markup
+        options = build_options registers: context.registers, markup: @markup
         job = ::Antex::Job.new snippet: super, options: options
         job.run!
         add_static_file context.registers[:site], job
@@ -61,10 +61,10 @@ module Jekyll
         ]
       end
 
-      def build_options(context:, markup:)
+      def build_options(registers:, markup:)
         Jekyll::Antex::Options.build Jekyll::Antex::Options::DEFAULTS,
-                                     context.registers[:site].config['antex'] || {},
-                                     context.registers[:page]['antex'] || {},
+                                     registers[:site].config['antex'] || {},
+                                     registers[:page]['antex'] || {},
                                      YAML.safe_load(markup) || {}
       end
     end
