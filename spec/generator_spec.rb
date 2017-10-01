@@ -38,7 +38,7 @@ describe Jekyll::Antex::Generator do
     SOURCE
 
     before do
-      # site.setup
+      site.setup
       site.read
     end
 
