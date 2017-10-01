@@ -3,3 +3,5 @@ pgf
 xcolor
 graphics
 latex-bin
+dvisvgm
+latexmk
