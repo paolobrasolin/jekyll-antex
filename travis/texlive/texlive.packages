@@ -5,6 +5,7 @@ standalone
 pgf
 graphics
 xcolor
+tools
 mathtools
 amsmath
 amsfonts
