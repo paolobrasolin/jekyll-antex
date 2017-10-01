@@ -18,8 +18,6 @@ describe Jekyll::Antex::Block do
       This is my first \TeX paragraph.
     SOURCE
 
-    # before { site.process }
-
     before do
       site.setup
       site.read
