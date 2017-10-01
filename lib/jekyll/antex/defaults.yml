@@ -1,7 +1,6 @@
 preamble: |
-  \usepackage{amsmath, amsthm, amssymb, amsfonts}
+  \usepackage{mathtools, amssymb}
   \usepackage{tikz}
-  \usepackage{graphicx}
 template: |
   \documentclass{article}
   \pagestyle{empty}
