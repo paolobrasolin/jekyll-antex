@@ -26,7 +26,8 @@ module Jekyll
       private
 
       def render_html(job)
-        img_tag = render_img_tag src: File.join('antex', File.basename(job.files['svg'])),
+        _, dir, name = static_file_paths job
+        img_tag = render_img_tag src: File.join(dir, name),
                                  set_box: job.set_box
         classes = job.options['classes'].join(' ')
         "<span class='#{classes}'>#{img_tag}</span>"
@@ -46,11 +47,18 @@ module Jekyll
 
       def add_static_file(site, job)
         site.static_files << Jekyll::StaticFile.new(
-          site,
-          job.dirs['work'],
-          job.dirs['dest'].gsub(/^#{Regexp.escape job.dirs['work']}(?=\/|$)/, ''),
-          File.basename(job.files['svg'])
+          site, *static_file_paths(job)
         )
+      end
+
+      def static_file_paths(job)
+        work_dir_prefix = %r{^#{Regexp.escape job.dirs['work']}(?=\/|$)}
+        # base, dir, name
+        [
+          job.dirs['work'],
+          job.dirs['dest'].sub(work_dir_prefix, '').sub(%r{^\/}, ''),
+          File.basename(job.files['svg'])
+        ]
       end
 
       def build_options(context:, markup:)
