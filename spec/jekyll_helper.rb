@@ -20,8 +20,7 @@ def setup_site(configuration = {}, method_name = :site)
   let(method_name) do
     defaults = {
       source: tmpdir,
-      destination: File.join(tmpdir, '_site'),
-      plugins: ['jekyll/antex']
+      destination: File.join(tmpdir, '_site')
     }
     site_config = Jekyll.configuration defaults.merge(configuration)
     site = Jekyll::Site.new site_config
