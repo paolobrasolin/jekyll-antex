@@ -3,8 +3,8 @@ dvisvgm
 latexmk
 standalone
 pgf
+graphics
 xcolor
 mathtools
 amsmath
 amsfonts
-keyval
