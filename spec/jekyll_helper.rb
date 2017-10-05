@@ -28,6 +28,14 @@ def setup_site(configuration = {}, method_name = :site)
   end
 end
 
+def setup_config(content = '', method_name = :config)
+  before do
+    File.open(File.join(tmpdir, '_config.yml'), 'w') do |file|
+      file.write content
+    end
+  end
+end
+
 def setup_page(content = '', method_name = :page)
   before do
     File.open(File.join(tmpdir, method_name.to_s + '.md'), 'w') do |file|

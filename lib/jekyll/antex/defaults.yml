@@ -78,19 +78,28 @@ aliases:
   # it is the liquid tag all other aliases are rendered to.
   internal:
     priority: 1000
-    regexp: !ruby/regexp
-      /{%\s*antex\s*(?<markup>.*?)%}(?<code>.*?){%\s*endantex\s*%}/m
+    multiline: true
+    regexp: >
+      {%\s*antex\s*(?<markup>.*?)%}
+      (?<code>.*?)
+      {%\s*endantex\s*%}
   # 'default' is the standard generic purpose alias.
   # Since it can contain tikz pictures,
   # it must have higher priority than 'tikzpicture' alias.
   default:
     priority: 100
-    regexp: !ruby/regexp
-      /{%\s*tex\s*(?<markup>.*?)%}(?<code>.*?){%\s*endtex\s*%}/m
+    multiline: true
+    regexp: >
+      {%\s*tex\s*(?<markup>.*?)%}
+      (?<code>.*?)
+      {%\s*endtex\s*%}
   tikzpicture:
     priority: 90
-    regexp: !ruby/regexp
-      /{%\s*tikz\s*(?<markup>.*?)%}(?<code>.*?){%\s*endtikz\s*%}/m
+    multiline: true
+    regexp: >
+      {%\s*tikz\s*(?<markup>.*?)%}
+      (?<code>.*?)
+      {%\s*endtikz\s*%}
     options:
       prepend: '\\begin{tikzpicture}'
       append: '\\end{tikzpicture}'
@@ -99,14 +108,19 @@ aliases:
   # since the respective deliniters are double and single dollars.
   display_math:
     priority: 20
-    regexp: !ruby/regexp /\$\$(?<code>.*?)\$\$/m
+    multiline: true
+    regexp: >
+      \$\$
+      (?<code>.*?)
+      \$\$
     options:
       prepend: '$\\displaystyle'
       append: $
       classes: [antex, display]
   inline_math:
     priority: 10
-    regexp: !ruby/regexp /\$(?<code>.*?)\$/
+    regexp: >
+      \$(?<code>.*?)\$
     options:
       prepend: $
       append: $
@@ -115,6 +129,7 @@ aliases:
   # to avoid interference with others aliases.
   inline_macro:
     priority: 0
-    regexp: !ruby/regexp /(?<code>\\[A-z]+)/
+    regexp: >
+      (?<code>\\[A-z]+)
     options:
       classes: [antex, inline]

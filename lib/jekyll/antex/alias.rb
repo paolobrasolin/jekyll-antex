@@ -7,16 +7,26 @@ module Jekyll
     class Alias
       class InvalidRegexp < Error; end
 
-      attr_reader :priority, :regexp, :options
+      attr_reader :priority, :regexp, :multiline, :options
 
-      def initialize(priority:, regexp:, options: {})
+      def initialize(priority:, options: {},
+                     regexp:, multiline: false, extended: true)
         @priority = priority.to_i
-        @regexp = Regexp.new regexp
+        @regexp = build_regexp source: regexp,
+                               extended: extended,
+                               multiline: multiline
         validate_regexp!
         @options = options.to_h
       end
 
       private
+
+      def build_regexp(source:, extended:, multiline:)
+        options = 0
+        options |= Regexp::EXTENDED if extended
+        options |= Regexp::MULTILINE if multiline
+        Regexp.new source, options
+      end
 
       def validate_regexp!
         return if @regexp.names.include? 'code'
