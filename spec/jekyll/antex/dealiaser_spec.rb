@@ -14,10 +14,10 @@ describe Jekyll::Antex::Dealiaser do
 
     let(:aliases) do
       [
-        { regexp: /(?<code>)/, priority: 10 },
-        { regexp: /(?<code>)/, priority: 1000 },
-        { regexp: /(?<code>)/, priority: 100 },
-        { regexp: /(?<code>)/, priority: 10_000 }
+        { regexp: '(?<code>)', priority: 10 },
+        { regexp: '(?<code>)', priority: 1000 },
+        { regexp: '(?<code>)', priority: 100 },
+        { regexp: '(?<code>)', priority: 10_000 }
       ].map(&Jekyll::Antex::Alias.method(:new))
     end
 
@@ -37,10 +37,10 @@ describe Jekyll::Antex::Dealiaser do
 
     let(:aliases) do
       [
-        { regexp: /FOO(?<code>.*?)OOF/, priority: 10 },
-        { regexp: /BAR(?<code>.*?)RAB/, priority: 100 },
-        { regexp: /BAZ(?<markup>.*?)#(?<code>.*?)ZAB/, priority: 0,
-          options: { 'a' => 1, 'b' => 2 } }
+        { regexp: 'FOO(?<code>.*?)OOF', priority: 10 },
+        { regexp: 'BAR(?<code>.*?)RAB', priority: 100 },
+        { regexp: 'BAZ(?<markup>.*?)#(?<code>.*?)ZAB', priority: 0,
+          options: { 'a' => 1, 'b' => 2 }, extended: false }
       ].map(&Jekyll::Antex::Alias.method(:new))
     end
 
