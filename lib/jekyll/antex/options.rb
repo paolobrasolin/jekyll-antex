@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 require 'yaml'
+
+require 'liquid/drop'
+require 'jekyll/drops/drop'
 require 'jekyll/utils'
+# NOTE: not sure why/how utils require drops, though
 
 module Jekyll
   module Antex

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'jekyll/antex/alias'
 require 'jekyll/antex/dealiaser'
 
 describe Jekyll::Antex::Dealiaser do
