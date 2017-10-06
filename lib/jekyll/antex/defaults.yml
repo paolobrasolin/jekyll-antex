@@ -73,6 +73,7 @@ commands:
       - "{{ file.fit }}"
     targets:
       - "{{ file.svg }}"
+guards: {}
 aliases:
   # 'internal' must have the highest priority;
   # it is the liquid tag all other aliases are rendered to.
