@@ -28,7 +28,7 @@ def setup_site(configuration = {}, method_name = :site)
   end
 end
 
-def setup_config(content = '', method_name = :config)
+def setup_config(content = '')
   before do
     File.open(File.join(tmpdir, '_config.yml'), 'w') do |file|
       file.write content
@@ -51,12 +51,13 @@ end
 def setup_post(content = '', method_name = :post)
   before do
     FileUtils.mkdir_p File.join(tmpdir, '_posts')
-    File.open(File.join(tmpdir, '_posts', '1970-01-01-' + method_name.to_s + '.md'), 'w') do |file|
-      file.write content
-    end
+    filename = File.join(tmpdir, '_posts',
+                         '1970-01-01-' + method_name.to_s + '.md')
+    File.open(filename, 'w') { |file| file.write content }
   end
 
   let(method_name) do
-    File.read File.join(tmpdir, '_posts', '1970-01-01-' + method_name.to_s + '.html')
+    File.read File.join(tmpdir, '_posts',
+                        '1970-01-01-' + method_name.to_s + '.html')
   end
 end
