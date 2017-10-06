@@ -10,11 +10,11 @@ describe Jekyll::Antex::Generator do
     setup_site
 
     setup_config <<~'CONFIG'
-    antex:
-      aliases:
-        test_alias:
-          priority: 7777777
-          regexp: 'foo(?<code>.*?)bar'
+      antex:
+        aliases:
+          test_alias:
+            priority: 7777777
+            regexp: 'foo(?<code>.*?)bar'
     CONFIG
 
     setup_page <<~'SOURCE'
