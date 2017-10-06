@@ -6,6 +6,9 @@ require 'jekyll/utils'
 require 'jekyll/antex/alias'
 require 'jekyll/antex/dealiaser'
 
+require 'jekyll/antex/guard'
+require 'jekyll/antex/guardian'
+
 module Jekyll
   module Antex
     class Generator < Jekyll::Generator
@@ -24,7 +27,17 @@ module Jekyll
 
       def dealias_resource_content!(site:, resource:)
         dealiaser = build_dealiaser site: site, resource: resource
+        guardian = build_guardian site: site, resource: resource
+        resource.content = guardian.apply resource.content
         resource.content = dealiaser.parse resource.content
+        resource.content = guardian.remove resource.content
+      end
+
+      def build_guardian(site:, resource:)
+        options = build_options(site: site, resource: resource)
+        guardian = Jekyll::Antex::Guardian.new
+        guardian.add_guards build_guards(options['guards'])
+        guardian
       end
 
       def build_dealiaser(site:, resource:)
@@ -38,6 +51,12 @@ module Jekyll
         Jekyll::Antex::Options.build Jekyll::Antex::Options::DEFAULTS,
                                      site.config['antex'] || {},
                                      resource.data['antex'] || {}
+      end
+
+      def build_guards(options_hash)
+        options_hash.values.map do |args|
+          Guard.new Jekyll::Utils.symbolize_hash_keys(args)
+        end
       end
 
       def build_aliases(options_hash)
