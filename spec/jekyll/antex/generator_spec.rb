@@ -96,18 +96,18 @@ describe Jekyll::Antex::Generator do
           aliases:
             test_alias:
               priority: 7777777
-              regexp: 'ALI(?<code>.*?)ILA'
+              regexp: 'FOO(?<code>.*?)OOF'
           guards:
             test_guard:
               priority: 7777777
-              regexp: 'GUA.*?AUG'
+              regexp: '<!-.*?-->'
       CONFIG
 
       setup_page <<~'SOURCE'
         ---
-        GUA aaa ALI bbb ILA ccc AUG
-        aaa GUA ALI AUG bbb ILA ccc
-        aaa ALI bbb GUA ILA AUG ccc
+        <!- aaa FOO bbb OOF ccc -->
+        aaa <!- FOO --> bbb OOF ccc
+        aaa FOO bbb <!- OOF --> ccc
       SOURCE
 
       before do
@@ -120,9 +120,9 @@ describe Jekyll::Antex::Generator do
           .to_not change { site.pages.first.content }
           .from(<<~'READ')
             ---
-            GUA aaa ALI bbb ILA ccc AUG
-            aaa GUA ALI AUG bbb ILA ccc
-            aaa ALI bbb GUA ILA AUG ccc
+            <!- aaa FOO bbb OOF ccc -->
+            aaa <!- FOO --> bbb OOF ccc
+            aaa FOO bbb <!- OOF --> ccc
         READ
       end
     end
