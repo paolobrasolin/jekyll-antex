@@ -26,31 +26,30 @@ module Jekyll
       private
 
       def dealias_resource_content!(site:, resource:)
-        dealiaser = build_dealiaser site: site, resource: resource
-        guardian = build_guardian site: site, resource: resource
+        options = build_options site: site, resource: resource
+        guardian = build_guardian options['guards']
+        dealiaser = build_dealiaser options['aliases']
         resource.content = guardian.apply resource.content
         resource.content = dealiaser.parse resource.content
         resource.content = guardian.remove resource.content
-      end
-
-      def build_guardian(site:, resource:)
-        options = build_options(site: site, resource: resource)
-        guardian = Jekyll::Antex::Guardian.new
-        guardian.add_guards build_guards(options['guards'])
-        guardian
-      end
-
-      def build_dealiaser(site:, resource:)
-        options = build_options(site: site, resource: resource)
-        dealiaser = Jekyll::Antex::Dealiaser.new
-        dealiaser.add_aliases build_aliases(options['aliases'])
-        dealiaser
       end
 
       def build_options(site:, resource:)
         Jekyll::Antex::Options.build Jekyll::Antex::Options::DEFAULTS,
                                      site.config['antex'] || {},
                                      resource.data['antex'] || {}
+      end
+
+      def build_guardian(guards_options_hash)
+        guardian = Jekyll::Antex::Guardian.new
+        guardian.add_guards build_guards(guards_options_hash)
+        guardian
+      end
+
+      def build_dealiaser(aliases_options_hash)
+        dealiaser = Jekyll::Antex::Dealiaser.new
+        dealiaser.add_aliases build_aliases(aliases_options_hash)
+        dealiaser
       end
 
       def build_guards(options_hash)
