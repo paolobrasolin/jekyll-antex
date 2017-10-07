@@ -1,9 +1,6 @@
 language: ruby
-rvm:
-  - 2.2.5
 install:
   - source travis/texlive/install
-  - tlmgr install dvisvgm
 before_script:
   - ./travis/gitbot/clone
 script:
@@ -13,4 +10,4 @@ after_script:
   - ./travis/gitbot/push
 branches:
   only:
-  - jekyll
+  - gh-pages-source

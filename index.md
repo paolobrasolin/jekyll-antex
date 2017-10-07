@@ -1,11 +1,11 @@
 ---
 layout: default
-texyll:
+antex:
   preamble:
-    \def\TeXyll{\TeX\kern-.15em yll}
+    \def\anTeX{an\kern-.15em\TeX}
 ---
 
-# Introducing: \TeXyll
+# Introducing: \anTeX
 
 This is my first paragraph.
 

@@ -1,6 +1,11 @@
+latex-bin
+dvisvgm
+latexmk
 standalone
 pgf
-xcolor
 graphics
-latex-bin
-latexmk
+xcolor
+tools
+mathtools
+amsmath
+amsfonts

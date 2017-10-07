@@ -1,2 +1,4 @@
-exclude: ['.texyll-cache/', 'Gemfile', 'Gemfile.lock']
-
+exclude:
+  - '.antex-cache/'
+  - 'Gemfile'
+  - 'Gemfile.lock'
