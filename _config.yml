@@ -3,6 +3,7 @@ exclude:
   - 'Gemfile'
   - 'Gemfile.lock'
 antex:
+  base_url_path: /jekyll-antex
   dirs:
     work: .antex-cache
-    dest: .antex-cache/jekyll-antex/antex
+    dest: .antex-cache/antex
