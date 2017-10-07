@@ -50,6 +50,6 @@ describe Jekyll::Antex::Alias do
 
   describe 'initialized object' do
     subject { described_class.new(aliases[:minimal_valid]) }
-    it { is_expected.to respond_to(:priority, :regexp, :options) }
+    it { is_expected.to respond_to(:priority, :regexp) }
   end
 end
