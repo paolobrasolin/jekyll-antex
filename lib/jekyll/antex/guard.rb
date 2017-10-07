@@ -14,15 +14,6 @@ module Jekyll
                                      extended: extended,
                                      multiline: multiline
       end
-
-      private
-
-      def build_regexp(source:, extended:, multiline:)
-        options = 0
-        options |= Regexp::EXTENDED if extended
-        options |= Regexp::MULTILINE if multiline
-        Regexp.new source, options
-      end
     end
   end
 end
