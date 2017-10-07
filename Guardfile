@@ -5,7 +5,7 @@ ignore(%r{\/?\.\#})
 
 guard :rspec, cmd: 'bundle exec rspec' do
   watch(%r{^spec/(.+)_spec.rb$})
-  watch(%r{^lib/jekyll/antex/(.+).rb$}) do |match|
+  watch(%r{^lib/(.+).rb$}) do |match|
     "spec/#{match[1]}_spec.rb"
   end
 end
