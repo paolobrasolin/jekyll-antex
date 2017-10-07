@@ -26,8 +26,7 @@ module Jekyll
       private
 
       def render_html(job)
-        _, dir, name = static_file_paths job
-        img_tag = render_img_tag src: File.join('', dir, name),
+        img_tag = render_img_tag src: img_url(job),
                                  set_box: job.set_box
         classes = job.options['classes'].join(' ')
         "<span class='#{classes}'>#{img_tag}</span>"
@@ -49,6 +48,12 @@ module Jekyll
         site.static_files << Jekyll::StaticFile.new(
           site, *static_file_paths(job)
         )
+      end
+
+      def img_url(job)
+        _, dest_dir, filename = static_file_paths job
+        url_path_prefix = job.options['url_path_prefix'] || ''
+        File.join url_path_prefix, dest_dir, filename
       end
 
       def static_file_paths(job)
