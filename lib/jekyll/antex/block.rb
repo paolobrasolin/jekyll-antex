@@ -52,7 +52,7 @@ module Jekyll
 
       def img_url(job)
         _, dest_dir, filename = static_file_paths job
-        url_path_prefix = job.options['url_path_prefix'] || ''
+        url_path_prefix = job.options['url_path_prefix'] || '/'
         File.join url_path_prefix, dest_dir, filename
       end
 
