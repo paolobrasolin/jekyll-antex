@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
+require 'jekyll/antex/utils'
+
 module Jekyll
   module Antex
     class Guard
-      attr_reader :priority, :regexp, :multiline, :options
+      attr_reader :priority, :regexp
 
-      def initialize(priority:, options: {},
-                     regexp:, multiline: false, extended: true)
+      def initialize(priority:, regexp:,
+                     multiline: false, extended: true)
         @priority = priority.to_i
-        @regexp = build_regexp source: regexp,
-                               extended: extended,
-                               multiline: multiline
-        @options = options.to_h
+        @regexp = Utils.build_regexp source: regexp,
+                                     extended: extended,
+                                     multiline: multiline
       end
 
       private

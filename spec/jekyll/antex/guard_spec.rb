@@ -41,6 +41,6 @@ describe Jekyll::Antex::Guard do
 
   describe 'initialized object' do
     subject { described_class.new(guards[:minimal_valid]) }
-    it { is_expected.to respond_to(:priority, :regexp, :options) }
+    it { is_expected.to respond_to(:priority, :regexp) }
   end
 end
