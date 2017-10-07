@@ -2,3 +2,7 @@ exclude:
   - '.antex-cache/'
   - 'Gemfile'
   - 'Gemfile.lock'
+antex:
+  dirs:
+    work: .antex-cache
+    dest: .antex-cache/jekyll-antex/antex
