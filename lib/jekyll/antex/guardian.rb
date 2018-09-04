@@ -44,7 +44,7 @@ module Jekyll
 
       def unstash_guards
         @stash.each do |uuid, guard_match|
-          @content.gsub! uuid, guard_match
+          @content.gsub!(uuid) { guard_match }
         end
       end
     end

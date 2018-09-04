@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'tmpdir'
 require 'jekyll'
 Jekyll.logger.log_level = :error
 

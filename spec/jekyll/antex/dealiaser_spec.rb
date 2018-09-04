@@ -56,6 +56,15 @@ describe Jekyll::Antex::Dealiaser do
       OUTPUT
     end
 
+    it 'keeps backslashes intact' do
+      expect(subject.parse(<<~'INPUT')).to eq <<~'OUTPUT'
+        FOO a \ b \\ c \\\ d \\\\ d OOF
+      INPUT
+        {% antex --- {}
+         %} a \ b \\ c \\\ d \\\\ d {% endantex %}
+      OUTPUT
+    end
+
     it 'abides to priorities' do
       expect(subject.parse(<<~INPUT)).to eq <<~OUTPUT
         BAR inside bar the foo FOO code here OOF cannot be seen RAB

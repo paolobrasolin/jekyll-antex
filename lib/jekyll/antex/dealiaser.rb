@@ -48,7 +48,7 @@ module Jekyll
 
       def unstash_tags
         @stash.each do |uuid, rendered_tag|
-          @content.gsub! uuid, rendered_tag
+          @content.gsub!(uuid) { rendered_tag }
         end
       end
 

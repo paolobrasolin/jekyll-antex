@@ -62,6 +62,14 @@ describe Jekyll::Antex::Guardian do
       OUTPUT
     end
 
+    it 'keeps backslashes intact' do
+      expect(subject.remove(subject.apply(<<~'INPUT'))).to eq <<~'OUTPUT'
+        before FOO a \ b \\ c \\\ d \\\\ d OOF after
+      INPUT
+        before FOO a \ b \\ c \\\ d \\\\ d OOF after
+      OUTPUT
+    end
+
     it 'abides to priorities' do
       expect(subject.apply(<<~INPUT)).to match Regexp.new(<<~'OUTPUT'.chomp)
         BAR xxx FOO yyy RAB zzz OOF
