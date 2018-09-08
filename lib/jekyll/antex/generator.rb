@@ -9,6 +9,9 @@ require 'jekyll/antex/dealiaser'
 require 'jekyll/antex/guard'
 require 'jekyll/antex/guardian'
 
+# NOTE: I'm pretty conflicted about this.
+SafeYAML::OPTIONS[:whitelisted_tags].push('!ruby/regexp')
+
 module Jekyll
   module Antex
     class Generator < Jekyll::Generator
@@ -27,29 +30,18 @@ module Jekyll
 
       def dealias_resource_content!(site:, resource:)
         options = build_options site: site, resource: resource
-        guardian = build_guardian options['guards']
-        dealiaser = build_dealiaser options['aliases']
-        resource.content = guardian.apply resource.content
-        resource.content = dealiaser.parse resource.content
-        resource.content = guardian.remove resource.content
+        guardian = Jekyll::Antex::Guardian.new(build_guards(options['guards']))
+        dealiaser = Jekyll::Antex::Dealiaser.new(build_aliases(options['aliases']))
+        resource.content = guardian.lift(resource.content)
+        resource.content = dealiaser.lift(resource.content)
+        resource.content = dealiaser.tap(&:bake).drop(resource.content)
+        resource.content = guardian.tap(&:bake).drop(resource.content)
       end
 
       def build_options(site:, resource:)
         Jekyll::Antex::Options.build Jekyll::Antex::Options::DEFAULTS,
                                      site.config['antex'] || {},
                                      resource.data['antex'] || {}
-      end
-
-      def build_guardian(guards_options_hash)
-        guardian = Jekyll::Antex::Guardian.new
-        guardian.add_guards build_guards(guards_options_hash)
-        guardian
-      end
-
-      def build_dealiaser(aliases_options_hash)
-        dealiaser = Jekyll::Antex::Dealiaser.new
-        dealiaser.add_aliases build_aliases(aliases_options_hash)
-        dealiaser
       end
 
       def build_guards(options_hash)

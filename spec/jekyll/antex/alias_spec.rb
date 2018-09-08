@@ -7,21 +7,19 @@ describe Jekyll::Antex::Alias do
     {
       missing_code: {
         priority: 10,
-        regexp: 'foo'
+        regexp: /foo/
       },
       minimal_valid: {
         priority: 10,
-        regexp: '(?<code>)'
+        regexp: /(?<code>)/x
       },
       not_extended: {
         priority: 10,
-        regexp: '(?<code>)',
-        extended: false
+        regexp: /(?<code>)/,
       },
       multiline: {
         priority: 10,
-        regexp: '(?<code>)',
-        multiline: true
+        regexp: /(?<code>)/mx
       }
     }
   end
@@ -29,7 +27,7 @@ describe Jekyll::Antex::Alias do
   describe '.new' do
     it 'raises error if "code" matching group is missing in regexp' do
       expect { described_class.new(aliases[:missing_code]) }
-        .to raise_exception described_class::InvalidRegexp
+        .to raise_exception Jekyll::Antex::InvalidRegexp
     end
 
     it 'defaults to a single-line extended regexp' do

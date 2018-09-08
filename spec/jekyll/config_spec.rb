@@ -14,7 +14,7 @@ describe Jekyll::Antex::Generator do
         aliases:
           test_alias:
             priority: 7777777
-            regexp: 'foo(?<code>.*?)bar'
+            regexp: !ruby/regexp /foo(?<code>.*?)bar/
     CONFIG
 
     setup_page <<~'SOURCE'

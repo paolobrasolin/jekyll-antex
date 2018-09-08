@@ -76,45 +76,40 @@ commands:
 guards:
   comment:
     priority: 1000
-    multiline: true
-    regexp: >
-      <!---
+    regexp: !ruby/regexp |
+      /<!---
       .*?
-      --->
+      --->/mx
   verbatim:
     priority: 100
-    multiline: true
-    regexp: >
-      ```
+    regexp: !ruby/regexp |
+      /```
       .*?
-      ```
+      ```/mx
 aliases:
   # 'internal' must have the highest priority;
   # it is the liquid tag all other aliases are rendered to.
   internal:
     priority: 1000
-    multiline: true
-    regexp: >
-      {%\s*antex\s*(?<markup>.*?)%}
+    regexp: !ruby/regexp |
+      /{%\s*antex\s*(?<markup>.*?)%}
       (?<code>.*?)
-      {%\s*endantex\s*%}
+      {%\s*endantex\s*%}/mx
   # 'default' is the standard generic purpose alias.
   # Since it can contain tikz pictures,
   # it must have higher priority than 'tikzpicture' alias.
   default:
     priority: 100
-    multiline: true
-    regexp: >
-      {%\s*tex\s*(?<markup>.*?)%}
+    regexp: !ruby/regexp |
+      /{%\s*tex\s*(?<markup>.*?)%}
       (?<code>.*?)
-      {%\s*endtex\s*%}
+      {%\s*endtex\s*%}/mx
   tikzpicture:
     priority: 90
-    multiline: true
-    regexp: >
-      {%\s*tikz\s*(?<markup>.*?)%}
+    regexp: !ruby/regexp |
+      /{%\s*tikz\s*(?<markup>.*?)%}
       (?<code>.*?)
-      {%\s*endtikz\s*%}
+      {%\s*endtikz\s*%}/mx
     options:
       prepend: '\\begin{tikzpicture}'
       append: '\\end{tikzpicture}'
@@ -123,19 +118,18 @@ aliases:
   # since the respective deliniters are double and single dollars.
   display_math:
     priority: 20
-    multiline: true
-    regexp: >
-      \$\$
+    regexp: !ruby/regexp |
+      /\$\$
       (?<code>.*?)
-      \$\$
+      \$\$/mx
     options:
       prepend: '$\\displaystyle'
       append: $
       classes: [antex, display]
   inline_math:
     priority: 10
-    regexp: >
-      \$(?<code>.*?)\$
+    regexp: !ruby/regexp |
+      /\$(?<code>.*?)\$/x
     options:
       prepend: $
       append: $
@@ -144,7 +138,7 @@ aliases:
   # to avoid interference with others aliases.
   inline_macro:
     priority: 0
-    regexp: >
-      (?<code>\\[A-z]+)
+    regexp: !ruby/regexp |
+      /(?<code>\\[A-z]+)/x
     options:
       classes: [antex, inline]

@@ -96,11 +96,11 @@ describe Jekyll::Antex::Generator do
           aliases:
             test_alias:
               priority: 7777777
-              regexp: 'FOO(?<code>.*?)OOF'
+              regexp: !ruby/regexp /FOO(?<code>.*?)OOF/
           guards:
             test_guard:
               priority: 7777777
-              regexp: '<!-.*?-->'
+              regexp: !ruby/regexp /<!-.*?-->/
       CONFIG
 
       setup_page <<~'SOURCE'

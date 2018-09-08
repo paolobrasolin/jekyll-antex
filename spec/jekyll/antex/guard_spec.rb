@@ -7,17 +7,15 @@ describe Jekyll::Antex::Guard do
     {
       minimal_valid: {
         priority: 10,
-        regexp: '(?<code>)'
+        regexp: /(?<code>)/x
       },
       not_extended: {
         priority: 10,
-        regexp: '(?<code>)',
-        extended: false
+        regexp: /(?<code>)/,
       },
       multiline: {
         priority: 10,
-        regexp: '(?<code>)',
-        multiline: true
+        regexp: /(?<code>)/xm
       }
     }
   end

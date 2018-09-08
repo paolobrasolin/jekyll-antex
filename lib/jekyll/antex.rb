@@ -4,7 +4,6 @@ require 'antex'
 
 require 'jekyll/antex/version'
 require 'jekyll/antex/error'
-require 'jekyll/antex/utils'
 require 'jekyll/antex/options'
 require 'jekyll/antex/guard'
 require 'jekyll/antex/guardian'
