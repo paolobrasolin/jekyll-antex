@@ -54,6 +54,7 @@ describe Jekyll::Antex::Dealiaser do
       OUTPUT
     end
 
+    # NOTE: keeps paolobrasolin/jekyll-antex#11 in check
     it 'keeps backslashes intact' do
       text = subject.lift(<<~'INPUT')
         FOO a \ b \\ c \\\ d \\\\ d OOF

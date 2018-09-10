@@ -60,6 +60,7 @@ describe Jekyll::Antex::Guardian do
       OUTPUT
     end
 
+    # NOTE: keeps paolobrasolin/jekyll-antex#11 in check
     it 'keeps backslashes intact' do
       text = subject.lift(<<~'INPUT')
         before FOO a \ b \\ c \\\ d \\\\ d OOF after
