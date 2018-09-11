@@ -5,49 +5,26 @@ require 'jekyll/antex/alias'
 describe Jekyll::Antex::Alias do
   let(:aliases) do
     {
-      missing_code: {
+      invalid: {
         priority: 10,
         regexp: /foo/
       },
-      minimal_valid: {
+      valid: {
         priority: 10,
         regexp: /(?<code>)/x
-      },
-      not_extended: {
-        priority: 10,
-        regexp: /(?<code>)/,
-      },
-      multiline: {
-        priority: 10,
-        regexp: /(?<code>)/mx
       }
     }
   end
 
   describe '.new' do
-    it 'raises error if "code" matching group is missing in regexp' do
-      expect { described_class.new(aliases[:missing_code]) }
+    it 'raises error regexp lacks a matching group named "code"' do
+      expect { described_class.new(aliases[:invalid]) }
         .to raise_exception Jekyll::Antex::InvalidRegexp
-    end
-
-    it 'defaults to a single-line extended regexp' do
-      expect(described_class.new(aliases[:minimal_valid]).regexp.options)
-        .to eq(Regexp::EXTENDED)
-    end
-
-    it 'recognizes :extend option' do
-      expect(described_class.new(aliases[:not_extended]).regexp.options)
-        .to eq(0)
-    end
-
-    it 'recognizes :multiline option' do
-      expect(described_class.new(aliases[:multiline]).regexp.options)
-        .to eq(Regexp::EXTENDED | Regexp::MULTILINE)
     end
   end
 
-  describe 'initialized object' do
-    subject { described_class.new(aliases[:minimal_valid]) }
-    it { is_expected.to respond_to(:priority, :regexp) }
+  it 'can be used as a matcher for Stasher' do
+    expect(described_class.new(aliases[:valid]))
+      .to respond_to(:priority, :regexp)
   end
 end
