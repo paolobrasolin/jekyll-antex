@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'jekyll/antex/guard'
-require 'jekyll/antex/guardian'
+require 'jekyll/antex/stasher'
 
-describe Jekyll::Antex::Guardian do
+describe Jekyll::Antex::Stasher do
   describe 'initialized object' do
     subject { described_class.new([]) }
 
@@ -55,7 +55,7 @@ describe Jekyll::Antex::Guardian do
         before FOO code here OOF after
       INPUT
 
-      expect(subject.tap(&:bake).drop(text)).to eq <<~'OUTPUT'
+      expect(subject.drop(text)).to eq <<~'OUTPUT'
         before FOO code here OOF after
       OUTPUT
     end
@@ -66,7 +66,7 @@ describe Jekyll::Antex::Guardian do
         before FOO a \ b \\ c \\\ d \\\\ d OOF after
       INPUT
 
-      expect(subject.tap(&:bake).drop(text)).to eq <<~'OUTPUT'
+      expect(subject.drop(text)).to eq <<~'OUTPUT'
         before FOO a \ b \\ c \\\ d \\\\ d OOF after
       OUTPUT
     end

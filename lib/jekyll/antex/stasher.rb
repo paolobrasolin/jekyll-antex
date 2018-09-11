@@ -33,8 +33,8 @@ module Jekyll
 
       def drop(input)
         input.dup.tap do |output|
-          @stash.each do |uuid, _, _, replacement|
-            output.gsub!(uuid) { replacement }
+          @stash.each do |uuid, match, _, replacement|
+            output.gsub!(uuid) { replacement || match.to_s }
           end
         end
       end

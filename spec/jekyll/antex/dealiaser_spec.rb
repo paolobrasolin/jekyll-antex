@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'jekyll/antex/alias'
-require 'jekyll/antex/dealiaser'
 
-describe Jekyll::Antex::Dealiaser do
+# TODO: reafactor into spec for Generator#render_tag
+xdescribe 'Jekyll::Antex::Dealiaser' do
   describe 'initialized object' do
     subject { described_class.new([]) }
 

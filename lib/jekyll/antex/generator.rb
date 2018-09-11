@@ -4,10 +4,9 @@ require 'jekyll'
 require 'jekyll/utils'
 
 require 'jekyll/antex/alias'
-require 'jekyll/antex/dealiaser'
-
 require 'jekyll/antex/guard'
-require 'jekyll/antex/guardian'
+require 'jekyll/antex/stasher'
+require 'jekyll/antex/options'
 
 # NOTE: I'm pretty conflicted about this.
 SafeYAML::OPTIONS[:whitelisted_tags].push('!ruby/regexp')
@@ -30,12 +29,13 @@ module Jekyll
 
       def dealias_resource_content!(site:, resource:)
         options = build_options site: site, resource: resource
-        guardian = Jekyll::Antex::Guardian.new(build_guards(options['guards']))
-        dealiaser = Jekyll::Antex::Dealiaser.new(build_aliases(options['aliases']))
+        guardian = Jekyll::Antex::Stasher.new(build_guards(options['guards']))
+        dealiaser = Jekyll::Antex::Stasher.new(build_aliases(options['aliases']))
         resource.content = guardian.lift(resource.content)
         resource.content = dealiaser.lift(resource.content)
-        resource.content = dealiaser.tap(&:bake).drop(resource.content)
-        resource.content = guardian.tap(&:bake).drop(resource.content)
+        dealiaser.bake(&method(:render_tag))
+        resource.content = dealiaser.drop(resource.content)
+        resource.content = guardian.drop(resource.content)
       end
 
       def build_options(site:, resource:)
@@ -54,6 +54,13 @@ module Jekyll
         options_hash.values.map do |args|
           Alias.new Jekyll::Utils.symbolize_hash_keys(args)
         end
+      end
+
+      def render_tag(match, matcher)
+        markup = YAML.safe_load match[:markup] if match.names.include?('markup')
+        markup = YAML.dump Options.build(matcher.options || {}, markup || {})
+        code = match['code']
+        "{% antex #{markup} %}#{code}{% endantex %}"
       end
     end
   end
