@@ -33,7 +33,7 @@ module Jekyll
         dealiaser = Jekyll::Antex::Stasher.new(build_aliases(options['aliases']))
         resource.content = guardian.lift(resource.content)
         resource.content = dealiaser.lift(resource.content)
-        dealiaser.bake(&method(:render_tag))
+        dealiaser.bake(&self.class.method(:dealias_tag))
         resource.content = dealiaser.drop(resource.content)
         resource.content = guardian.drop(resource.content)
       end
@@ -56,7 +56,7 @@ module Jekyll
         end
       end
 
-      def render_tag(match, matcher)
+      def self.dealias_tag(match, matcher)
         markup = YAML.safe_load match[:markup] if match.names.include?('markup')
         markup = YAML.dump Options.build(matcher.options || {}, markup || {})
         code = match['code']

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'jekyll/antex/generator'
+require 'jekyll/antex/alias'
 require 'jekyll_helper'
 
 describe Jekyll::Antex::Generator do
@@ -125,6 +126,47 @@ describe Jekyll::Antex::Generator do
             aaa FOO bbb <!- OOF --> ccc
         READ
       end
+    end
+  end
+
+  describe '.dealias_tag' do
+    let(:simple_alias) { Jekyll::Antex::Alias.new(regexp: /FOO(?<code>.*?)OOF/) }
+    let(:tricky_alias) do
+      Jekyll::Antex::Alias.new(
+        regexp: /BAZ(?<markup>.*?)#(?<code>.*?)ZAB/,
+        options: { 'a' => 1, 'b' => 2 })
+    end
+
+    it 'interpolates basic alias' do
+      expect(described_class.dealias_tag(simple_alias.regexp.match(<<~INPUT), simple_alias)).to eq <<~OUTPUT.chomp
+        FOO code here OOF
+      INPUT
+        {% antex --- {}
+         %} code here {% endantex %}
+      OUTPUT
+    end
+
+    it 'interpolates alias options' do
+      expect(described_class.dealias_tag(tricky_alias.regexp.match(<<~INPUT), tricky_alias)).to eq <<~OUTPUT.chomp
+        BAZ# code here ZAB
+      INPUT
+        {% antex ---
+        a: 1
+        b: 2
+         %} code here {% endantex %}
+      OUTPUT
+    end
+
+    it 'interpolates markup options' do
+      expect(described_class.dealias_tag(tricky_alias.regexp.match(<<~INPUT), tricky_alias)).to eq <<~OUTPUT.chomp
+        BAZ { b: 0, c: -1 } # code here ZAB
+      INPUT
+        {% antex ---
+        a: 1
+        b: 0
+        c: -1
+         %} code here {% endantex %}
+      OUTPUT
     end
   end
 end
