@@ -75,5 +75,3 @@ module Jekyll
     end
   end
 end
-
-Liquid::Template.register_tag('antex', Jekyll::Antex::Block)

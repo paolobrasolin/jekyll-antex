@@ -1,32 +1,9 @@
 # frozen_string_literal: true
 
-require 'jekyll/antex/generator'
-require 'jekyll/antex/alias'
 require 'jekyll_helper'
 
-describe Jekyll::Antex::Generator do
+describe Jekyll::Antex::Dealiaser do
   setup_tmpdir
-
-  describe 'plain old jekyll' do
-    setup_site
-
-    setup_page <<~'SOURCE'
-      ---
-      This is my first *very plain* paragraph.
-    SOURCE
-
-    before do
-      site.setup
-      site.read
-      site.generate
-    end
-
-    it 'generates smoothly' do
-      expect(site.pages.first.content).to include(<<~'GENERATED'.chomp)
-        This is my first *very plain* paragraph.
-      GENERATED
-    end
-  end
 
   describe 'jekyll integration' do
     context 'writing a page' do
@@ -42,9 +19,11 @@ describe Jekyll::Antex::Generator do
         site.read
       end
 
+      let(:page) { site.pages.first }
+
       it 'dealiases matched regexp as an "antex" liquid tag' do
-        expect { site.generate }
-          .to change { site.pages.first.content }
+        expect { Jekyll::Hooks.trigger :pages, :pre_render, page }
+          .to change { page.content }
           .from(<<~'READ').to(<<~'GENERATED')
             ---
             This is my first \TeX paragraph.
@@ -72,9 +51,11 @@ describe Jekyll::Antex::Generator do
         site.read
       end
 
+      let(:post) { site.posts.first }
+
       it 'dealiases matched regexp as an "antex" liquid tag' do
-        expect { site.generate }
-          .to change { site.posts.first.content }
+        expect { Jekyll::Hooks.trigger :documents, :pre_render, post }
+          .to change { post.content }
           .from(<<~'READ').to(<<~'GENERATED')
             ---
             This is my first \TeX paragraph.
@@ -116,9 +97,11 @@ describe Jekyll::Antex::Generator do
         site.read
       end
 
+      let(:page) { site.pages.first }
+
       it 'protects code from dealiasing with guards' do
-        expect { site.generate }
-          .to_not change { site.pages.first.content }
+        expect { Jekyll::Hooks.trigger :pages, :pre_render, page }
+          .to_not change { page.content }
           .from(<<~'READ')
             ---
             <!- aaa FOO bbb OOF ccc -->

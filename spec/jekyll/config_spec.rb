@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require 'jekyll/antex/generator'
 require 'jekyll_helper'
 
-describe Jekyll::Antex::Generator do
+describe Jekyll::Antex::Dealiaser do
   setup_tmpdir
 
   describe 'definition of custom aliases' do
@@ -27,9 +26,11 @@ describe Jekyll::Antex::Generator do
       site.read
     end
 
+    let(:page) { site.pages.first }
+
     it 'dealiases custom alias as an "antex" liquid tag' do
-      expect { site.generate }
-        .to change { site.pages.first.content }
+      expect { Jekyll::Hooks.trigger :pages, :pre_render, page }
+        .to change { page.content }
         .from(<<~'READ').to(<<~'GENERATED')
           ---
           Before fooSTUFFbar after.
