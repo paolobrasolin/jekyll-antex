@@ -21,17 +21,20 @@ module Jekyll
         Jekyll::Antex::Options.build(
           Jekyll::Antex::Options::DEFAULTS,
           resource.site.config['antex'] || {},
-          resource.data['antex'] || {})
+          resource.data['antex'] || {}
+        )
       end
 
       def self.build_guarder(options)
         Jekyll::Antex::Stasher.new(
-          options['guards'].values.map(&Guard.method(:new)))
+          options['guards'].values.map(&Guard.method(:new))
+        )
       end
 
       def self.build_aliaser(options)
         Jekyll::Antex::Stasher.new(
-          options['aliases'].values.map(&Alias.method(:new)))
+          options['aliases'].values.map(&Alias.method(:new))
+        )
       end
 
       def self.dealias_tag(match, matcher)

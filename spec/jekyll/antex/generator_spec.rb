@@ -117,7 +117,8 @@ describe Jekyll::Antex::Dealiaser do
     let(:tricky_alias) do
       Jekyll::Antex::Alias.new(
         regexp: /BAZ(?<markup>.*?)#(?<code>.*?)ZAB/,
-        options: { 'a' => 1, 'b' => 2 })
+        options: { 'a' => 1, 'b' => 2 }
+      )
     end
 
     it 'interpolates basic alias' do

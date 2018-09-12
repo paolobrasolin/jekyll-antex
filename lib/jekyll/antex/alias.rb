@@ -7,7 +7,6 @@ module Jekyll
     class InvalidRegexp < Error; end
 
     Alias = Struct.new(:priority, :regexp, :options, keyword_init: true) do
-
       def initialize(*args)
         super
         validate_regexp!
