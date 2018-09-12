@@ -3,7 +3,7 @@ env:
     - CC_TEST_REPORTER_ID=f0e049df5884387225a489a80624f65545d27247c03ab7744f4e7c06c8600178
 language: ruby
 rvm:
-  - 2.3
+  - 2.5
 install:
   - source travis/texlive/install
   - bundle install
