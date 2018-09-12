@@ -22,32 +22,31 @@ module Jekyll
       def render(context)
         options = build_options registers: context.registers, markup: @markup
         job = ::Antex::Job.new snippet: super, options: options
-        Jekyll::Antex.jobs << job
-
-        # job.run!
+        Jekyll::Antex.jobs.store(job.hash, job)
         add_static_file context.registers[:site], job
-        # render_html job
-        job.hash
+        self.class.render_html(job)
       end
 
       private
 
       def self.render_html(job)
-        img_tag = render_img_tag src: img_url(job),
-                                 set_box: job.set_box
+        img_tag = render_img_tag job
         classes = job.options['classes'].join(' ')
         "<span class='#{classes}'>#{img_tag}</span>"
       end
 
-      def self.render_img_tag(src:, set_box:, precision: 3)
+      def self.render_img_tag(job)
+        "<img data-antex='#{job.hash}' src='#{img_url(job)}' />"
+      end
+
+      def self.render_style_attribute(job_set_box, precision: 3)
         <<~IMG_TAG.gsub(/(\s\s+)/m, ' ').strip!
-          <img style='margin: #{set_box.mt.round(precision)}ex
-                              #{set_box.mr.round(precision)}ex
-                              #{set_box.mb.round(precision)}ex
-                              #{set_box.ml.round(precision)}ex;
-                      height: #{set_box.th.round(precision)}ex;
-                      width:  #{set_box.wd.round(precision)}ex;'
-              src='#{src}' />
+          style='margin: #{job_set_box.mt.round(precision)}ex
+                         #{job_set_box.mr.round(precision)}ex
+                         #{job_set_box.mb.round(precision)}ex
+                         #{job_set_box.ml.round(precision)}ex;
+                 height: #{job_set_box.th.round(precision)}ex;
+                 width:  #{job_set_box.wd.round(precision)}ex;'
         IMG_TAG
       end
 

@@ -4,6 +4,8 @@ require 'jekyll/antex/block'
 require 'jekyll_helper'
 
 describe Jekyll::Antex::Block do
+  before { Jekyll.logger = Logger.new(nil) }
+
   setup_tmpdir
 
   describe 'jekyll integration' do
@@ -30,7 +32,7 @@ describe Jekyll::Antex::Block do
             ---
             This is my first {% antex %}\TeX{% endantex %} paragraph.
         READ
-            <p>This is my first <span class="antex"><img style="margin: 0.001ex 0.056ex -0.5ex 0.0ex; height: 2.086ex; width: 4.267ex;" src="/antex/c0e86f842cc44de5acca550f5449d23d.svg" /></span> paragraph.</p>
+            <p>This is my first <span class="antex"><img data-antex="c0e86f842cc44de5acca550f5449d23d" src="/antex/c0e86f842cc44de5acca550f5449d23d.svg" /></span> paragraph.</p>
         OUTPUT
       end
 
@@ -63,7 +65,7 @@ describe Jekyll::Antex::Block do
             ---
             This is my first {% antex %}\TeX{% endantex %} paragraph.
         READ
-            <p>This is my first <span class="antex"><img style="margin: 0.001ex 0.056ex -0.5ex 0.0ex; height: 2.086ex; width: 4.267ex;" src="/antex/c0e86f842cc44de5acca550f5449d23d.svg" /></span> paragraph.</p>
+            <p>This is my first <span class="antex"><img data-antex="c0e86f842cc44de5acca550f5449d23d" src="/antex/c0e86f842cc44de5acca550f5449d23d.svg" /></span> paragraph.</p>
         OUTPUT
       end
 
