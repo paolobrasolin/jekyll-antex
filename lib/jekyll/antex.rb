@@ -6,8 +6,6 @@ require 'jekyll/antex/version'
 require 'jekyll/antex/dealiaser'
 require 'jekyll/antex/block'
 
-require 'byebug'
-
 module Jekyll
   module Antex
     def self.run_jobs
