@@ -27,13 +27,13 @@ module Jekyll
 
       def self.build_guarder(options)
         Jekyll::Antex::Stasher.new(
-          options['guards'].values.map(&Guard.method(:new))
+          options['guards'].values.reject { |value| false == value }.map(&Guard.method(:new))
         )
       end
 
       def self.build_aliaser(options)
         Jekyll::Antex::Stasher.new(
-          options['aliases'].values.map(&Alias.method(:new))
+          options['aliases'].values.reject { |value| false == value }.map(&Alias.method(:new))
         )
       end
 

@@ -3,7 +3,26 @@
 require 'jekyll_helper'
 
 describe Jekyll::Antex::Dealiaser do
+  subject { Jekyll::Antex::Dealiaser }
   setup_tmpdir
+
+  describe '.build_guarder' do
+    it 'ignores guards set to false' do
+      expect(subject.build_guarder(YAML.load(<<~YAML)).matchers).to be_empty
+        guards:
+          foo: false
+      YAML
+    end
+  end
+
+  describe '.build_aliaser' do
+    it 'ignores aliases set to false' do
+      expect(subject.build_aliaser(YAML.load(<<~YAML)).matchers).to be_empty
+        aliases:
+          foo: false
+      YAML
+    end
+  end
 
   describe 'jekyll integration' do
     context 'writing a page' do
