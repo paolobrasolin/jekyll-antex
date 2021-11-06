@@ -30,9 +30,9 @@ describe Jekyll::Antex::Dealiaser do
     let(:page) { site.pages.first }
 
     it 'dealiases custom alias as an "antex" liquid tag' do
-      expect { Jekyll::Hooks.trigger :pages, :pre_render, page }
-        .to change { page.content }
-        .from(<<~'READ').to(<<~'GENERATED')
+      expect { Jekyll::Hooks.trigger :pages, :pre_render, page }.
+        to change { page.content }.
+        from(<<~'READ').to(<<~'GENERATED')
           ---
           Before fooSTUFFbar after.
       READ

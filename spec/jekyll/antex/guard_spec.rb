@@ -13,7 +13,7 @@ describe Jekyll::Antex::Guard do
   end
 
   it 'can be used as a matcher for Stasher' do
-    expect(described_class.new(guards[:valid]))
-      .to respond_to(:priority, :regexp)
+    expect(described_class.new(guards[:valid])).
+      to respond_to(:priority, :regexp)
   end
 end

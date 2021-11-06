@@ -8,7 +8,7 @@ describe Jekyll::Antex::Dealiaser do
 
   describe '.build_guarder' do
     it 'ignores guards set to false' do
-      expect(subject.build_guarder(YAML.load(<<~YAML)).matchers).to be_empty
+      expect(subject.build_guarder(YAML.safe_load(<<~YAML)).matchers).to be_empty
         guards:
           foo: false
       YAML
@@ -17,7 +17,7 @@ describe Jekyll::Antex::Dealiaser do
 
   describe '.build_aliaser' do
     it 'ignores aliases set to false' do
-      expect(subject.build_aliaser(YAML.load(<<~YAML)).matchers).to be_empty
+      expect(subject.build_aliaser(YAML.safe_load(<<~YAML)).matchers).to be_empty
         aliases:
           foo: false
       YAML
@@ -41,9 +41,9 @@ describe Jekyll::Antex::Dealiaser do
       let(:page) { site.pages.first }
 
       it 'dealiases matched regexp as an "antex" liquid tag' do
-        expect { Jekyll::Hooks.trigger :pages, :pre_render, page }
-          .to change { page.content }
-          .from(<<~'READ').to(<<~'GENERATED')
+        expect { Jekyll::Hooks.trigger :pages, :pre_render, page }.
+          to change { page.content }.
+          from(<<~'READ').to(<<~'GENERATED')
             ---
             This is my first \TeX paragraph.
         READ
@@ -73,9 +73,9 @@ describe Jekyll::Antex::Dealiaser do
       let(:post) { site.posts.first }
 
       it 'dealiases matched regexp as an "antex" liquid tag' do
-        expect { Jekyll::Hooks.trigger :documents, :pre_render, post }
-          .to change { post.content }
-          .from(<<~'READ').to(<<~'GENERATED')
+        expect { Jekyll::Hooks.trigger :documents, :pre_render, post }.
+          to change { post.content }.
+          from(<<~'READ').to(<<~'GENERATED')
             ---
             This is my first \TeX paragraph.
         READ
@@ -119,9 +119,9 @@ describe Jekyll::Antex::Dealiaser do
       let(:page) { site.pages.first }
 
       it 'protects code from dealiasing with guards' do
-        expect { Jekyll::Hooks.trigger :pages, :pre_render, page }
-          .to_not change { page.content }
-          .from(<<~'READ')
+        expect { Jekyll::Hooks.trigger :pages, :pre_render, page }.
+          to_not change { page.content }.
+          from(<<~'READ')
             ---
             <!- aaa FOO bbb OOF ccc -->
             aaa <!- FOO --> bbb OOF ccc

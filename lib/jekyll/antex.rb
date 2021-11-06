@@ -9,15 +9,21 @@ require 'jekyll/antex/block'
 module Jekyll
   module Antex
     def self.run_jobs
-      jobs_count = Jekyll::Antex.jobs.count
-      Jekyll.logger.writer << "Compiling TeX: ".rjust(20)
-      Jekyll::Antex.jobs.values.each_with_index do |job, i|
-        progress = "job " + i.next.to_s.rjust(jobs_count.to_s.length) + " of #{jobs_count} "
-        Jekyll.logger.writer << progress
-        job.run!
-        Jekyll.logger.writer << "\b" * progress.length
+      jekyll_antex_jobs = Jekyll::Antex.jobs
+      jobs_count = jekyll_antex_jobs.count
+      jekyll_logger_writer = Jekyll.logger.writer
+      jekyll_logger_writer << 'Compiling TeX: '.rjust(20)
+      jekyll_antex_jobs.values.each_with_index do |job, index|
+        run_job(job, index, jobs_count, jekyll_logger_writer)
       end
-      Jekyll.logger.writer << "#{jobs_count} jobs completed.\n"
+      jekyll_logger_writer << "#{jobs_count} jobs completed.\n"
+    end
+
+    def self.run_job(job, index, jobs_count, jekyll_logger_writer)
+      progress = "job #{index.next.to_s.rjust(jobs_count.to_s.length)} of #{jobs_count} "
+      jekyll_logger_writer << progress
+      job.run!
+      jekyll_logger_writer << ("\b" * progress.length)
     end
 
     def self.inject_style_attributes(output)

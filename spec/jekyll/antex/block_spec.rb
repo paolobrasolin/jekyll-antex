@@ -26,9 +26,9 @@ describe Jekyll::Antex::Block do
       end
 
       it 'renders matched regexp with typeset image' do
-        expect { site.render }
-          .to change { site.pages.first.content }
-          .from(<<~'READ').to(include <<~'OUTPUT')
+        expect { site.render }.
+          to change { site.pages.first.content }.
+          from(<<~'READ').to(include <<~'OUTPUT')
             ---
             This is my first {% antex %}\TeX{% endantex %} paragraph.
         READ
@@ -37,8 +37,8 @@ describe Jekyll::Antex::Block do
       end
 
       it 'includes rendered image into static files' do
-        expect { site.render }
-          .to change { site.static_files.length }.by 1
+        expect { site.render }.
+          to change { site.static_files.length }.by 1
       end
     end
 
@@ -59,9 +59,9 @@ describe Jekyll::Antex::Block do
       end
 
       it 'renders matched regexp with typeset image' do
-        expect { site.render }
-          .to change { site.posts.first.content }
-          .from(<<~'READ').to(include <<~'OUTPUT')
+        expect { site.render }.
+          to change { site.posts.first.content }.
+          from(<<~'READ').to(include <<~'OUTPUT')
             ---
             This is my first {% antex %}\TeX{% endantex %} paragraph.
         READ
@@ -70,8 +70,8 @@ describe Jekyll::Antex::Block do
       end
 
       it 'includes rendered image into static files' do
-        expect { site.render }
-          .to change { site.static_files.length }.by 1
+        expect { site.render }.
+          to change { site.static_files.length }.by 1
       end
     end
   end

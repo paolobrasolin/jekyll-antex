@@ -16,6 +16,7 @@ module Jekyll
 
       def validate_regexp!
         return if regexp.names.include? 'code'
+
         raise InvalidRegexp, <<~MESSAGE
           The regexp #{regexp.inspect} is missing the required named matching group "code".
         MESSAGE

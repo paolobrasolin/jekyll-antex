@@ -27,8 +27,6 @@ module Jekyll
         self.class.render_html(job)
       end
 
-      private
-
       def self.render_html(job)
         img_tag = render_img_tag job
         classes = job.options['classes'].join(' ')
@@ -50,12 +48,6 @@ module Jekyll
         IMG_TAG
       end
 
-      def add_static_file(site, job)
-        site.static_files << Jekyll::StaticFile.new(
-          site, *self.class.static_file_paths(job)
-        )
-      end
-
       def self.img_url(job)
         _, dest_dir, filename = static_file_paths job
         url_path_prefix = job.options['url_path_prefix'] || '/'
@@ -63,13 +55,21 @@ module Jekyll
       end
 
       def self.static_file_paths(job)
-        work_dir_prefix = %r{^#{Regexp.escape job.dirs['work']}(?=\/|$)}
+        work_dir_prefix = %r{^#{Regexp.escape job.dirs['work']}(?=/|$)}
         # base, dir, name
         [
           job.dirs['work'],
-          job.dirs['dest'].sub(work_dir_prefix, '').sub(%r{^\/}, ''),
+          job.dirs['dest'].sub(work_dir_prefix, '').sub(%r{^/}, ''),
           File.basename(job.files['svg'])
         ]
+      end
+
+      private
+
+      def add_static_file(site, job)
+        site.static_files << Jekyll::StaticFile.new(
+          site, *self.class.static_file_paths(job)
+        )
       end
 
       def build_options(registers:, markup:)
