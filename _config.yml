@@ -1,5 +1,6 @@
 exclude:
   - '.antex-cache/'
+  - 'vendor/'
   - 'Gemfile'
   - 'Gemfile.lock'
 antex:

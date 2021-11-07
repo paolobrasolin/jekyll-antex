@@ -1,0 +1,38 @@
+name: GH Pages
+
+on:
+  push:
+    branches:
+      - gh-pages-source
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  main:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby
+        uses: ./.github/actions/setup-ruby
+        with:
+          version: '2.7'
+          cache-key: gems-ubuntu-latest-2.7
+
+      - name: Setup TeX Live
+        uses: ./.github/actions/setup-texlive
+        with:
+          cache-key: texlive-ubuntu-latest
+
+      - name: Build static site
+        run: bundle exec jekyll build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./_site

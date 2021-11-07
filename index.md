@@ -7,8 +7,4 @@ antex:
 
 # Introducing: \anTeX
 
-This is my first paragraph.
-
-## What is this?
-
-Who knows.
+This page will be filled with an introduction to \anTeX, and that's pretty darn cool if you ask me.

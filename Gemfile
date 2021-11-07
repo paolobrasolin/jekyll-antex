@@ -2,8 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'jekyll', '~> 3.2'
-
 group :jekyll_plugins do
-  gem 'jekyll-antex'
+  gem 'github-pages' # see https://pages.github.com/versions/
+  gem 'jekyll-antex', git: 'https://github.com/paolobrasolin/jekyll-antex.git', branch: 'main'
 end
