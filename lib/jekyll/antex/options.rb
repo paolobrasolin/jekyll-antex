@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'yaml'
-require 'jekyll/utils'
+require 'jekyll'
 
 module Jekyll
   module Antex

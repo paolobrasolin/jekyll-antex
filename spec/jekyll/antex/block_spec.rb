@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'jekyll/antex/block'
+require 'jekyll/antex'
 require 'jekyll_helper'
 
 describe Jekyll::Antex::Block do

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'jekyll_helper'
+require 'jekyll/antex'
 
 describe Jekyll::Antex::Dealiaser do
   subject { Jekyll::Antex::Dealiaser }
