@@ -26,9 +26,11 @@ jobs:
           cache-key: gems-${{ matrix.os }}-${{ matrix.ruby }}
 
       - name: Setup TeX Live
-        uses: ./.github/actions/setup-texlive
+        uses: paolobrasolin/setup-texlive-action@main
         with:
           cache-key: texlive-${{ matrix.os }}
+          packages-path: ${{ github.workspace }}/.github/texlive.packages
+          profile-path: ${{ github.workspace }}/.github/texlive.profile
 
       - name: Run tests
         run: bundle exec rspec
@@ -50,9 +52,11 @@ jobs:
           cache-key: gems-ubuntu-latest-2.7
 
       - name: Setup TeX Live
-        uses: ./.github/actions/setup-texlive
+        uses: paolobrasolin/setup-texlive-action@main
         with:
           cache-key: texlive-ubuntu-latest
+          packages-path: ${{ github.workspace }}/.github/texlive.packages
+          profile-path: ${{ github.workspace }}/.github/texlive.profile
 
       - name: Test and publish coverage to Code Climate
         uses: paambaati/codeclimate-action@v3.0.0
