@@ -23,9 +23,11 @@ jobs:
           cache-key: gems-ubuntu-latest-2.7
 
       - name: Setup TeX Live
-        uses: ./.github/actions/setup-texlive
+        uses: paolobrasolin/setup-texlive-action@main
         with:
-          cache-key: texlive-ubuntu-latest
+          cache-key: texlive-${{ matrix.os }}
+          packages-path: ${{ github.workspace }}/.github/texlive.packages
+          profile-path: ${{ github.workspace }}/.github/texlive.profile
 
       - name: Build static site
         run: bundle exec jekyll build
