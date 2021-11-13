@@ -6,13 +6,18 @@ on:
 
 jobs:
 
-  test:
+  main:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [ 'ubuntu-latest' ]
         ruby: [ '2.6', '2.7' ]
+        include:
+          - os: ubuntu-latest
+            ruby: '2.7'
+            coverage: true
+
     steps:
 
       - name: Checkout repo
@@ -35,31 +40,9 @@ jobs:
       - name: Run tests
         run: bundle exec rspec
 
-  coverage:
-    needs: [ test ]
-    runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' }}
-    steps:
-
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Setup Ruby
-        uses: ./.github/actions/setup-ruby
-        with:
-          ruby-version: '2.7'
-          cache-key: gems-ubuntu-latest-2.7-${{ hashFiles('Gemfile', 'jekyll-antex.gemspec') }}
-          cache-restore-keys: gems-ubuntu-latest-2.7-
-
-      - name: Setup TeX Live
-        uses: paolobrasolin/setup-texlive-action@main
-        with:
-          cache-key: texlive-ubuntu-latest
-          packages-path: ${{ github.workspace }}/.github/texlive.packages
-          profile-path: ${{ github.workspace }}/.github/texlive.profile
-
       - name: Test and publish coverage to Code Climate
         uses: paambaati/codeclimate-action@v3.0.0
+        if: ${{ matrix.coverage == 'true' && github.ref == 'refs/heads/main' }}
         env:
           CC_TEST_REPORTER_ID: f0e049df5884387225a489a80624f65545d27247c03ab7744f4e7c06c8600178
         with:
