@@ -7,7 +7,6 @@ on:
 jobs:
 
   test:
-    name: test
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -22,8 +21,9 @@ jobs:
       - name: Setup Ruby
         uses: ./.github/actions/setup-ruby
         with:
-          version: ${{ matrix.ruby }}
-          cache-key: gems-${{ matrix.os }}-${{ matrix.ruby }}
+          ruby-version: ${{ matrix.ruby }}
+          cache-key: gems-${{ matrix.os }}-${{ matrix.ruby }}-${{ hashFiles('Gemfile', 'jekyll-antex.gemspec') }}
+          cache-restore-keys: gems-${{ matrix.os }}-${{ matrix.ruby }}-
 
       - name: Setup TeX Live
         uses: paolobrasolin/setup-texlive-action@main
@@ -37,7 +37,6 @@ jobs:
 
   coverage:
     needs: [ test ]
-    name: coverage
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/main' }}
     steps:
@@ -48,8 +47,9 @@ jobs:
       - name: Setup Ruby
         uses: ./.github/actions/setup-ruby
         with:
-          version: '2.7'
-          cache-key: gems-ubuntu-latest-2.7
+          ruby-version: '2.7'
+          cache-key: gems-ubuntu-latest-2.7-${{ hashFiles('Gemfile', 'jekyll-antex.gemspec') }}
+          cache-restore-keys: gems-ubuntu-latest-2.7-
 
       - name: Setup TeX Live
         uses: paolobrasolin/setup-texlive-action@main

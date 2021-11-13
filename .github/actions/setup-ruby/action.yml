@@ -1,31 +1,34 @@
-name: 'Setup TeX Live'
-description: 'Setup TeX Live'
+name: Setup Ruby
+description: Setup Ruby
 inputs:
-  version:
+  ruby-version:
     required: false
     default: '2.7'
+  cache-path:
+    required: false
+    default: vendor/bundle
   cache-key:
+    required: false
+    default: gems-
+  cache-restore-keys:
     required: false
     default: gems-
 outputs: {}
 runs:
     using: "composite"
     steps:
-
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ inputs.version }}
-
+          ruby-version: ${{ inputs.ruby-version }}
       - name: Cache Ruby gems
         uses: actions/cache@v2
         with:
-          path: vendor/bundle
-          key: ${{ inputs.cache-key }}-${{ hashFiles('Gemfile', 'jekyll-antex.gemspec') }}
-          restore-keys: ${{ inputs.cache-key }}-
-
+          path: ${{ inputs.cache-path }}
+          key: ${{ inputs.cache-key }}
+          restore-keys: ${{ inputs.cache-restore-keys }}
       - name: Install Ruby gems
         shell: bash
         run: |
-          bundle config path vendor/bundle
+          bundle config path ${{ inputs.cache-path }}
           bundle install --jobs 4 --retry 3
