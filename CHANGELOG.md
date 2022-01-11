@@ -6,19 +6,37 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.6.1] - 2022-01-11
+
+### Fixed
+
+- Avoid ugly crash in `--incremental` mode. Please note that aliases still does not work in `include`d files, while `antex` tags still do.
+
 ## [0.6.0] - 2018-12-12
+
 ## [0.5.1] - 2018-12-09
+
 ## [0.5.0] - 2018-09-12
+
 ## [0.4.0] - 2018-09-11
+
 ## [0.3.2] - 2018-09-04
+
 ## [0.3.1] - 2017-10-07
+
 ## [0.3.0] - 2017-10-07
+
 ## [0.2.2] - 2017-10-06
+
 ## [0.2.1] - 2017-10-01
+
 ## [0.2.0] - 2017-10-01
+
 ## [0.1.0] - 2017-10-01
 
-[unreleased]: https://github.com/paolobrasolin/jekyll-antex/compare/0.6.0...HEAD
+[unreleased]: https://github.com/paolobrasolin/jekyll-antex/compare/0.6.1...HEAD
+[0.6.1]: https://github.com/paolobrasolin/jekyll-antex/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/paolobrasolin/jekyll-antex/compare/0.5.1...0.6.0
 [0.5.1]: https://github.com/paolobrasolin/jekyll-antex/compare/0.5.0...0.5.1
 [0.5.0]: https://github.com/paolobrasolin/jekyll-antex/compare/0.4.0...0.5.0

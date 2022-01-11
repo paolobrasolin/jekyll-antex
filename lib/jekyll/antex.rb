@@ -52,6 +52,8 @@ Liquid::Template.register_tag('antex', Jekyll::Antex::Block)
 Jekyll::Hooks.register :site, :post_render do |site|
   Jekyll::Antex.run_jobs
   [*site.pages, *site.documents].each do |resource|
+    # NOTE: skip unrendered resources e.g. when using --incremental
+    next if resource.output.nil?
     resource.output = Jekyll::Antex.inject_style_attributes(resource.output)
   end
 end
