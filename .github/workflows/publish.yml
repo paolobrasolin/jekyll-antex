@@ -1,0 +1,52 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - jekyll
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      Agda_datadir: ${{ github.workspace }}/vendor/Agda-nightly/data
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup TeX Live
+        uses: paolobrasolin/setup-texlive-action@main
+        with:
+          cache-key: texlive-${{ matrix.os }}
+          packages-path: ${{ github.workspace }}/.github/texlive.packages
+          profile-path: ${{ github.workspace }}/.github/texlive.profile
+
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+
+      - name: Cache Ruby gems
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: gems-${{ hashFiles('Gemfile.lock') }}
+          restore-keys: gems-
+
+      - name: Install Ruby gems
+        run: |
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+
+      - name: Build
+        run: bundle exec jekyll build
+
+      - name: Deploy to GitHub Pages
+        uses: crazy-max/ghaction-github-pages@v2
+        if: success() && github.event_name != 'schedule'
+        with:
+          target_branch: gh-pages
+          build_dir: _site
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

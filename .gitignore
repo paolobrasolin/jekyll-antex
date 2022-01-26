@@ -1,9 +1,7 @@
-Gemfile.lock
-
-#===[ JEKYLL ]==================================================================
-
 _site/
 .sass-cache/
-.jekyll-metadata
+.jekyll-cache/
 
 .antex-cache/
+
+.ruby-*

@@ -1,10 +1,29 @@
-exclude:
-  - '.antex-cache/'
-  - 'vendor/'
-  - 'Gemfile'
-  - 'Gemfile.lock'
+title: jekyll-antex
+description: Use arbitrary LaTeX in your Jekyll website!
+baseurl: &baseurl "/jekyll-antex"
+
+remote_theme: pages-themes/cayman@v0.2.0
+
+plugins:
+  - jekyll-remote-theme
+
 antex:
-  url_path_prefix: /jekyll-antex
+  url_path_prefix: *baseurl
   dirs:
     work: .antex-cache
     dest: .antex-cache/antex
+
+exclude:
+  # non default values:
+  - ".antex-cache/"
+  # default values:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+
+include:
+  - .nojekyll
