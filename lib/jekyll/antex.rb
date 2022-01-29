@@ -8,6 +8,17 @@ require 'jekyll/antex/block'
 
 module Jekyll
   module Antex
+    def self.gather_resources(site)
+      pages = site.pages
+      documents = site.collections.values.flat_map(&:docs)
+      [*pages, *documents].filter(&method(:allowed_resource?))
+    end
+
+    def self.allowed_resource?(resource)
+      # TODO: perhaps this should be configurable
+      File.fnmatch('*.{html,md}', resource.relative_path, File::FNM_EXTGLOB)
+    end
+
     def self.run_jobs
       jekyll_antex_jobs = Jekyll::Antex.jobs
       jobs_count = jekyll_antex_jobs.count
@@ -38,20 +49,18 @@ end
 # NOTE: I'm conflicted, but regexp flags in yaml must be easy to use.
 SafeYAML::OPTIONS[:whitelisted_tags].push('!ruby/regexp')
 
-Jekyll::Hooks.register :site, :pre_render do
+Jekyll::Hooks.register :site, :pre_render do |site|
   Jekyll::Antex.jobs = {}
-end
-
-# NOTE: we're not registering :posts since they are included in :documents.
-Jekyll::Hooks.register [:documents, :pages], :pre_render do |resource|
+  Jekyll::Antex.gather_resources(site).each do |resource|
   resource.content = Jekyll::Antex::Dealiaser.run(resource)
+  end
 end
 
 Liquid::Template.register_tag('antex', Jekyll::Antex::Block)
 
 Jekyll::Hooks.register :site, :post_render do |site|
   Jekyll::Antex.run_jobs
-  [*site.pages, *site.documents].each do |resource|
+  Jekyll::Antex.gather_resources(site).each do |resource|
     # NOTE: skip unrendered resources e.g. when using --incremental
     next if resource.output.nil?
     resource.output = Jekyll::Antex.inject_style_attributes(resource.output)
