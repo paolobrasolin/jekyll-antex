@@ -31,7 +31,7 @@ describe Jekyll::Antex::Dealiaser do
     let(:page) { site.pages.first }
 
     it 'dealiases custom alias as an "antex" liquid tag' do
-      expect { Jekyll::Hooks.trigger :pages, :pre_render, page }.
+      expect { Jekyll::Hooks.trigger :site, :pre_render, site }.
         to change { page.content }.
         from(<<~'READ').to(<<~'GENERATED')
           ---
