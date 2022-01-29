@@ -6,7 +6,6 @@ GEM
     antex (0.1.3)
       liquid (>= 3, < 6)
       nokogiri (~> 1)
-    byebug (11.1.3)
     color (1.8)
     colorator (1.1.0)
     concurrent-ruby (1.1.9)
@@ -42,7 +41,7 @@ GEM
     geo_pattern (1.4.0)
       color (~> 1.5)
     http_parser.rb (0.8.0)
-    i18n (1.8.11)
+    i18n (1.9.1)
       concurrent-ruby (~> 1.0)
     jekyll (4.2.1)
       addressable (~> 2.4)
@@ -59,7 +58,7 @@ GEM
       rouge (~> 3.0)
       safe_yaml (~> 1.0)
       terminal-table (~> 2.0)
-    jekyll-antex (0.6.1)
+    jekyll-antex (0.7.0)
       antex (~> 0.1.3)
       jekyll (>= 3, < 5)
       kramdown-parser-gfm (~> 1.1.0)
@@ -120,7 +119,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug
   geo_pattern
   jekyll
   jekyll-antex
