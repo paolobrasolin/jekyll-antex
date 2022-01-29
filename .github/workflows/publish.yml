@@ -8,9 +8,6 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    env:
-      Agda_datadir: ${{ github.workspace }}/vendor/Agda-nightly/data
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
