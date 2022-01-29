@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2022-01-29
+
+### Changed
+
+- Avoid gathering all `page`s and `collection`s documents for processing; instead, filter them by suffix allowing only paths matching `.{html,md}`.
+
 ## [0.6.1] - 2022-01-11
 
 ### Fixed
@@ -35,7 +41,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2017-10-01
 
-[unreleased]: https://github.com/paolobrasolin/jekyll-antex/compare/0.6.1...HEAD
+[unreleased]: https://github.com/paolobrasolin/jekyll-antex/compare/0.7.0...HEAD
+[0.7.0]: https://github.com/paolobrasolin/jekyll-antex/compare/0.6.1...0.7.0
 [0.6.1]: https://github.com/paolobrasolin/jekyll-antex/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/paolobrasolin/jekyll-antex/compare/0.5.1...0.6.0
 [0.5.1]: https://github.com/paolobrasolin/jekyll-antex/compare/0.5.0...0.5.1
