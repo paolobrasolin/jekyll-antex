@@ -90,7 +90,7 @@ describe Jekyll::Antex::Dealiaser do
       end
     end
 
-    describe 'guard/alias interaction' do
+    xdescribe 'guard/alias interaction' do
       setup_site
 
       setup_config <<~'CONFIG'

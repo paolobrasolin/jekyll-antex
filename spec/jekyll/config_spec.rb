@@ -6,7 +6,7 @@ require 'jekyll/antex'
 describe Jekyll::Antex::Dealiaser do
   setup_tmpdir
 
-  describe 'definition of custom aliases' do
+  xdescribe 'definition of custom aliases' do
     setup_site
 
     setup_config <<~'CONFIG'
