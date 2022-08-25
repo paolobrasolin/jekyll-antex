@@ -32,7 +32,7 @@ describe Jekyll::Antex::Block do
             ---
             This is my first {% antex %}\TeX{% endantex %} paragraph.
         READ
-            <p>This is my first <span class="antex"><img data-antex="c0e86f842cc44de5acca550f5449d23d" src="/antex/c0e86f842cc44de5acca550f5449d23d.svg" /></span> paragraph.</p>
+            <p>This is my first <span class="antex"><object data-antex-job-hash="c0e86f842cc44de5acca550f5449d23d"></object></span> paragraph.</p>
         OUTPUT
       end
 
@@ -65,7 +65,7 @@ describe Jekyll::Antex::Block do
             ---
             This is my first {% antex %}\TeX{% endantex %} paragraph.
         READ
-            <p>This is my first <span class="antex"><img data-antex="c0e86f842cc44de5acca550f5449d23d" src="/antex/c0e86f842cc44de5acca550f5449d23d.svg" /></span> paragraph.</p>
+            <p>This is my first <span class="antex"><object data-antex-job-hash="c0e86f842cc44de5acca550f5449d23d"></object></span> paragraph.</p>
         OUTPUT
       end
 

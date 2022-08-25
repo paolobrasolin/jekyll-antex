@@ -142,3 +142,4 @@ aliases:
       /(?<code>\\[A-z]+)/x
     options:
       classes: [antex, inline]
+inlining: false

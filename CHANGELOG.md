@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2022-08-25
+
+### Added
+
+- Implement `inlining` boolean options to toggle SVG inlining (`false` by default).
+
 ## [0.7.0] - 2022-01-29
 
 ### Changed
@@ -41,7 +47,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2017-10-01
 
-[unreleased]: https://github.com/paolobrasolin/jekyll-antex/compare/0.7.0...HEAD
+[unreleased]: https://github.com/paolobrasolin/jekyll-antex/compare/0.8.0...HEAD
+[0.8.0]: https://github.com/paolobrasolin/jekyll-antex/compare/0.7.0...0.8.0
 [0.7.0]: https://github.com/paolobrasolin/jekyll-antex/compare/0.6.1...0.7.0
 [0.6.1]: https://github.com/paolobrasolin/jekyll-antex/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/paolobrasolin/jekyll-antex/compare/0.5.1...0.6.0

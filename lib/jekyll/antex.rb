@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'antex'
+require 'nokogiri'
 
 require 'jekyll/antex/version'
 require 'jekyll/antex/dealiaser'
@@ -36,13 +37,6 @@ module Jekyll
       job.run!
       jekyll_logger_writer << ("\b" * progress.length)
     end
-
-    def self.inject_style_attributes(output)
-      output.gsub(/data-antex="(?<hash>.*?)"/) do
-        job = Jekyll::Antex.jobs[Regexp.last_match[:hash]]
-        Jekyll::Antex::Block.render_style_attribute(job.set_box)
-      end
-    end
   end
 end
 
@@ -63,6 +57,6 @@ Jekyll::Hooks.register :site, :post_render do |site|
   Jekyll::Antex.gather_resources(site).each do |resource|
     # NOTE: skip unrendered resources e.g. when using --incremental
     next if resource.output.nil?
-    resource.output = Jekyll::Antex.inject_style_attributes(resource.output)
+    resource.output = Jekyll::Antex::Block.replace_placeholders(resource.output)
   end
 end
