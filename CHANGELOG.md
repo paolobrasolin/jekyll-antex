@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.1] - 2022-08-31
+
+### Fixed
+
+- Use unique prefixes on embedded SVG ids to avoid in-page conflicts.
+
 ## [0.8.0] - 2022-08-25
 
 ### Added
@@ -47,7 +53,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2017-10-01
 
-[unreleased]: https://github.com/paolobrasolin/jekyll-antex/compare/0.8.0...HEAD
+[unreleased]: https://github.com/paolobrasolin/jekyll-antex/compare/0.8.1...HEAD
+[0.8.1]: https://github.com/paolobrasolin/jekyll-antex/compare/0.8.0...0.8.1
 [0.8.0]: https://github.com/paolobrasolin/jekyll-antex/compare/0.7.0...0.8.0
 [0.7.0]: https://github.com/paolobrasolin/jekyll-antex/compare/0.6.1...0.7.0
 [0.6.1]: https://github.com/paolobrasolin/jekyll-antex/compare/0.6.0...0.6.1

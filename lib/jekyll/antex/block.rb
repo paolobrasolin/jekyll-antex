@@ -67,11 +67,22 @@ module Jekyll
         style = render_style_attribute_value(job.set_box)
         path = File.read(job.files['svg'])
         svg = Nokogiri::XML(path).at_css('svg')
+        prefix_svg_symbols_ids(svg, placeholder[HASH_ATTR_NAME])
         svg.remove_attribute('width')
         svg.remove_attribute('height')
         svg.set_attribute('style', style)
         placeholder.add_next_sibling(svg)
         placeholder.remove()
+      end
+
+      def self.prefix_svg_symbols_ids(doc, pfx)
+        # NOTE: in theory String#insert is destructive but node attribute getter/setters must be doing something weird...
+        doc.css("defs > [id]").each do |node|
+          node[:id] = node[:id].insert(0, pfx + "-")
+        end
+        doc.css("use").each do |node|
+          node[:"xlink:href"] = node[:"xlink:href"].insert(1, pfx + "-")
+        end
       end
 
       def self.render_placeholder_tag(job)
