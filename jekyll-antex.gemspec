@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
 
   spec.author        = 'Paolo Brasolin'
   spec.email         = 'paolo.brasolin@gmail.com'
-  spec.homepage      = 'https://github.com/paolobrasolin/antex'
+  spec.homepage      = 'https://github.com/paolobrasolin/jekyll-antex'
 
   spec.files         = `git ls-files lib README.md LICENSE.txt`.split("\n")
   spec.require_paths = ['lib']
