@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0] - 2023-02-26
+
 ### Changed
 
 - Push minumum required Ruby version to `>= 2.6`; technically not breaking, as `antex` already had that bound.
@@ -16,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Solve `Psych::DisallowedClass` for ruby `>= 3.1` by explicitly allowing `Regexp` class.
 
-## [0.8.2] - 2022-02-26
+## [0.8.2] - 2023-02-26
 
 ### Fixed
 
@@ -68,7 +70,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2017-10-01
 
-[unreleased]: https://github.com/paolobrasolin/jekyll-antex/compare/0.8.1...HEAD
+[unreleased]: https://github.com/paolobrasolin/jekyll-antex/compare/0.9.0...HEAD
+[0.9.0]: https://github.com/paolobrasolin/jekyll-antex/compare/0.8.2...0.9.0
+[0.8.2]: https://github.com/paolobrasolin/jekyll-antex/compare/0.8.1...0.8.2
 [0.8.1]: https://github.com/paolobrasolin/jekyll-antex/compare/0.8.0...0.8.1
 [0.8.0]: https://github.com/paolobrasolin/jekyll-antex/compare/0.7.0...0.8.0
 [0.7.0]: https://github.com/paolobrasolin/jekyll-antex/compare/0.6.1...0.7.0
