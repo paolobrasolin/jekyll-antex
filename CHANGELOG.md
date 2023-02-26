@@ -9,7 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Push required Ruby version to `>= 2.6`; technically not breaking, as `antex` already had that bound.
+- Push minumum required Ruby version to `>= 2.6`; technically not breaking, as `antex` already had that bound.
+- Lift restriction on required Ruby version to `< 3.1`.
+
+### Fixed
+
+- Solve `Psych::DisallowedClass` for ruby `>= 3.1` by explicitly allowing `Regexp` class.
 
 ## [0.8.2] - 2022-02-26
 

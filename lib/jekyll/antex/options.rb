@@ -2,12 +2,18 @@
 
 require 'yaml'
 require 'jekyll'
+require 'rubygems/version'
 
 module Jekyll
   module Antex
     module Options
-      DEFAULTS =
-        YAML.load_file(File.join(File.dirname(__FILE__), 'defaults.yml')).freeze
+      if Gem::Version.new(Psych::VERSION) < Gem::Version.new("4.0.0")
+        DEFAULTS =
+          YAML.load_file(File.join(File.dirname(__FILE__), 'defaults.yml')).freeze
+      else
+        DEFAULTS =
+          YAML.load_file(File.join(File.dirname(__FILE__), 'defaults.yml'), permitted_classes: [Regexp]).freeze
+      end
 
       def self.build(*hashes)
         hashes.reduce({}) do |result, hash|
