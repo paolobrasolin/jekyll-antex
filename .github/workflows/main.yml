@@ -16,6 +16,8 @@ jobs:
           - os: ubuntu-latest
             ruby: "2.7"
             coverage: true
+    env:
+      BUNDLE_WITHOUT: development
 
     steps:
       - name: Checkout repo
